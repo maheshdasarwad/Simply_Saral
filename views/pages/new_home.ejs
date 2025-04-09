@@ -1,0 +1,1996 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Simply Saral | Government Services Made Simple</title>
+        <!-- Fonts and Icons -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+        />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+        <style>
+            :root {
+                /* Primary Colors */
+                --primary: #1e40af;
+                --primary-dark: #0f1f52;
+                --primary-light: #3b82f6;
+                --secondary: #ff5722;
+                --secondary-light: #ff8a65;
+                --accent: #ffa000;
+
+                /* Neutral Colors */
+                --background: #ffffff;
+                --background-alt: #f8f9fa;
+                --background-card: #ffffff;
+                --foreground: #333333;
+                --foreground-light: #6b7280;
+                --foreground-muted: #9ca3af;
+                --border: #e5e7eb;
+
+                /* Feedback Colors */
+                --success: #10b981;
+                --warning: #f59e0b;
+                --error: #ef4444;
+                --info: #3b82f6;
+
+                /* Additional Colors */
+                --orange-deep: #e64a19;
+                --green-deep: #2e7d32;
+                --purple-deep: #5e35b1;
+                --teal-deep: #00796b;
+                --cyan-deep: #0097a7;
+
+                /* UI Elements */
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                --transition: all 0.3s ease;
+                --transition-slow: all 0.5s ease;
+
+                /* Spacing */
+                --spacing-xs: 0.5rem;
+                --spacing-sm: 1rem;
+                --spacing-md: 1.5rem;
+                --spacing-lg: 2rem;
+                --spacing-xl: 3rem;
+                --spacing-2xl: 5rem;
+
+                /* Border Radius */
+                --border-radius-sm: 0.25rem;
+                --border-radius: 0.5rem;
+                --border-radius-md: 0.75rem;
+                --border-radius-lg: 1rem;
+                --border-radius-xl: 1.5rem;
+                --border-radius-full: 9999px;
+            }
+
+            /* Dark mode variables */
+            [data-theme="dark"] {
+                --primary: #4f8df4;
+                --primary-dark: #2563eb;
+                --primary-light: #7aa7ff;
+                --secondary: #ff8c38;
+                --secondary-light: #ffa366;
+
+                --background: #0f172a;
+                --background-alt: #1e293b;
+                --background-card: #1f2937;
+                --foreground: #f1f5f9;
+                --foreground-light: #cbd5e1;
+                --foreground-muted: #94a3b8;
+                --border: #334155;
+
+                /* Adjust for dark mode */
+                --success: #10b981;
+                --warning: #f59e0b;
+                --error: #ef4444;
+                --info: #3b82f6;
+                
+                /* Shadow adjustments for dark mode */
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+                --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.2);
+                --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+                    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+                --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3),
+                    0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Base Styles */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 80px;
+                font-size: 100%; /* Base font size reset for better scaling */
+            }
+
+            body {
+                font-family: "Poppins", sans-serif;
+                color: var(--foreground);
+                line-height: 1.6;
+                overflow-x: hidden;
+                background-color: var(--background);
+                max-width: 100%;
+                font-size: 1rem; /* Base font size */
+                transition: background-color 0.5s ease, color 0.5s ease;
+            }
+            
+            /* Global transition for theme changes */
+            * {
+                transition-property: background-color, border-color, color, box-shadow;
+                transition-duration: 0.5s;
+                transition-timing-function: ease;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5 {
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            h1 {
+                font-size: clamp(2rem, 3vw, 3rem);
+            }
+
+            h2 {
+                font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+            }
+
+            h3 {
+                font-size: clamp(1.25rem, 2vw, 1.5rem);
+            }
+
+            p {
+                margin-bottom: 1rem;
+            }
+
+            a {
+                text-decoration: none;
+                color: var(--primary);
+                transition: var(--transition);
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 var(--spacing-lg);
+                width: 100%;
+            }
+
+            .section {
+                padding: var(--spacing-xl) 0;
+                position: relative;
+            }
+
+            .section-light {
+                background-color: var(--background-alt);
+            }
+
+            .section-header {
+                text-align: center;
+                max-width: 800px;
+                margin: 0 auto var(--spacing-xl);
+            }
+
+            .section-title {
+                margin-bottom: var(--spacing-sm);
+                color: var(--primary);
+                position: relative;
+                display: inline-block;
+            }
+
+            .section-title::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 4px;
+                background: var(--secondary);
+                border-radius: var(--border-radius-full);
+            }
+
+            .section-subtitle {
+                color: var(--foreground-light);
+                font-size: 1.1rem;
+                margin-top: var(--spacing-md);
+            }
+
+            /* Utility Classes */
+            .text-center {
+                text-align: center;
+            }
+
+            .text-gradient {
+                background: linear-gradient(
+                    to right,
+                    var(--primary),
+                    var(--secondary)
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                display: inline-block;
+            }
+
+                        /* Window Effect Styles - Enhanced for more impact */
+                        #back_image {
+                width: 100%;
+                background-color: #051937;
+                background-image: linear-gradient(45deg, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+                overflow: hidden;
+                padding: 3rem 0;
+                position: relative;
+                opacity: 0;
+                transform: translateY(50px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+                display: none;
+                z-index: 50;
+            }
+
+            [data-theme="dark"] #back_image {
+                background-image: linear-gradient(45deg, #000428, #004e92, #0083b0, #00bf72, #a8eb12);
+            }
+
+            #back_image.visible {
+                opacity: 1;
+                transform: translateY(0);
+                display: block;
+            }
+
+            #back_image::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath opacity='0.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                opacity: 0.4;
+            }
+
+            #moving-text {
+                display: flex;
+                animation: marquee 2s linear infinite;
+                white-space: nowrap;
+                position: relative;
+                z-index: 2;
+            }
+
+            @keyframes marquee {
+                0% { transform: translate(0, 0); }
+                100% { transform: translate(-33.33%, 0); }
+            }
+
+            .con {
+                display: flex;
+                align-items: center;
+                margin-right: 4rem;
+                transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+            .con.pop-in {
+                animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            }
+
+            @keyframes popIn {
+                0% { transform: scale(0.8); opacity: 0; }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); opacity: 1; }
+            }
+
+            .con h1 {
+                color: white;
+                font-size: clamp(1.2rem, 2.5vw, 2rem);
+                font-weight: 800;
+                margin: 0 1rem;
+                letter-spacing: 1px;
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                position: relative;
+                overflow: hidden;
+            }
+
+            #gola {
+                width: 12px;
+                height: 12px;
+                background-color: var(--secondary);
+                border-radius: 50%;
+                box-shadow: 0 0 15px var(--secondary);
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0% { transform: scale(1); box-shadow: 0 0 10px var(--secondary); }
+                50% { transform: scale(1.2); box-shadow: 0 0 20px var(--secondary); }
+                100% { transform: scale(1); box-shadow: 0 0 10px var(--secondary); }
+            }
+
+            .mt-1 {
+                margin-top: var(--spacing-xs);
+            }
+            .mt-2 {
+                margin-top: var(--spacing-sm);
+            }
+            .mt-3 {
+                margin-top: var(--spacing-md);
+            }
+            .mt-4 {
+                margin-top: var(--spacing-lg);
+            }
+            .mt-5 {
+                margin-top: var(--spacing-xl);
+            }
+
+            .mb-1 {
+                margin-bottom: var(--spacing-xs);
+            }
+            .mb-2 {
+                margin-bottom: var(--spacing-sm);
+            }
+            .mb-3 {
+                margin-bottom: var(--spacing-md);
+            }
+            .mb-4 {
+                margin-bottom: var(--spacing-lg);
+            }
+            .mb-5 {
+                margin-bottom: var(--spacing-xl);
+            }
+
+            /* Header & Navigation */
+            .header {
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                background-color: var(--background);
+                box-shadow: var(--shadow);
+                transition: all 0.3s ease;
+            }
+
+            [data-theme="dark"] .header {
+                background-color: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            }
+
+            .header.scrolled {
+                box-shadow: var(--shadow-md);
+                padding: 0.5rem 0;
+            }
+
+            .nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.8rem 0;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+            }
+
+            .logo img {
+                height: 50px;
+                margin-left: -9rem;
+            }
+
+            .logo-text {
+                margin-left: -0.5rem;
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--primary);
+            }
+
+            .logo-text span {
+                color: var(--accent);
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 0.3rem;
+                align-items: center;
+                margin-right: -10rem;
+            }
+  
+            .nav-btn {
+                background-color: transparent;
+                border: none;
+                padding: 0.6rem 1rem;
+                border-radius: 50px;
+                font-weight: 500;
+                font-size: 0.95rem;
+                cursor: pointer;
+                transition: var(--transition);
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                color: var(--foreground);
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            .nav-btn::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 0;
+                background-color: var(--primary-light);
+                transition: height 0.3s ease;
+                z-index: -1;
+                border-radius: 50px;
+                opacity: 0.5;
+            }
+
+            .nav-btn:hover::after {
+                height: 100%;
+            }
+
+            .login-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+            /* Global button styles with login animation */
+            .btn, 
+            .service-button, 
+            .nav-btn.btn-primary, 
+            .nav-btn.btn-secondary {
+                background-color: var(--primary);
+                color: white;
+                border: none;
+                padding: 0.6rem 1.5rem;
+                border-radius: 50px;
+                font-weight: 600;
+                font-size: 0.95rem;
+                cursor: pointer;
+                transition: var(--transition);
+                text-decoration: none;
+                display: inline-block;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .btn::before,
+            .service-button::before,
+            .nav-btn.btn-primary::before,
+            .nav-btn.btn-secondary::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent
+                );
+                transition: 0.5s;
+            }
+
+            .btn:hover::before,
+            .service-button:hover::before,
+            .nav-btn.btn-primary:hover::before,
+            .nav-btn.btn-secondary:hover::before {
+                left: 100%;
+            }
+
+            .btn:hover,
+            .service-button:hover,
+            .nav-btn.btn-primary:hover,
+            .nav-btn.btn-secondary:hover {
+                background-color: var(--primary-dark);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-btn.btn-secondary {
+                background-color: var(--secondary);
+            }
+
+            .nav-btn.btn-secondary:hover {
+                background-color: var(--orange-deep);
+            }
+
+            /* Theme toggle */
+            .theme-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border: 2px solid var(--border);
+                background: transparent;
+                cursor: pointer;
+                color: var(--foreground);
+                font-size: 1.1rem;
+                transition: var(--transition);
+                margin-left: 1rem;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .theme-toggle:hover {
+                background-color: var(--background-alt);
+                transform: translateY(-2px);
+            }
+            
+            [data-theme="dark"] .theme-toggle {
+                border-color: rgba(79, 141, 244, 0.4);
+                box-shadow: 0 0 10px rgba(79, 141, 244, 0.2);
+                color: var(--primary-light);
+            }
+            
+            [data-theme="dark"] .theme-toggle:hover {
+                background-color: rgba(79, 141, 244, 0.1);
+                box-shadow: 0 0 15px rgba(79, 141, 244, 0.3);
+            }
+            
+            .theme-toggle::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent
+                );
+                transition: 0.5s;
+            }
+            
+            .theme-toggle:hover::before {
+                left: 100%;
+            }
+
+            /* Hero Section */
+            .hero {
+                background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+                color: white;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero-bg {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('/Image/heroimage.png');
+                background-size: cover;
+                background-position: center;
+                opacity: 0.4;
+                z-index: 0;
+            }
+
+            [data-theme="dark"] .hero-bg {
+                opacity: 0.3;
+                filter: saturate(0.8) brightness(0.7) hue-rotate(30deg);
+            }
+            
+            [data-theme="dark"] .hero {
+                background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                position: relative;
+            }
+            
+            [data-theme="dark"] .hero::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at 20% 30%, rgba(79, 141, 244, 0.15), transparent 70%);
+                z-index: 1;
+            }
+
+            .hero-shape {
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 100%;
+                z-index: 1;
+            }
+
+            .hero-content {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                padding: var(--spacing-lg) 0;
+            }
+
+            .hero-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: var(--spacing-xl);
+                align-items: center;
+            }
+
+            .hero-text {
+                max-width: 600px;
+            }
+
+            .hero-badge {
+                display: inline-block;
+                background-color: rgba(59, 130, 246, 0.1);
+                color: var(--primary);
+                font-weight: 600;
+                padding: 0.5rem 1rem;
+                border-radius: var(--border-radius-full);
+                margin-bottom: var(--spacing-md);
+            }
+
+            [data-theme="dark"] .hero-badge {
+                background-color: rgba(59, 130, 246, 0.2);
+            }
+
+            .hero-title {
+                margin-bottom: var(--spacing-md);
+                font-weight: 800;
+            }
+
+            .hero-title span {
+                color: var(--secondary-light);
+            }
+
+            .hero-subtitle {
+                font-size: 1.25rem;
+                color: rgba(255, 255, 255, 0.9);
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .hero-buttons {
+                display: flex;
+                gap: var(--spacing-md);
+            }
+
+            .hero-image {
+                position: relative;
+            }
+
+            .hero-img {
+                width: 100%;
+                border-radius: var(--border-radius-lg);
+                box-shadow: var(--shadow-lg);
+            }
+
+            /* Services Section */
+            .services-grid {
+                border-top-left-radius: 2rem;
+                border-top-right-radius: 2rem;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: var(--spacing-lg);
+            }
+
+            .service-card {
+                background-color: var(--background-card);
+                border-radius: var(--border-radius-lg);
+                overflow: hidden;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+                height: 100%;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .service-card:hover {
+                transform: translateY(-10px);
+                box-shadow: var(--shadow-lg);
+            }
+
+            .card-top {
+                background: var(--primary);
+                padding: var(--spacing-lg) var(--spacing-md);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .card-top::before {
+                content: "";
+                position: absolute;
+                right: -20px;
+                bottom: -20px;
+                width: 120px;
+                height: 120px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+            }
+
+            .card-top::after {
+                content: "";
+                position: absolute;
+                left: -20px;
+                top: -20px;
+                width: 80px;
+                height: 80px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+            }
+
+            .service-icon {
+                width: 64px;
+                height: 64px;
+                background-color: white;
+                border-radius: var(--border-radius-full);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: var(--spacing-md);
+                position: relative;
+                z-index: 2;
+                box-shadow: var(--shadow);
+            }
+
+            .service-icon svg {
+                width: 32px;
+                height: 32px;
+                color: var(--primary);
+            }
+
+            .service-title {
+                color: white;
+                font-size: 1.5rem;
+                position: relative;
+                z-index: 2;
+                margin-bottom: var(--spacing-xs);
+            }
+
+            .service-subtitle {
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 0.9rem;
+                position: relative;
+                z-index: 2;
+            }
+
+            .service-content {
+                padding: var(--spacing-lg);
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .service-description {
+                color: var(--foreground-light);
+                margin-bottom: var(--spacing-lg);
+                flex: 1;
+            }
+
+            .service-features {
+                list-style: none;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .service-feature {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: var(--spacing-xs);
+                font-size: 0.9rem;
+            }
+
+            .service-feature i {
+                color: var(--success);
+                margin-right: 0.5rem;
+                margin-top: 0.25rem;
+            }
+
+            .service-button i {
+                margin-left: 0.5rem;
+                position: relative;
+                z-index: 2;
+            }
+
+            /* Colored Card Variants */
+            .education-card .card-top {
+                background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary-dark)
+                );
+            }
+
+            .education-card .service-icon i {
+                color: var(--primary);
+            }
+
+            .farmers-card .card-top {
+                background: linear-gradient(135deg, var(--green-deep), #1b5e20);
+            }
+
+            .farmers-card .service-icon i {
+                color: var(--green-deep);
+            }
+
+            .farmers-card .service-button {
+                background-color: var(--green-deep);
+            }
+
+            .farmers-card .service-button:hover {
+                background-color: #1b5e20;
+            }
+
+            .women-card .card-top {
+                background: linear-gradient(
+                    135deg,
+                    var(--purple-deep),
+                    #4527a0
+                );
+            }
+
+            .women-card .service-icon i {
+                color: var(--purple-deep);
+            }
+
+            .women-card .service-button {
+                background-color: var(--purple-deep);
+            }
+
+            .women-card .service-button:hover {
+                background-color: #4527a0;
+            }
+
+            /* Stats Section */
+            .stats-section {
+                background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+                color: white;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .stats-section::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23FFFFFF' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+                background-size: cover;
+                opacity: 0.2;
+            }
+
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: var(--spacing-lg);
+                position: relative;
+                z-index: 1;
+            }
+
+            .stat-card {
+                text-align: center;
+                padding: var(--spacing-lg);
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: var(--border-radius);
+                backdrop-filter: blur(5px);
+                transition: var(--transition);
+            }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+                background-color: rgba(255, 255, 255, 0.15);
+            }
+
+            .stat-card i {
+                font-size: 2.5rem;
+                margin-bottom: var(--spacing-sm);
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-bottom: var(--spacing-xs);
+            }
+
+            .stat-text {
+                font-size: 1rem;
+                opacity: 0.9;
+            }
+
+            /* Features Section */
+            .features {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .features-pattern {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233B82F6' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                opacity: 0.5;
+                z-index: 0;
+            }
+
+            [data-theme="dark"] .features-pattern {
+                opacity: 0.15;
+            }
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: var(--spacing-xl);
+                align-items: center;
+                position: relative;
+                z-index: 1;
+            }
+
+            .features-image {
+                position: relative;
+            }
+
+            .features-img {
+                width: 100%;
+                border-radius: var(--border-radius-lg);
+                box-shadow: var(--shadow-lg);
+            }
+
+            .features-content h2 {
+                margin-bottom: var(--spacing-lg);
+                color: var(--primary);
+            }
+
+            .features-list {
+                list-style: none;
+            }
+
+            .feature-item {
+                display: flex;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .feature-icon {
+                margin-right: var(--spacing-md);
+                width: 50px;
+                height: 50px;
+                border-radius: var(--border-radius-full);
+                background-color: rgba(59, 130, 246, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            [data-theme="dark"] .feature-icon {
+                background-color: rgba(79, 141, 244, 0.2);
+                box-shadow: 0 0 15px rgba(79, 141, 244, 0.1);
+            }
+            
+            [data-theme="dark"] .service-card {
+                border: 1px solid var(--border);
+                background: linear-gradient(to bottom right, var(--background-card), rgba(31, 41, 55, 0.8));
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+            }
+            
+            [data-theme="dark"] .service-icon {
+                background-color: var(--background-alt);
+                border: 1px solid var(--border);
+                box-shadow: 0 0 20px rgba(79, 141, 244, 0.2);
+            }
+            
+            [data-theme="dark"] .service-icon i,
+            [data-theme="dark"] .service-icon svg {
+                color: var(--primary-light);
+            }
+            
+            /* Enhanced dark mode button glow effects */
+            [data-theme="dark"] .btn:hover,
+            [data-theme="dark"] .service-button:hover,
+            [data-theme="dark"] .login-btn:hover,
+            [data-theme="dark"] .nav-btn.btn-primary:hover,
+            [data-theme="dark"] .nav-btn.btn-secondary:hover {
+                box-shadow: 0 0 15px rgba(79, 141, 244, 0.4);
+            }
+
+            .feature-icon i {
+                color: var(--primary);
+                font-size: 1.25rem;
+            }
+
+            .feature-text h3 {
+                font-size: 1.25rem;
+                margin-bottom: 0.5rem;
+                color: var(--foreground);
+            }
+
+            .feature-text p {
+                color: var(--foreground-light);
+                font-size: 0.95rem;
+            }
+
+            /* Footer */
+            .footer {
+                background-color: var(--primary-dark);
+                color: white;
+                padding: var(--spacing-xl) 0 var(--spacing-lg);
+                position: relative;
+            }
+
+            .footer-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: var(--spacing-xl);
+                margin-bottom: var(--spacing-xl);
+            }
+
+            .footer-about p {
+                opacity: 0.8;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .footer-social {
+                display: flex;
+                gap: var(--spacing-sm);
+            }
+
+            .footer-social-link {
+                width: 40px;
+                height: 40px;
+                border-radius: var(--border-radius-full);
+                background-color: rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+
+            .footer-social-link:hover {
+                background-color: var(--secondary);
+                transform: translateY(-3px);
+            }
+
+            .footer-social-link i {
+                color: white;
+                font-size: 1rem;
+            }
+
+            .footer-heading {
+                font-size: 1.25rem;
+                margin-bottom: var(--spacing-lg);
+                position: relative;
+                display: inline-block;
+            }
+
+            .footer-heading::after {
+                content: "";
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                width: 40px;
+                height: 3px;
+                background-color: var(--secondary);
+                border-radius: var(--border-radius-full);
+            }
+
+            .footer-links {
+                list-style: none;
+            }
+
+            .footer-link-item {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .footer-link {
+                color: rgba(255, 255, 255, 0.8);
+                display: flex;
+                align-items: center;
+                transition: var(--transition);
+            }
+
+            .footer-link:hover {
+                color: white;
+                transform: translateX(5px);
+            }
+
+            .footer-link i {
+                margin-right: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .footer-divider {
+                height: 1px;
+                background-color: rgba(255, 255, 255, 0.1);
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .footer-bottom {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .footer-copyright {
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 0.9rem;
+            }
+
+            .footer-bottom-links {
+                display: flex;
+                gap: var(--spacing-lg);
+            }
+
+            .footer-bottom-link {
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 0.9rem;
+                transition: var(--transition);
+            }
+
+            .footer-bottom-link:hover {
+                color: white;
+            }
+
+            /* Back to Top */
+            .back-to-top {
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                width: 50px;
+                height: 50px;
+                background-color: var(--primary);
+                color: white;
+                border-radius: var(--border-radius-full);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+                box-shadow: var(--shadow);
+            }
+
+            .back-to-top.visible {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .back-to-top:hover {
+                background-color: var(--primary-dark);
+                transform: translateY(-5px);
+            }
+
+            /* Animation classes */
+            .fade-in {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.5s ease, transform 0.5s ease;
+            }
+
+            .fade-in.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Mobile menu */
+            .mobile-menu-toggle {
+                display: none;
+                background: none;
+                border: none;
+                color: var(--foreground);
+                font-size: 1.5rem;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+
+            /* Responsive Adjustments */
+            @media (max-width: 1024px) {
+                .footer-grid {
+                    grid-template-columns: 1fr 1fr;
+                    gap: var(--spacing-lg);
+                }
+
+                .features-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .features-image {
+                    order: -1;
+                    margin-bottom: var(--spacing-lg);
+                }
+
+                .logo img {
+                    margin-left: 0;
+                }
+
+                .nav-links {
+                    margin-right: 0;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .hero-grid {
+                    grid-template-columns: 1fr;
+                    gap: var(--spacing-xl);
+                }
+
+                .hero-text {
+                    text-align: center;
+                    margin: 0 auto;
+                }
+
+                .hero-buttons {
+                    justify-content: center;
+                }
+
+                .nav-links {
+                    position: fixed;
+                    top: 80px;
+                    left: 0;
+                    width: 100%;
+                    flex-direction: column;
+                    background-color: var(--background);
+                    padding: var(--spacing-lg);
+                    box-shadow: var(--shadow);
+                    transform: translateY(-100%);
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: var(--transition);
+                    z-index: 999;
+                }
+
+                .nav-links.active {
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .mobile-menu-toggle {
+                    display: block;
+                }
+
+                .footer-bottom {
+                    flex-direction: column;
+                    gap: var(--spacing-md);
+                    text-align: center;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .footer-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .hero-buttons {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .container {
+                    padding: 0 1rem;
+                }
+            }
+        </style>
+    </head>
+    <body data-theme="light">
+        <!-- Header & Navigation -->
+        <header class="header" id="header">
+            <div class="container">
+                <nav class="nav">
+                    <a href="#" class="logo">
+                        <img src="Image/logo2.png" alt="Simply Saral Logo">
+                        <div class="logo-text">Simply <span>Saral</span></div>
+                    </a>
+                    <div class="nav-links" id="navLinks">
+                        <a href="/login" class="login-btn">Log In</a>
+                        <a href="/signup" class="login-btn">Sign Up</a>
+                        <a href="/management" class="login-btn">Management</a>
+                        <button class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-bg"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-grid">
+                        <div
+                            class="hero-text"
+                            data-aos="fade-up"
+                            data-aos-duration="1000"
+                        >
+                            <h1 class="hero-title">
+                                Various Programs
+                                <span>At Your Fingertips</span>
+                            </h1>
+                            <p class="hero-subtitle">
+                                Navigate scholarships, welfare schemes, and
+                                government programs with ease - all in one
+                                place, designed for the citizens of India.
+                            </p>
+                            <div class="hero-buttons">
+                                <a href="#services" class="btn">Explore Services</a>
+                                <a href="#features" class="btn">Why Choose Us</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Our Services</h2>
+                    <p class="section-subtitle">
+                        Discover comprehensive government services and schemes
+                        available for different citizen groups, all on one
+                        platform.
+                    </p>
+                </div>
+
+                <div class="services-grid">
+                    <!--Primary Education -->
+                    <!-- <div
+                        class="service-card education-card fade-in"
+                    >
+                        <div class="card-top">
+                            <div class="service-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="service-title">Primary Education</h3>
+                            <p class="service-subtitle">
+                                Scholarships & Educational Support
+                            </p>
+                        </div>
+                        <div class="service-content">
+                            <p class="service-description">
+                                Building a Strong Foundation for Learning
+                                Gain access to scholarships, free textbooks, and essential educational resources to support young learners in their early academic journey.
+                            </p>
+                            <a href="/schemes/primary_Education" class="service-button">
+                                Explore Programs
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div> -->
+
+                    <!-- Secondary Education -->
+                    <div
+                        class="service-card education-card fade-in"
+                    >
+                        <div class="card-top">
+                            <div class="service-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="service-title">Secondary Education</h3>
+                            <p class="service-subtitle">
+                                scholarships, competetive exams
+                            </p>
+                        </div>
+                        <div class="service-content">
+                            <p class="service-description">
+                                Empowering Future Leaders
+                                Explore scholarships, competitive exam support, and learning materials designed to help students excel in their secondary education and beyond.
+                            </p>
+
+                            <a href="/schemes/secondary_Education" class="service-button">
+                                Explore <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Higher Education -->
+                    <div
+                        class="service-card education-card fade-in"
+                    >
+                        <div class="card-top">
+                            <div class="service-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="service-title">Higher Education</h3>
+                            <p class="service-subtitle">
+                                scholarships, competetive exams
+                            </p>
+                        </div>
+                        <div class="service-content">
+                            <p class="service-description">
+                                Unlocking Opportunities for Success
+Discover scholarships, career guidance, and academic resources tailored for college and university students to achieve their academic and professional goals.
+                            </p>
+
+                            <a href="/schemes/higher_Education" class="service-button">
+                                Explore
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Farmer's Welfare Card -->
+                    <div
+                        class="service-card farmers-card fade-in"
+                    >
+                        <div class="card-top">
+                            <div class="service-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3 class="service-title">Farmer's Welfare</h3>
+                            <p class="service-subtitle">
+                                Agricultural Support Programs
+                            </p>
+                        </div>
+                        <div class="service-content">
+                            <p class="service-description">
+                                Access agricultural subsidies, crop insurance,
+                                soil health cards, and other support programs
+                                designed for farmers.
+                            </p>
+
+                            <a href="/schemes/farmer_Welfare" class="service-button">
+                                Explore <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Women's Welfare Card -->
+                    <div
+                        class="service-card women-card fade-in"
+                    >
+                        <div class="card-top">
+                            <div class="service-icon">
+                                <i class="fas fa-female"></i>
+                            </div>
+                            <h3 class="service-title">Women's Welfare</h3>
+                            <p class="service-subtitle">
+                                Empowerment & Support Programs
+                            </p>
+                        </div>
+                        <div class="service-content">
+                            <p class="service-description">
+                                Discover programs for women's education,
+                                entrepreneurship support, maternal health
+                                services, and empowerment initiatives.
+                            </p>
+
+                            <a href="/schemes/women_Welfare" class="service-button">
+                                Explore
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Stats Section -->
+        <section class="section stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card" data-aos="zoom-in" data-aos-duration="800">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-number" data-target="5">-</div>
+                        <div class="stat-text">Users soon..</div>
+                    </div>
+                    <div class="stat-card" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="100">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="stat-number" data-target="15">20</div>
+                        <div class="stat-text">Schemes</div>
+                    </div>
+                    <div class="stat-card" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="200">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="stat-number" data-target="28">1</div>
+                        <div class="stat-text">States Covered</div>
+                    </div>
+                    <div class="stat-card" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="300">
+                        <i class="fas fa-handshake"></i>
+                        <div class="stat-number" data-target="98">-</div>
+                        <div class="stat-text">% Satisfaction Rate soon..</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section features">
+            <div class="features-pattern"></div>
+            <div class="container">
+                <div class="features-grid">
+                    <div
+                        class="features-content fade-in"
+                    >
+                        <h2>Why Choose Simply Saral?</h2>
+                        <ul class="features-list">
+                            <li class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h3>One Platform, Multiple Services</h3>
+                                    <p>
+                                        Access all government schemes and
+                                        services through a single, unified
+                                        platform without navigating multiple
+                                        websites.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h3>Secure & Reliable</h3>
+                                    <p>
+                                        Your personal information is protected
+                                        with enterprise-grade security measures
+                                        ensuring complete data privacy.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h3>Time-Saving Process</h3>
+                                    <p>
+                                        Streamlined application processes reduce
+                                        paperwork and save valuable time when
+                                        applying for government services.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h3>Real-Time Status Tracking</h3>
+                                    <p>
+                                        Track your application status in
+                                        real-time and receive timely updates on
+                                        approvals and next steps.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        class="features-image fade-in"
+                    >
+                        <img
+                            src="https://img.freepik.com/free-vector/professionals-analyzing-growth-charts_23-2148866843.jpg"
+                            alt="Features of Simply Saral"
+                            class="features-img"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" id="contact">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-about">
+                        <h3 class="footer-heading">About Simply Saral</h3>
+                        <p>
+                            Simply Saral is dedicated to making government
+                            services accessible to all citizens through a
+                            user-friendly digital platform that simplifies
+                            complex processes.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="footer-social-link">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="footer-social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="footer-social-link">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="footer-social-link">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="footer-social-link">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer-links-col">
+                        <h3 class="footer-heading">Quick Links</h3>
+                        <ul class="footer-links">
+                            <li class="footer-link-item">
+                                <a href="/" class="footer-link">
+                                    <i class="fas fa-chevron-right"></i> Home
+                                </a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a href="#services" class="footer-link">
+                                    <i class="fas fa-chevron-right"></i>
+                                    Services
+                                </a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a href="#features" class="footer-link">
+                                    <i class="fas fa-chevron-right"></i> Why Us
+                                </a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a href="#contact" class="footer-link">
+                                    <i class="fas fa-chevron-right"></i> Contact
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-col">
+                        <h3 class="footer-heading">Services</h3>
+                        <ul class="footer-links">
+                            <!-- <li class="footer-link-item">
+                                <a href="/schemes/primary_Education" class="footer-link">
+                                    <i class="fas fa-chevron-right"></i>
+                                    Primary Education
+                                </a>
+                            </li> -->
+                            <li class="footer-link-item">
+                                <a href="/schemes/secondary_Education" class="footer-link">
+                                    <i class="fas fa-chevron-right"></i> Secondary
+                                    Education
+                                </a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a href="/schemes/higher_Education" class="footer-link">
+                                    <i class="fas fa-chevron-right"></i>
+                                    Higher Education
+                                </a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a href="/schemes/farmer_Welfare" class="footer-link">
+                                    <i class="fas fa-chevron-right"></i> Farmer
+                                    Programs
+                                </a>
+                            </li>
+                            <li class="footer-link-item">
+                                <a href="/schemes/women_Welfare" class="footer-link">
+                                    <i class="fas fa-chevron-right"></i> Women's
+                                    Welfare
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h3 class="footer-heading">Contact Us</h3>
+                        <div class="footer-contact-item">
+                            <i
+                                class="fas fa-map-marker-alt footer-contact-icon"
+                            ></i>
+                            <div class="footer-contact-text">
+                                DYPCOE Akurdi, Pune
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-phone-alt footer-contact-icon"></i>
+                            <div class="footer-contact-text">
+                                +91 1800-123-4567
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-envelope footer-contact-icon"></i>
+                            <div class="footer-contact-text">
+                                support@simplysaral.com.in
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="footer-divider"></div>
+                <div class="footer-bottom">
+                    <div class="footer-copyright">
+                        &copy; 2025 Simply Saral. All rights reserved. Designed
+                        to empower Indian citizens.
+                    </div>
+                    <div class="footer-bottom-links">
+                        <a href="#" class="footer-bottom-link"
+                            >Privacy Policy</a
+                        >
+                        <a href="#" class="footer-bottom-link"
+                            >Terms of Service</a
+                        >
+                        <a href="#" class="footer-bottom-link">Cookie Policy</a>
+                        <a href="#" class="footer-bottom-link">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Back to Top Button -->
+        <div class="back-to-top" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+        <div id="window">
+
+        </div>
+    <!-- Window Effect Section -->
+        <div id="back_image">
+            <div id="moving-text">
+                <div class="con">
+                    <h1>COMPREHENSIVE</h1>
+                    <div id="gola"></div>
+                    <h1>WELL-RESEARCHED</h1>
+                    <div id="gola"></div>
+                    <h1>DETAILED</h1>
+                    <div id="gola"></div>
+                </div>
+                <div class="con">
+                    <h1>COMPREHENSIVE</h1>
+                    <div id="gola"></div>
+                    <h1>WELL-RESEARCHED</h1>
+                    <div id="gola"></div>
+                    <h1>DETAILED</h1>
+                    <div id="gola"></div>
+                </div>
+                <div class="con">
+                    <h1>COMPREHENSIVE</h1>
+                    <div id="gola"></div>
+                    <h1>WELL-RESEARCHED</h1>
+                    <div id="gola"></div>
+                    <h1>DETAILED</h1>
+                    <div id="gola"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+         <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+         <script>
+             document.addEventListener("DOMContentLoaded", function () {
+                 // Dark Mode Functionality
+                 const themeToggle = document.getElementById("themeToggle");
+                 const body = document.body;
+
+                 // Check for saved theme preference or default to 'light'
+                 const savedTheme = localStorage.getItem('theme') || 'light';
+                 if (savedTheme === 'dark') {
+                     body.setAttribute('data-theme', 'dark');
+                     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                 } else {
+                     body.setAttribute('data-theme', 'light');
+                     themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                 }
+
+                 themeToggle.addEventListener("click", function() {
+                     if (body.getAttribute('data-theme') === 'dark') {
+                         body.setAttribute('data-theme', 'light');
+                         themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                         localStorage.setItem('theme', 'light');
+                     } else {
+                         body.setAttribute('data-theme', 'dark');
+                         themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                         localStorage.setItem('theme', 'dark');
+                     }
+                 });
+
+                 // Initialize AOS
+                 AOS.init({
+                     once: true,
+                     disable: "mobile",
+                 });
+
+                 // Header Scroll Effect
+                 const header = document.getElementById("header");
+                 const windowSection = document.getElementById("back_image");
+
+                 // Function to check if element is in viewport
+                 function isElementInViewport(el) {
+                     const rect = el.getBoundingClientRect();
+                     return (
+                         rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                         rect.bottom >= 0
+                     );
+                 }
+
+                 // Check if user is at bottom of page
+                 function isAtPageBottom() {
+                     const windowHeight = window.innerHeight;
+                     const docHeight = document.body.scrollHeight;
+                     const scrolled = window.scrollY;
+                     return (scrolled + windowHeight) > (docHeight * 0.95);
+                 }
+
+                 // Function to handle scroll event
+                 function handleScroll() {
+                     // Header effect
+                     if (window.scrollY > 50) {
+                         header.classList.add("scrolled");
+                     } else {
+                         header.classList.remove("scrolled");
+                     }
+
+                     // Window effect at bottom of page
+                     if (isAtPageBottom()) {
+                         windowSection.classList.add("visible");
+                         // Create a bouncing/popping effect for the marquee text
+                         document.querySelectorAll('#moving-text .con').forEach((con, i) => {
+                             setTimeout(() => {
+                                 con.classList.add('pop-in');
+                             }, i * 200);
+                         });
+                     } else {
+                         windowSection.classList.remove("visible");
+                         document.querySelectorAll('#moving-text .con').forEach(con => {
+                             con.classList.remove('pop-in');
+                         });
+                     }
+
+                     // Fade-in elements animation
+                     document.querySelectorAll('.fade-in').forEach(item => {
+                         if (isElementInViewport(item)) {
+                             item.classList.add('active');
+                         }
+                     });
+
+                     // Back to top button visibility
+                     if (window.scrollY > 600) {
+                         backToTop.classList.add("visible");
+                     } else {
+                         backToTop.classList.remove("visible");
+                     }
+                 }
+
+                 // Listen for scroll events
+                 window.addEventListener("scroll", handleScroll);
+
+                 // Mobile Menu Toggle
+                 const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+                 const navLinks = document.getElementById("navLinks");
+
+                 mobileMenuToggle.addEventListener("click", () => {
+                     navLinks.classList.toggle("active");
+                     mobileMenuToggle.innerHTML = navLinks.classList.contains("active")
+                         ? '<i class="fas fa-times"></i>'
+                         : '<i class="fas fa-bars"></i>';
+                 });
+
+                 // Mobile Menu Link Clicks Close Menu
+                 const navLinkItems = navLinks.querySelectorAll("a");
+                 navLinkItems.forEach((link) => {
+                     link.addEventListener("click", () => {
+                         if (window.innerWidth <= 768) {
+                             navLinks.classList.remove("active");
+                             mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                         }
+                     });
+                 });
+
+                 // Back to Top Button
+                 const backToTop = document.getElementById("backToTop");
+
+                 backToTop.addEventListener("click", () => {
+                     window.scrollTo({
+                         top: 0,
+                         behavior: "smooth",
+                     });
+                 });
+
+                 // Smooth Scrolling for Anchor Links
+                 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                     anchor.addEventListener("click", function (e) {
+                         e.preventDefault();
+                         if (this.getAttribute("href") === "#") return;
+
+                         const targetElement = document.querySelector(
+                             this.getAttribute("href"),
+                         );
+                         if (targetElement) {
+                             window.scrollTo({
+                                 top: targetElement.offsetTop - 80,
+                                 behavior: "smooth",
+                             });
+                         }
+                     });
+                 });
+
+                 // Initialize all fade-in elements
+                 document.querySelectorAll('.fade-in').forEach(el => {
+                     if (isElementInViewport(el)) {
+                         el.classList.add('active');
+                     }
+                 });
+
+                 // Trigger initial scroll event to check visibility
+                 handleScroll();
+             });
+         </script>
+    </body>
+</html>

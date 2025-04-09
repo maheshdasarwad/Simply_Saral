@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simply Saral | Management</title>
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        :root {
+            /* Primary Colors */
+            --primary: #1e40af;
+            --primary-dark: #0f1f52;
+            --primary-light: #3b82f6;
+            --secondary: #ff5722;
+            --secondary-light: #ff8a65;
+            --accent: #ffa000;
+
+            /* Neutral Colors */
+            --background: #ffffff;
+            --background-alt: #f8f9fa;
+            --background-card: #ffffff;
+            --foreground: #333333;
+            --foreground-light: #6b7280;
+            --foreground-muted: #9ca3af;
+            --border: #e5e7eb;
+
+            /* Feedback Colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+
+            /* Additional Colors */
+            --orange-deep: #e64a19;
+            --green-deep: #2e7d32;
+            --purple-deep: #5e35b1;
+            --teal-deep: #00796b;
+            --cyan-deep: #0097a7;
+
+            /* UI Elements */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 5rem;
+
+            /* Border Radius */
+            --border-radius-sm: 0.25rem;
+            --border-radius: 0.5rem;
+            --border-radius-md: 0.75rem;
+            --border-radius-lg: 1rem;
+            --border-radius-xl: 1.5rem;
+            --border-radius-full: 9999px;
+        }
+
+        /* Dark mode variables */
+        [data-theme="dark"] {
+            --primary: #4f8df4;
+            --primary-dark: #2563eb;
+            --primary-light: #7aa7ff;
+            --secondary: #ff8c38;
+            --secondary-light: #ffa366;
+
+            --background: #0f172a;
+            --background-alt: #1e293b;
+            --background-card: #1f2937;
+            --foreground: #f1f5f9;
+            --foreground-light: #cbd5e1;
+            --foreground-muted: #94a3b8;
+            --border: #334155;
+
+            /* Adjust for dark mode */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            
+            /* Shadow adjustments for dark mode */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+            font-size: 100%;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            color: var(--foreground);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--background);
+            max-width: 100%;
+            font-size: 1rem;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        
+        /* Global transition for theme changes */
+        * {
+            transition-property: background-color, border-color, color, box-shadow;
+            transition-duration: 0.5s;
+            transition-timing-function: ease;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 3vw, 3rem);
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+            width: 100%;
+        }
+
+        .section {
+            padding: var(--spacing-xl) 0;
+            position: relative;
+        }
+
+        .section-light {
+            background-color: var(--background-alt);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--spacing-xl);
+        }
+
+        .section-title {
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: var(--border-radius-full);
+        }
+
+        .section-subtitle {
+            color: var(--foreground-light);
+            font-size: 1.1rem;
+            margin-top: var(--spacing-md);
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .mt-1 { margin-top: var(--spacing-xs); }
+        .mt-2 { margin-top: var(--spacing-sm); }
+        .mt-3 { margin-top: var(--spacing-md); }
+        .mt-4 { margin-top: var(--spacing-lg); }
+        .mt-5 { margin-top: var(--spacing-xl); }
+
+        .mb-1 { margin-bottom: var(--spacing-xs); }
+        .mb-2 { margin-bottom: var(--spacing-sm); }
+        .mb-3 { margin-bottom: var(--spacing-md); }
+        .mb-4 { margin-bottom: var(--spacing-lg); }
+        .mb-5 { margin-bottom: var(--spacing-xl); }
+
+        /* Header & Navigation */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--background);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] .header {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+            padding: 0.5rem 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-left: -3rem;
+        }
+
+        .logo-text {
+            margin-left: -0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.3rem;
+            align-items: center;
+            margin-right: -3rem;
+        }
+
+        .nav-btn {
+            background-color: transparent;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            color: var(--foreground);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: var(--primary-light);
+            transition: height 0.3s ease;
+            z-index: -1;
+            border-radius: 50px;
+            opacity: 0.5;
+        }
+
+        .nav-btn:hover::after {
+            height: 100%;
+        }
+
+        .login-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Global button styles */
+        .btn, .service-button, .nav-btn.btn-primary, .nav-btn.btn-secondary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before,
+        .service-button::before,
+        .nav-btn.btn-primary::before,
+        .nav-btn.btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before,
+        .service-button:hover::before,
+        .nav-btn.btn-primary:hover::before,
+        .nav-btn.btn-secondary:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover,
+        .service-button:hover,
+        .nav-btn.btn-primary:hover,
+        .nav-btn.btn-secondary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn.btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .nav-btn.btn-secondary:hover {
+            background-color: var(--orange-deep);
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: transparent;
+            cursor: pointer;
+            color: var(--foreground);
+            font-size: 1.1rem;
+            transition: var(--transition);
+            margin-left: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--background-alt);
+            transform: translateY(-2px);
+        }
+        
+        [data-theme="dark"] .theme-toggle {
+            border-color: rgba(79, 141, 244, 0.4);
+            box-shadow: 0 0 10px rgba(79, 141, 244, 0.2);
+            color: var(--primary-light);
+        }
+        
+        [data-theme="dark"] .theme-toggle:hover {
+            background-color: rgba(79, 141, 244, 0.1);
+            box-shadow: 0 0 15px rgba(79, 141, 244, 0.3);
+        }
+        
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .theme-toggle:hover::before {
+            left: 100%;
+        }
+
+        /* Management Dashboard Styles */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            background-color: var(--background-alt);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .user-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-email {
+            font-size: 0.85rem;
+            color: var(--foreground-light);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius);
+            color: var(--foreground-light);
+            transition: var(--transition);
+        }
+
+        .menu-link:hover, .menu-link.active {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .menu-link i {
+            margin-right: var(--spacing-sm);
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            padding: var(--spacing-xl);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .content-title {
+            font-size: 1.75rem;
+            color: var(--primary);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: var(--background-alt);
+            border-radius: var(--border-radius);
+            padding: 0.5rem 1rem;
+            width: 300px;
+        }
+
+        .search-bar input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            padding: 0.5rem;
+            color: var(--foreground);
+            outline: none;
+        }
+
+        .search-bar i {
+            color: var(--foreground-light);
+            margin-right: 0.5rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .stats-card {
+            background-color: var(--background-card);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stats-card-title {
+            font-size: 0.9rem;
+            color: var(--foreground-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stats-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stats-card-change {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .stats-card-change.positive {
+            color: var(--success);
+        }
+
+        .stats-card-change.negative {
+            color: var(--error);
+        }
+
+        .stats-card-change i {
+            margin-right: 0.25rem;
+        }
+
+        /* Content Tabs */
+        .content-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .tab-btn {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: transparent;
+            border: none;
+            color: var(--foreground-light);
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn.active::after {
+            transform: scaleX(1);
+        }
+
+        /* Table Styles */
+        .table-container {
+            background-color: var(--background-card);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--background-alt);
+            color: var(--foreground-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: var(--background-alt);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-primary {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .badge-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .badge-error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--foreground-light);
+            cursor: pointer;
+            margin-right: var(--spacing-sm);
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 500;
+            color: var(--foreground);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            background-color: var(--background-card);
+            color: var(--foreground);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-slow);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--background);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--foreground-light);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--error);
+        }
+
+        .modal-body {
+            padding: var(--spacing-lg);
+        }
+
+        .modal-footer {
+            padding: var(--spacing-lg);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--spacing-md);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--success);
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            background-color: var(--error);
+        }
+
+        .toast.warning {
+            background-color: var(--warning);
+        }
+
+        .toast i {
+            margin-right: var(--spacing-sm);
+        }
+
+        /* Mobile menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 240px 1fr;
+            }
+            
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-md);
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: var(--spacing-lg);
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Dark mode specific styles */
+        [data-theme="dark"] .sidebar {
+            background-color: var(--background-alt);
+            border-right: 1px solid var(--border);
+        }
+        
+        [data-theme="dark"] .stats-card {
+            background: linear-gradient(to bottom right, var(--background-card), rgba(31, 41, 55, 0.8));
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+        }
+        
+        [data-theme="dark"] .table-container {
+            background: linear-gradient(to bottom right, var(--background-card), rgba(31, 41, 55, 0.8));
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+        }
+        
+        [data-theme="dark"] tr:hover td {
+            background-color: rgba(30, 41, 59, 0.5);
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Header & Navigation -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="homepage.html" class="logo">
+                    <img src="/Image/logo2.png" alt="Simply Saral Logo">
+                    <div class="logo-text">Simply <span>Saral</span></div>
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="/" class="nav-btn">Home</a>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Management Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">Admin Dashboard</h3>
+                <div class="sidebar-user">
+                    <div class="user-avatar">AD</div>
+                    <div class="user-name">Admin User</div>
+                    <div class="user-email">admin@simplysaral.com</div>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="#" class="menu-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-section="schemes">
+                        <i class="fas fa-book"></i>
+                        <span>Schemes</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-section="scholarships">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Scholarships</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-section="exams">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Competitive Exams</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-section="users">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="homepage.html" class="menu-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Back to Home</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 class="content-title" id="contentTitle">Dashboard Overview</h1>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search...">
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="cards-grid" id="statsCards">
+                <!-- Filled by JavaScript -->
+            </div>
+
+            <!-- Content Tabs -->
+            <div class="content-tabs" id="contentTabs">
+                <button class="tab-btn active" data-tab="all">All Resources</button>
+                <button class="tab-btn" data-tab="schemes">Schemes</button>
+                <button class="tab-btn" data-tab="scholarships">Scholarships</button>
+                <button class="tab-btn" data-tab="exams">Competitive Exams</button>
+            </div>
+
+            <!-- Resources Table -->
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table id="resourcesTable">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Eligibility</th>
+                                <th>Last Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resourcesTableBody">
+                            <!-- Filled by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Add New Resource Button -->
+            <div class="form-actions">
+                <button id="addResourceBtn" class="btn">
+                    <i class="fas fa-plus"></i> Add New Resource
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Resource Modal -->
+    <div class="modal" id="resourceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Add New Resource</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="resourceForm">
+                    <input type="hidden" id="resourceId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="resourceTitle" class="form-label">Title</label>
+                            <input type="text" id="resourceTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="resourceCategory" class="form-label">Category</label>
+                            <select id="resourceCategory" class="form-control" required>
+                                <option value="">Select Category</option>
+                                <option value="scheme">Government Scheme</option>
+                                <option value="scholarship">Scholarship</option>
+                                <option value="exam">Competitive Exam</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resourceDescription" class="form-label">Description</label>
+                        <textarea id="resourceDescription" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="resourceEligibility" class="form-label">Eligibility</label>
+                            <input type="text" id="resourceEligibility" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="resourceLink" class="form-label">Official Link</label>
+                            <input type="url" id="resourceLink" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resourceBenefits" class="form-label">Key Benefits</label>
+                        <textarea id="resourceBenefits" class="form-control" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="button" class="btn" id="saveResourceBtn">Save Resource</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirm Deletion</h3>
+                <button class="modal-close" id="deleteModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this resource? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button type="button" class="btn btn-error" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Operation completed successfully</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize AOS
+            AOS.init({
+                once: true,
+                disable: "mobile",
+            });
+
+            // ======================
+            // DATA MANAGEMENT SYSTEM
+            // ======================
+
+            // Resource categories
+            const categories = {
+                scheme: { name: "Government Scheme", badge: "badge-primary" },
+                scholarship: { name: "Scholarship", badge: "badge-success" },
+                exam: { name: "Competitive Exam", badge: "badge-warning" }
+            };
+
+            // Sample initial data
+            const initialResources = [
+                {
+                    id: "1",
+                    title: "PM Kisan Samman Nidhi",
+                    category: "scheme",
+                    description: "Income support scheme for farmers providing ₹6000 per year in three installments.",
+                    eligibility: "Small and marginal farmers",
+                    benefits: "Financial assistance to farmers, Direct benefit transfer",
+                    link: "https://pmkisan.gov.in",
+                    lastUpdated: "2025-05-15"
+                },
+                {
+                    id: "2",
+                    title: "National Scholarship Portal",
+                    category: "scholarship",
+                    description: "One-stop solution for various scholarships offered by the Indian government.",
+                    eligibility: "Students from SC/ST/OBC",
+                    benefits: "Financial aid for education, Multiple scholarship options",
+                    link: "https://scholarships.gov.in",
+                    lastUpdated: "2025-04-22"
+                },
+                {
+                    id: "3",
+                    title: "UPSC Civil Services Exam",
+                    category: "exam",
+                    description: "National level exam for recruitment to various civil services of the Government of India.",
+                    eligibility: "Graduates, Age 21-32",
+                    benefits: "Prestigious government positions, Job security",
+                    link: "https://upsc.gov.in",
+                    lastUpdated: "2025-05-10"
+                },
+                {
+                    id: "4",
+                    title: "Beti Bachao Beti Padhao",
+                    category: "scheme",
+                    description: "Scheme to address the declining child sex ratio and promote girls' education.",
+                    eligibility: "Girl children and women",
+                    benefits: "Educational support, Awareness programs",
+                    link: "https://wcd.nic.in/bbbp-schemes",
+                    lastUpdated: "2025-05-05"
+                },
+                {
+                    id: "5",
+                    title: "JEE Main Examination",
+                    category: "exam",
+                    description: "National level engineering entrance exam for admission to NITs, IIITs and other colleges.",
+                    eligibility: "Class 12 pass students",
+                    benefits: "Engineering college admissions, Nationally recognized",
+                    link: "https://jeemain.nta.nic.in",
+                    lastUpdated: "2025-04-18"
+                }
+            ];
+
+            // Load resources from localStorage or initialize with sample data
+            let resources = JSON.parse(localStorage.getItem('resources')) || initialResources;
+            let currentResourceId = null;
+            let currentTab = 'all';
+            let currentSection = 'dashboard';
+
+            // ======================
+            // UTILITY FUNCTIONS
+            // ======================
+
+            // Save resources to localStorage
+            function saveResources() {
+                localStorage.setItem('resources', JSON.stringify(resources));
+                updateStats();
+                renderResources();
+            }
+
+            // Format date
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('en-US', options);
+            }
+
+            // Show toast notification
+            function showToast(message, type = 'success') {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toastMessage');
+                
+                toastMessage.textContent = message;
+                toast.className = `toast ${type}`;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            // Generate a unique ID
+            function generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            }
+
+            // Update statistics cards
+            function updateStats() {
+                const statsCards = document.getElementById('statsCards');
+                
+                const schemeCount = resources.filter(r => r.category === 'scheme').length;
+                const scholarshipCount = resources.filter(r => r.category === 'scholarship').length;
+                const examCount = resources.filter(r => r.category === 'exam').length;
+                const totalCount = resources.length;
+                
+                statsCards.innerHTML = `
+                    <div class="stats-card">
+                        <h3 class="stats-card-title">Total Resources</h3>
+                        <div class="stats-card-value">${totalCount}</div>
+                        <div class="stats-card-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>${Math.floor(totalCount * 0.12)}% from last month</span>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <h3 class="stats-card-title">Government Schemes</h3>
+                        <div class="stats-card-value">${schemeCount}</div>
+                        <div class="stats-card-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>${Math.floor(schemeCount * 0.08)}% from last month</span>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <h3 class="stats-card-title">Scholarships</h3>
+                        <div class="stats-card-value">${scholarshipCount}</div>
+                        <div class="stats-card-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>${Math.floor(scholarshipCount * 0.05)}% from last month</span>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <h3 class="stats-card-title">Competitive Exams</h3>
+                        <div class="stats-card-value">${examCount}</div>
+                        <div class="stats-card-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>${Math.floor(examCount * 0.24)}% from last month</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Render resources table based on current tab and search
+            function renderResources() {
+                const tableBody = document.getElementById('resourcesTableBody');
+                const searchInput = document.getElementById('searchInput');
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                // Filter resources based on tab and search term
+                let filteredResources = resources;
+                
+                if (currentTab !== 'all') {
+                    filteredResources = filteredResources.filter(r => r.category === currentTab);
+                }
+                
+                if (searchTerm) {
+                    filteredResources = filteredResources.filter(r => 
+                        r.title.toLowerCase().includes(searchTerm) ||
+                        r.description.toLowerCase().includes(searchTerm) ||
+                        r.eligibility.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                // Generate table rows
+                tableBody.innerHTML = filteredResources.map(resource => `
+                    <tr>
+                        <td>${resource.title}</td>
+                        <td><span class="badge ${categories[resource.category].badge}">${categories[resource.category].name}</span></td>
+                        <td>${resource.eligibility}</td>
+                        <td>${formatDate(resource.lastUpdated)}</td>
+                        <td>
+                            <button class="action-btn edit-btn" data-id="${resource.id}" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-btn" data-id="${resource.id}" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="action-btn view-btn" data-id="${resource.id}" title="View">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+                
+                // Add event listeners to action buttons
+                document.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const resourceId = e.currentTarget.getAttribute('data-id');
+                        editResource(resourceId);
+                    });
+                });
+                
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const resourceId = e.currentTarget.getAttribute('data-id');
+                        confirmDelete(resourceId);
+                    });
+                });
+                
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const resourceId = e.currentTarget.getAttribute('data-id');
+                        viewResource(resourceId);
+                    });
+                });
+            }
+
+            // ======================
+            // CRUD OPERATIONS
+            // ======================
+
+            // Add new resource
+            function addResource() {
+                currentResourceId = null;
+                document.getElementById('modalTitle').textContent = 'Add New Resource';
+                document.getElementById('resourceForm').reset();
+                document.getElementById('resourceModal').classList.add('active');
+            }
+
+            // Edit existing resource
+            function editResource(id) {
+                const resource = resources.find(r => r.id === id);
+                if (!resource) return;
+                
+                currentResourceId = id;
+                document.getElementById('modalTitle').textContent = 'Edit Resource';
+                document.getElementById('resourceId').value = resource.id;
+                document.getElementById('resourceTitle').value = resource.title;
+                document.getElementById('resourceCategory').value = resource.category;
+                document.getElementById('resourceDescription').value = resource.description;
+                document.getElementById('resourceEligibility').value = resource.eligibility;
+                document.getElementById('resourceLink').value = resource.link;
+                document.getElementById('resourceBenefits').value = resource.benefits;
+                
+                document.getElementById('resourceModal').classList.add('active');
+            }
+
+            // View resource details
+            function viewResource(id) {
+                const resource = resources.find(r => r.id === id);
+                if (!resource) return;
+                
+                // In a real application, this would open a detailed view
+                // For this demo, we'll just show an alert with the details
+                alert(`${resource.title}\n\nCategory: ${categories[resource.category].name}\n\nDescription: ${resource.description}\n\nEligibility: ${resource.eligibility}\n\nKey Benefits: ${resource.benefits}\n\nOfficial Link: ${resource.link}`);
+            }
+
+            // Save resource (both add and edit)
+            function saveResource() {
+                const form = document.getElementById('resourceForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                
+                const resourceData = {
+                    id: currentResourceId || generateId(),
+                    title: document.getElementById('resourceTitle').value,
+                    category: document.getElementById('resourceCategory').value,
+                    description: document.getElementById('resourceDescription').value,
+                    eligibility: document.getElementById('resourceEligibility').value,
+                    link: document.getElementById('resourceLink').value,
+                    benefits: document.getElementById('resourceBenefits').value,
+                    lastUpdated: new Date().toISOString().split('T')[0]
+                };
+                
+                if (currentResourceId) {
+                    // Update existing resource
+                    const index = resources.findIndex(r => r.id === currentResourceId);
+                    if (index !== -1) {
+                        resources[index] = resourceData;
+                        showToast('Resource updated successfully');
+                    }
+                } else {
+                    // Add new resource
+                    resources.unshift(resourceData);
+                    showToast('Resource added successfully');
+                }
+                
+                // Save and refresh
+                saveResources();
+                document.getElementById('resourceModal').classList.remove('active');
+            }
+
+            // Confirm deletion
+            function confirmDelete(id) {
+                currentResourceId = id;
+                document.getElementById('deleteModal').classList.add('active');
+            }
+
+            // Delete resource
+            function deleteResource() {
+                resources = resources.filter(r => r.id !== currentResourceId);
+                saveResources();
+                showToast('Resource deleted successfully');
+                document.getElementById('deleteModal').classList.remove('active');
+            }
+
+            // ======================
+            // EVENT LISTENERS
+            // ======================
+
+            // Dark Mode Functionality
+            const themeToggle = document.getElementById("themeToggle");
+            const body = document.body;
+
+            // Check for saved theme preference or default to 'light'
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+
+            themeToggle.addEventListener("click", function() {
+                if (body.getAttribute('data-theme') === 'dark') {
+                    body.setAttribute('data-theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Header Scroll Effect
+            const header = document.getElementById("header");
+
+            function handleScroll() {
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            }
+
+            // Listen for scroll events
+            window.addEventListener("scroll", handleScroll);
+
+            // Mobile Menu Toggle
+            const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+            const navLinks = document.getElementById("navLinks");
+
+            mobileMenuToggle.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+                mobileMenuToggle.innerHTML = navLinks.classList.contains("active")
+                    ? '<i class="fas fa-times"></i>'
+                    : '<i class="fas fa-bars"></i>';
+            });
+
+            // Mobile Menu Link Clicks Close Menu
+            const navLinkItems = navLinks.querySelectorAll("a");
+            navLinkItems.forEach((link) => {
+                link.addEventListener("click", () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove("active");
+                        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            });
+
+            // Tab Functionality
+            const tabBtns = document.querySelectorAll(".tab-btn");
+            tabBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    currentTab = btn.getAttribute('data-tab');
+                    tabBtns.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    
+                    // Update content title based on tab
+                    const contentTitle = document.getElementById('contentTitle');
+                    if (currentTab === 'all') {
+                        contentTitle.textContent = 'All Resources';
+                    } else if (currentTab === 'schemes') {
+                        contentTitle.textContent = 'Government Schemes';
+                    } else if (currentTab === 'scholarships') {
+                        contentTitle.textContent = 'Scholarships';
+                    } else if (currentTab === 'exams') {
+                        contentTitle.textContent = 'Competitive Exams';
+                    }
+                    
+                    renderResources();
+                });
+            });
+
+            // Sidebar Navigation
+            const menuLinks = document.querySelectorAll('.menu-link[data-section]');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentSection = link.getAttribute('data-section');
+                    
+                    // Update active state
+                    menuLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Update content title
+                    const contentTitle = document.getElementById('contentTitle');
+                    contentTitle.textContent = link.querySelector('span').textContent;
+                    
+                    // In a real application, you would load different content here
+                    // For this demo, we'll just show a message
+                    if (currentSection !== 'dashboard') {
+                        showToast(`Navigated to ${link.querySelector('span').textContent} section`, 'info');
+                    }
+                });
+            });
+
+            // Search Functionality
+            document.getElementById('searchInput').addEventListener('input', renderResources);
+
+            // Add Resource Button
+            document.getElementById('addResourceBtn').addEventListener('click', addResource);
+
+            // Save Resource Button
+            document.getElementById('saveResourceBtn').addEventListener('click', saveResource);
+
+            // Cancel Button (Resource Modal)
+            document.getElementById('cancelBtn').addEventListener('click', () => {
+                document.getElementById('resourceModal').classList.remove('active');
+            });
+
+            // Modal Close Button
+            document.getElementById('modalClose').addEventListener('click', () => {
+                document.getElementById('resourceModal').classList.remove('active');
+            });
+
+            // Delete Modal Close Button
+            document.getElementById('deleteModalClose').addEventListener('click', () => {
+                document.getElementById('deleteModal').classList.remove('active');
+            });
+
+            // Cancel Delete Button
+            document.getElementById('cancelDeleteBtn').addEventListener('click', () => {
+                document.getElementById('deleteModal').classList.remove('active');
+            });
+
+            // Confirm Delete Button
+            document.getElementById('confirmDeleteBtn').addEventListener('click', deleteResource);
+
+            // Close modals when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+
+            // Initialize the page
+            updateStats();
+            renderResources();
+            handleScroll();
+        });
+    </script>
+</body>
+</html>

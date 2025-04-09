@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secondary-Education</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+  />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap"
+      rel="stylesheet"
+  />
+
+  <!-- Font Awesome -->
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <!-- AOS (if needed) -->
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+  />
+  <link rel="stylesheet"href="/css/scheme.css">
+</head>
+<body data-theme="light">
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="/Image/logo.jpg" alt="Simply Saral Logo" />
+    </div>
+    <div class="nav-group">
+      <div class="nav-header">Main</div>
+      <a href="/">
+        <div class="nav-item">🏠 Home</div>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-header">SCHEMES</div>
+      <div class="nav-item active">📚 <%= name %></div>
+      <div class="sub-menu">
+        <% for (let scheme of data) {%>
+            <a href="/schemes/secondary_Education/<%=scheme._id%>"><div class="nav-item"><%=scheme.title%></div></a>
+            <% }%>
+      </div>
+    </div>
+  </div>
+  
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="header">
+      <h2><span class="user-name"></span></h2>
+      <div class="user-actions">
+        <!-- Dark Mode Toggle Button -->
+        <button id="darkModeToggle" title="Toggle Dark Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- CAROUSEL / USER DASHBOARD -->
+    <div class="user-dashboard">
+      <div class="carousel">
+        <div class="carousel-slide active" style="background-image: url('/Image/secondary_Edu/RMSA.jpg')"></div>
+        <div class="carousel-slide " style="background-image: url('/Image/secondary_Edu/NMMS.jpg')"></div>
+        <div class="carousel-slide" style="background-image: url('/Image/secondary_Edu/SSA.jpg')"></div>
+        <div class="carousel-slide" style="background-image: url('/Image/secondary_Edu/vocational.jpg')"></div>
+      </div>
+    </div>
+    
+    <!-- SCHEME CARDS -->
+    <% data.forEach((scheme)=>{%>
+    <div class="scheme-card">
+      <div class="scheme-card-header">
+        <h3><%=scheme.title%></h3>
+        <div class="scheme-meta">
+          | <span class="scheme-category"><%=name%></span> |
+        </div>
+      </div>
+      <div class="scheme-card-body">
+        <h3><%=scheme.description%></h3>
+        <div class="scheme-benefits">
+            <h4>Benefits:</h4>
+            <ul>
+              <%scheme.benefits.forEach((benefit) =>{%>
+                <li>✅ <%=benefit%></li>
+                <%})%>
+             </ul>
+        </div>
+        <a href="/schemes/secondary_Education/<%=scheme._id%>" class="action-btn">Read More</a>
+      </div>
+    </div>
+    <% } )%>
+  </div>
+  
+  <!-- FOOTER -->
+  <footer class="footer">
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <!-- About -->
+        <div class="footer-about">
+          <h3 class="footer-heading">About Simply Saral</h3>
+          <p>
+            Simplifying government services for all citizens through innovative digital solutions.
+          </p>
+          <div class="footer-social">
+            <a href="#" class="footer-social-link">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="footer-social-link">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="footer-social-link">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="footer-social-link">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="footer-social-link">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+         <!-- Quick Links -->
+         <div class="footer-links-col">
+          <h3 class="footer-heading">Quick Links</h3>
+          <ul class="footer-links">
+            <li class="footer-link-item">
+              <a href="/" class="footer-link">
+                <i class="fas fa-chevron-right"></i> Home
+              </a>
+            </li>
+            <li class="footer-link-item">
+              <a href="#services" class="footer-link">
+                <i class="fas fa-chevron-right"></i> Services
+              </a>
+            </li>
+            <li class="footer-link-item">
+              <a href="#features" class="footer-link">
+                <i class="fas fa-chevron-right"></i> Why Us
+              </a>
+            </li>
+            <li class="footer-link-item">
+              <a href="#contact" class="footer-link">
+                <i class="fas fa-chevron-right"></i> Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Services -->
+        <div class="footer-links-col">
+          <h3 class="footer-heading">Services</h3>
+          <ul class="footer-links">
+            <li class="footer-link-item">
+              <a href="/schemes/secondary_Education" class="footer-link">
+                <i class="fas fa-chevron-right"></i> Secondary Education
+              </a>
+            </li>
+            <li class="footer-link-item">
+              <a href="/schemes/higher_Education" class="footer-link">
+                <i class="fas fa-chevron-right"></i> Higher Education
+              </a>
+            </li>
+            <li class="footer-link-item">
+              <a href="/schemes/farmer_Welfare" class="footer-link">
+                <i class="fas fa-chevron-right"></i> Farmer Programs
+              </a>
+            </li>
+            <li class="footer-link-item">
+              <a href="/schemes/women_Welfare" class="footer-link">
+                <i class="fas fa-chevron-right"></i> Women's Welfare
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        
+        <!-- Contact -->
+        <div class="footer-contact">
+          <h3 class="footer-heading">Contact Us</h3>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+            <div class="footer-contact-text">DYPCOE Akurdi, Pune</div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone-alt footer-contact-icon"></i>
+            <div class="footer-contact-text">+91 1800-123-4567</div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope footer-contact-icon"></i>
+            <div class="footer-contact-text">support@simplysaral.com.in</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div>
+          &copy; 2025 Simply Saral. All rights reserved. Designed to empower Indian citizens.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-bottom-link">Privacy Policy</a>
+          <a href="#" class="footer-bottom-link">Terms of Service</a>
+          <a href="#" class="footer-bottom-link">Cookie Policy</a>
+          <a href="#" class="footer-bottom-link">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/js/scheme.js"></script>
+</body>
+</html>

@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sign Up | Simply Saral</title>
+        <!-- Fonts and Icons -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+        />
+
+        <style>
+            :root {
+                /* Primary Colors */
+                --primary: #1e40af;
+                --primary-dark: #0f1f52;
+                --primary-light: #3b82f6;
+                --secondary: #ff5722;
+                --secondary-light: #ff8a65;
+                --accent: #ffa000;
+
+                /* Neutral Colors */
+                --background: #ffffff;
+                --background-alt: #f8f9fa;
+                --background-card: #ffffff;
+                --foreground: #333333;
+                --foreground-light: #6b7280;
+                --foreground-muted: #9ca3af;
+                --border: #e5e7eb;
+
+                /* Feedback Colors */
+                --success: #10b981;
+                --warning: #f59e0b;
+                --error: #ef4444;
+                --info: #3b82f6;
+
+                /* Additional Colors */
+                --orange-deep: #e64a19;
+                --green-deep: #2e7d32;
+                --purple-deep: #5e35b1;
+                --teal-deep: #00796b;
+                --cyan-deep: #0097a7;
+
+                /* UI Elements */
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                --transition: all 0.3s ease;
+                --transition-slow: all 0.5s ease;
+
+                /* Spacing */
+                --spacing-xs: 0.5rem;
+                --spacing-sm: 1rem;
+                --spacing-md: 1.5rem;
+                --spacing-lg: 2rem;
+                --spacing-xl: 3rem;
+                --spacing-2xl: 5rem;
+
+                /* Border Radius */
+                --border-radius-sm: 0.25rem;
+                --border-radius: 0.5rem;
+                --border-radius-md: 0.75rem;
+                --border-radius-lg: 1rem;
+                --border-radius-xl: 1.5rem;
+                --border-radius-full: 9999px;
+            }
+
+            /* Dark mode variables */
+            [data-theme="dark"] {
+                --primary: #4f8df4;
+                --primary-dark: #2563eb;
+                --primary-light: #7aa7ff;
+                --secondary: #ff8c38;
+                --secondary-light: #ffa366;
+
+                --background: #0f172a;
+                --background-alt: #1e293b;
+                --background-card: #1f2937;
+                --foreground: #f1f5f9;
+                --foreground-light: #cbd5e1;
+                --foreground-muted: #94a3b8;
+                --border: #334155;
+
+                /* Adjust for dark mode */
+                --success: #10b981;
+                --warning: #f59e0b;
+                --error: #ef4444;
+                --info: #3b82f6;
+                
+                /* Shadow adjustments for dark mode */
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+                --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.2);
+                --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+                    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+                --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3),
+                    0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Base Styles */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 80px;
+                font-size: 100%;
+            }
+
+            body {
+                font-family: "Poppins", sans-serif;
+                color: var(--foreground);
+                line-height: 1.6;
+                overflow-x: hidden;
+                background-color: var(--background);
+                max-width: 100%;
+                font-size: 1rem;
+                transition: background-color 0.5s ease, color 0.5s ease;
+            }
+            
+            /* Global transition for theme changes */
+            * {
+                transition-property: background-color, border-color, color, box-shadow;
+                transition-duration: 0.5s;
+                transition-timing-function: ease;
+            }
+
+            h1, h2, h3, h4, h5 {
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            h1 {
+                font-size: clamp(2rem, 3vw, 3rem);
+            }
+
+            h2 {
+                font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+            }
+
+            h3 {
+                font-size: clamp(1.25rem, 2vw, 1.5rem);
+            }
+
+            p {
+                margin-bottom: 1rem;
+            }
+
+            a {
+                text-decoration: none;
+                color: var(--primary);
+                transition: var(--transition);
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 var(--spacing-lg);
+                width: 100%;
+            }
+
+            .section {
+                padding: var(--spacing-xl) 0;
+                position: relative;
+            }
+
+            .section-light {
+                background-color: var(--background-alt);
+            }
+
+            .section-header {
+                text-align: center;
+                max-width: 800px;
+                margin: 0 auto var(--spacing-xl);
+            }
+
+            .section-title {
+                margin-bottom: var(--spacing-sm);
+                color: var(--primary);
+                position: relative;
+                display: inline-block;
+            }
+
+            .section-title::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 4px;
+                background: var(--secondary);
+                border-radius: var(--border-radius-full);
+            }
+
+            .section-subtitle {
+                color: var(--foreground-light);
+                font-size: 1.1rem;
+                margin-top: var(--spacing-md);
+            }
+
+            /* Utility Classes */
+            .text-center {
+                text-align: center;
+            }
+
+            .text-gradient {
+                background: linear-gradient(
+                    to right,
+                    var(--primary),
+                    var(--secondary)
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                display: inline-block;
+            }
+
+            /* Header & Navigation */
+            .header {
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                background-color: var(--background);
+                box-shadow: var(--shadow);
+                transition: all 0.3s ease;
+            }
+
+            [data-theme="dark"] .header {
+                background-color: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            }
+
+            .header.scrolled {
+                box-shadow: var(--shadow-md);
+                padding: 0.5rem 0;
+            }
+
+            .nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.8rem 0;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+            }
+
+            .logo img {
+                height: 50px;
+                margin-left: -3rem;
+            }
+
+            .logo-text {
+                margin-left: -0.5rem;
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--primary);
+            }
+
+            .logo-text span {
+                color: var(--accent);
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 0.3rem;
+                align-items: center;
+                margin-right: -3rem;
+            }
+
+            .nav-btn {
+                background-color: transparent;
+                border: none;
+                padding: 0.6rem 1rem;
+                border-radius: 50px;
+                font-weight: 500;
+                font-size: 0.95rem;
+                cursor: pointer;
+                transition: var(--transition);
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                color: var(--foreground);
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            .nav-btn::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 0;
+                background-color: var(--primary-light);
+                transition: height 0.3s ease;
+                z-index: -1;
+                border-radius: 50px;
+                opacity: 0.5;
+            }
+
+            .nav-btn:hover::after {
+                height: 100%;
+            }
+
+            .login-btn {
+                background-color: var(--primary);
+                color: white;
+                border: none;
+                padding: 0.6rem 1.5rem;
+                border-radius: 50px;
+                font-weight: 600;
+                font-size: 0.95rem;
+                cursor: pointer;
+                transition: var(--transition);
+                text-decoration: none;
+                display: inline-block;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .login-btn::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent
+                );
+                transition: 0.5s;
+            }
+
+            .login-btn:hover::before {
+                left: 100%;
+            }
+
+            .login-btn:hover {
+                background-color: var(--primary-dark);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Global button styles */
+            .btn {
+                background-color: var(--primary);
+                color: white;
+                border: none;
+                padding: 0.6rem 1.5rem;
+                border-radius: 50px;
+                font-weight: 600;
+                font-size: 0.95rem;
+                cursor: pointer;
+                transition: var(--transition);
+                text-decoration: none;
+                display: inline-block;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .btn::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent
+                );
+                transition: 0.5s;
+            }
+
+            .btn:hover::before {
+                left: 100%;
+            }
+
+            .btn:hover {
+                background-color: var(--primary-dark);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-secondary {
+                background-color: var(--secondary);
+            }
+
+            .btn-secondary:hover {
+                background-color: var(--orange-deep);
+            }
+
+            /* Theme toggle */
+            .theme-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border: 2px solid var(--border);
+                background: transparent;
+                cursor: pointer;
+                color: var(--foreground);
+                font-size: 1.1rem;
+                transition: var(--transition);
+                margin-left: 1rem;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .theme-toggle:hover {
+                background-color: var(--background-alt);
+                transform: translateY(-2px);
+            }
+            
+            [data-theme="dark"] .theme-toggle {
+                border-color: rgba(79, 141, 244, 0.4);
+                box-shadow: 0 0 10px rgba(79, 141, 244, 0.2);
+                color: var(--primary-light);
+            }
+            
+            [data-theme="dark"] .theme-toggle:hover {
+                background-color: rgba(79, 141, 244, 0.1);
+                box-shadow: 0 0 15px rgba(79, 141, 244, 0.3);
+            }
+            
+            .theme-toggle::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent
+                );
+                transition: 0.5s;
+            }
+            
+            .theme-toggle:hover::before {
+                left: 100%;
+            }
+
+            /* Sign Up Page Specific Styles */
+            .signup-section {
+                display: flex;
+                align-items: center;
+                min-height: calc(100vh - 80px);
+                padding: var(--spacing-2xl) 0;
+                background-color: var(--background-alt);
+            }
+
+            .signup-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: var(--spacing-xl);
+                align-items: center;
+                width: 100%;
+            }
+
+            .signup-image {
+                position: relative;
+                height: 100%;
+                border-radius: var(--border-radius-lg);
+                overflow: hidden;
+                box-shadow: var(--shadow-lg);
+            }
+
+            .signup-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .signup-image::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    to right,
+                    rgba(30, 64, 175, 0.7),
+                    rgba(255, 87, 34, 0.5)
+                );
+                z-index: 1;
+            }
+
+            .signup-content {
+                max-width: 500px;
+                margin: 0 auto;
+                width: 100%;
+                padding: var(--spacing-xl);
+                background-color: var(--background-card);
+                border-radius: var(--border-radius-lg);
+                box-shadow: var(--shadow-lg);
+                position: relative;
+                overflow: hidden;
+            }
+
+            [data-theme="dark"] .signup-content {
+                border: 1px solid var(--border);
+                background: linear-gradient(to bottom right, var(--background-card), rgba(31, 41, 55, 0.8));
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+            }
+
+            .signup-content::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 5px;
+                background: linear-gradient(
+                    to right,
+                    var(--primary),
+                    var(--secondary)
+                );
+            }
+
+            .signup-title {
+                margin-bottom: var(--spacing-md);
+                color: var(--primary);
+                text-align: center;
+            }
+
+            .signup-subtitle {
+                color: var(--foreground-light);
+                text-align: center;
+                margin-bottom: var(--spacing-xl);
+            }
+
+            .signup-form .form-group {
+                margin-bottom: var(--spacing-lg);
+                position: relative;
+            }
+
+            .signup-form .form-label {
+                display: block;
+                margin-bottom: var(--spacing-xs);
+                font-weight: 500;
+                color: var(--foreground);
+            }
+
+            .signup-form .form-control {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 1px solid var(--border);
+                border-radius: var(--border-radius);
+                font-family: inherit;
+                font-size: 1rem;
+                color: var(--foreground);
+                background-color: var(--background);
+                transition: var(--transition);
+            }
+
+            .signup-form .form-control:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            }
+
+            [data-theme="dark"] .signup-form .form-control:focus {
+                box-shadow: 0 0 0 3px rgba(79, 141, 244, 0.3);
+            }
+
+            /* Password input container */
+            .password-input-container {
+                position: relative;
+                width: 100%;
+            }
+
+            .password-toggle {
+                position: absolute;
+                right: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                color: var(--foreground-light);
+                cursor: pointer;
+                transition: var(--transition);
+                padding: 0.5rem;
+                z-index: 2;
+            }
+
+            .password-toggle:hover {
+                color: var(--primary);
+            }
+
+            /* Adjust input padding to prevent text overlap */
+            .form-control[type="password"],
+            .form-control[type="text"] {
+                padding-right: 3rem;
+            }
+
+            .name-fields {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .form-check {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .form-check-input {
+                margin-right: 0.75rem;
+                margin-top: 0.25rem;
+                accent-color: var(--primary);
+            }
+
+            .form-check-label {
+                font-size: 0.9rem;
+                color: var(--foreground-light);
+            }
+
+            .form-check-label a {
+                color: var(--primary);
+                font-weight: 500;
+                transition: var(--transition);
+            }
+
+            .form-check-label a:hover {
+                text-decoration: underline;
+            }
+
+            .signup-button {
+                width: 100%;
+                padding: 0.8rem;
+                font-size: 1rem;
+                font-weight: 600;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .login-link {
+                text-align: center;
+                color: var(--foreground-light);
+            }
+
+            .login-link a {
+                color: var(--primary);
+                font-weight: 600;
+                transition: var(--transition);
+            }
+
+            .login-link a:hover {
+                color: var(--primary-dark);
+                text-decoration: underline;
+            }
+
+            /* Footer */
+            .footer {
+                background-color: var(--primary-dark);
+                color: white;
+                padding: var(--spacing-xl) 0 var(--spacing-lg);
+                position: relative;
+            }
+
+            .footer-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: var(--spacing-xl);
+                margin-bottom: var(--spacing-xl);
+            }
+
+            .footer-about p {
+                opacity: 0.8;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .footer-social {
+                display: flex;
+                gap: var(--spacing-sm);
+            }
+
+            .footer-social-link {
+                width: 40px;
+                height: 40px;
+                border-radius: var(--border-radius-full);
+                background-color: rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+
+            .footer-social-link:hover {
+                background-color: var(--secondary);
+                transform: translateY(-3px);
+            }
+
+            .footer-social-link i {
+                color: white;
+                font-size: 1rem;
+            }
+
+            .footer-heading {
+                font-size: 1.25rem;
+                margin-bottom: var(--spacing-lg);
+                position: relative;
+                display: inline-block;
+            }
+
+            .footer-heading::after {
+                content: "";
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                width: 40px;
+                height: 3px;
+                background-color: var(--secondary);
+                border-radius: var(--border-radius-full);
+            }
+
+            .footer-links {
+                list-style: none;
+            }
+
+            .footer-link-item {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .footer-link {
+                color: rgba(255, 255, 255, 0.8);
+                display: flex;
+                align-items: center;
+                transition: var(--transition);
+            }
+
+            .footer-link:hover {
+                color: white;
+                transform: translateX(5px);
+            }
+
+            .footer-link i {
+                margin-right: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .footer-divider {
+                height: 1px;
+                background-color: rgba(255, 255, 255, 0.1);
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .footer-bottom {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .footer-copyright {
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 0.9rem;
+            }
+
+            .footer-bottom-links {
+                display: flex;
+                gap: var(--spacing-lg);
+            }
+
+            .footer-bottom-link {
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 0.9rem;
+                transition: var(--transition);
+            }
+
+            .footer-bottom-link:hover {
+                color: white;
+            }
+
+            /* Back to Top */
+            .back-to-top {
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                width: 50px;
+                height: 50px;
+                background-color: var(--primary);
+                color: white;
+                border-radius: var(--border-radius-full);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+                box-shadow: var(--shadow);
+            }
+
+            .back-to-top.visible {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .back-to-top:hover {
+                background-color: var(--primary-dark);
+                transform: translateY(-5px);
+            }
+
+            /* Mobile Menu Toggle */
+            .mobile-menu-toggle {
+                display: none;
+                background: none;
+                border: none;
+                color: var(--foreground);
+                font-size: 1.5rem;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+
+            /* Responsive Adjustments */
+            @media (max-width: 1024px) {
+                .footer-grid {
+                    grid-template-columns: 1fr 1fr;
+                    gap: var(--spacing-lg);
+                }
+
+                .signup-container {
+                    grid-template-columns: 1fr;
+                }
+
+                .signup-image {
+                    display: none;
+                }
+
+                .logo img {
+                    margin-left: 0;
+                }
+
+                .nav-links {
+                    margin-right: 0;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .nav-links {
+                    position: fixed;
+                    top: 80px;
+                    left: 0;
+                    width: 100%;
+                    flex-direction: column;
+                    background-color: var(--background);
+                    padding: var(--spacing-lg);
+                    box-shadow: var(--shadow);
+                    transform: translateY(-100%);
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: var(--transition);
+                    z-index: 999;
+                }
+
+                .nav-links.active {
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .mobile-menu-toggle {
+                    display: block;
+                }
+
+                .footer-bottom {
+                    flex-direction: column;
+                    gap: var(--spacing-md);
+                    text-align: center;
+                }
+
+                .name-fields {
+                    grid-template-columns: 1fr;
+                    gap: var(--spacing-md);
+                }
+            }
+
+            @media (max-width: 576px) {
+                .footer-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .signup-content {
+                    padding: var(--spacing-lg);
+                }
+
+                .container {
+                    padding: 0 1rem;
+                }
+            }
+        </style>
+    </head>
+    <body data-theme="light">
+        <!-- Header & Navigation -->
+        <header class="header" id="header">
+            <div class="container">
+                <nav class="nav">
+                    <a href="homepage.html" class="logo">
+                        <img src="Image/logo2.png" alt="Simply Saral Logo">
+                        <div class="logo-text">Simply <span>Saral</span></div>
+                    </a>
+                    <div class="nav-links" id="navLinks">
+                        <a href="/" class="nav-btn">Home</a>
+                        <a href="/login" class="login-btn">Log In</a>
+                        <a href="/management" class="login-btn">Management</a>
+                        <button class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sign Up Section -->
+        <section class="section signup-section">
+            <div class="container">
+                <div class="signup-container">
+                    <div class="signup-image" data-aos="fade-right">
+                        <img src="https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7885.jpg" alt="Sign Up Illustration">
+                    </div>
+                    <div class="signup-content" data-aos="fade-left">
+                        <h1 class="signup-title">Create Your Account</h1>
+                        <p class="signup-subtitle">Join Simply Saral to access government services with ease</p>
+                        
+                        <form class="signup-form">
+                            <div class="name-fields">
+                                <div class="form-group">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" id="firstName" class="form-control" placeholder="Enter your first name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" id="lastName" class="form-control" placeholder="Enter your last name" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="password-input-container">
+                                    <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+                                    <button type="button" class="password-toggle" id="togglePassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <div class="password-input-container">
+                                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                                    <button type="button" class="password-toggle" id="toggleConfirmPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-check">
+                                <input type="checkbox" id="terms" class="form-check-input" required>
+                                <label for="terms" class="form-check-label">
+                                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn signup-button">Create Account</button>
+                            
+                            <p class="login-link">
+                                Already have an account? <a href="login.html">Log in here</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Dark Mode Functionality
+                const themeToggle = document.getElementById("themeToggle");
+                const body = document.body;
+
+                // Check for saved theme preference or default to 'light'
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                if (savedTheme === 'dark') {
+                    body.setAttribute('data-theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    body.setAttribute('data-theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+
+                themeToggle.addEventListener("click", function() {
+                    if (body.getAttribute('data-theme') === 'dark') {
+                        body.setAttribute('data-theme', 'light');
+                        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        body.setAttribute('data-theme', 'dark');
+                        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                        localStorage.setItem('theme', 'dark');
+                    }
+                });
+
+                // Initialize AOS
+                AOS.init({
+                    once: true,
+                    disable: "mobile",
+                });
+
+                // Header Scroll Effect
+                const header = document.getElementById("header");
+
+                function handleScroll() {
+                    // Header effect
+                    if (window.scrollY > 50) {
+                        header.classList.add("scrolled");
+                    } else {
+                        header.classList.remove("scrolled");
+                    }
+
+                    // Back to top button visibility
+                    if (window.scrollY > 600) {
+                        backToTop.classList.add("visible");
+                    } else {
+                        backToTop.classList.remove("visible");
+                    }
+                }
+
+                // Listen for scroll events
+                window.addEventListener("scroll", handleScroll);
+
+                // Mobile Menu Toggle
+                const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+                const navLinks = document.getElementById("navLinks");
+
+                mobileMenuToggle.addEventListener("click", () => {
+                    navLinks.classList.toggle("active");
+                    mobileMenuToggle.innerHTML = navLinks.classList.contains("active")
+                        ? '<i class="fas fa-times"></i>'
+                        : '<i class="fas fa-bars"></i>';
+                });
+
+                // Mobile Menu Link Clicks Close Menu
+                const navLinkItems = navLinks.querySelectorAll("a");
+                navLinkItems.forEach((link) => {
+                    link.addEventListener("click", () => {
+                        if (window.innerWidth <= 768) {
+                            navLinks.classList.remove("active");
+                            mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                    });
+                });
+
+                // Back to Top Button
+                const backToTop = document.getElementById("backToTop");
+
+                backToTop.addEventListener("click", () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth",
+                    });
+                });
+
+                // Password Toggle Visibility
+                const togglePassword = document.getElementById("togglePassword");
+                const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+                const password = document.getElementById("password");
+                const confirmPassword = document.getElementById("confirmPassword");
+
+                togglePassword.addEventListener("click", function () {
+                    const type = password.getAttribute("type") === "password" ? "text" : "password";
+                    password.setAttribute("type", type);
+                    this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                });
+
+                toggleConfirmPassword.addEventListener("click", function () {
+                    const type = confirmPassword.getAttribute("type") === "password" ? "text" : "password";
+                    confirmPassword.setAttribute("type", type);
+                    this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                });
+
+                // Form Submission
+                const signupForm = document.querySelector(".signup-form");
+                
+                signupForm.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const firstName = document.getElementById("firstName").value;
+                    const lastName = document.getElementById("lastName").value;
+                    const email = document.getElementById("email").value;
+                    const phone = document.getElementById("phone").value;
+                    const password = document.getElementById("password").value;
+                    const confirmPassword = document.getElementById("confirmPassword").value;
+                    const terms = document.getElementById("terms").checked;
+                    
+                    // Basic validation
+                    if (password !== confirmPassword) {
+                        alert("Passwords do not match!");
+                        return;
+                    }
+                    
+                    if (!terms) {
+                        alert("You must agree to the terms and conditions");
+                        return;
+                    }
+                    
+                    // Here you would typically send this data to your server
+                    console.log("Signup attempt with:", { 
+                        firstName, 
+                        lastName, 
+                        email, 
+                        phone, 
+                        password,
+                        terms 
+                    });
+                    
+                    // For demo purposes, we'll just show an alert
+                    alert("Account creation would be implemented here. This is just a demo.");
+                    
+                    // In a real application, you would:
+                    // 1. Validate all inputs
+                    // 2. Send to your registration API
+                    // 3. Handle the response (redirect on success, show error on failure)
+                });
+
+                // Trigger initial scroll event to check visibility
+                handleScroll();
+            });
+        </script>
+    </body>
+</html>

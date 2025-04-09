@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= data.title %></title>
+  <!-- External Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/sep_scheme.css">
+</head>
+<body>
+
+    <!-- Updated Sidebar Structure -->
+  <div class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="/Image/logo.jpg" alt="Simply Saral Logo">
+    </div>
+    <button id="darkModeToggle" class="dark-mode-toggle">
+      <i class="fas fa-moon"></i>
+    </button>
+    
+    <div class="nav-group">
+      <div class="nav-header">Main</div>
+      <a href="/">
+        <div class="nav-item">
+            <p>🏠 Home</p>
+        </div>
+      </a>
+    </div>
+    
+    <div class="nav-group">
+      <div class="nav-header">Schemes</div>
+      <a href="/schemes/women_Welfare">
+        <div class="nav-item">
+          <p><i class="fas fa-book"></i>All Schemes</p>
+        </div>
+      </a>
+      <div class="sub-menu">
+        <a href="#farmers-scheme">
+          <div class="nav-item active">
+            <p><%= data.scheme_name%></p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-header">Resources</div>
+      <a href="#reqDoc">
+        <div class="nav-item">
+          <p><i class="fas fa-file-alt"></i>Documents</p>
+        </div>
+      </a>
+      <a href="#apply-now">
+        <div class="nav-item">
+          <p><i class="fas fa-hands-helping"></i>Apply for Schemes</p>
+        </div>
+      </a>
+      <a href="#faqs">
+        <div class="nav-item">
+          <p><i class="fas fa-question-circle"></i>FAQs</p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+  
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="hero-section animate-fade-in">
+        <img src="#" class="hero-image">
+        <div class="hero-overlay">
+          <h1 class="hero-title"><%=data.scheme_name %></h1>
+          <p class="hero-subtitle">
+            Supporting Womens across India with direct various initiatives to supplement their financial needs & providing opportunities to get their dreams
+          </p>
+          <a href=<%= data.resources.official_links.main_website %> class="cta-button">
+            <i class="fas fa-file-signature"></i> Apply Now
+          </a>
+        </div>
+      </section>
+      
+
+      <!-- About Section -->
+      <section class="section animate-fade-in">
+        <div class="section-header">
+          <div class="section-icon">
+            <i class="fas fa-info-circle"></i>
+          </div>
+          <h2>About <%= data.scheme_name %> Scheme</h2>
+        </div>
+        <div class="about-section" style="display: grid; grid-template-columns: 3fr 2fr; gap: calc(var(--space-unit) * 4); align-items: center;">
+          <div>
+            <p>
+              <%= data.description %>
+            </p>
+            <ul class="custom-list">
+              <% data.government_initiative.objectives.forEach((benefit) => {%>
+                  <li><%=benefit%></li>
+              <% }); %>
+             </ul>
+          </div>
+          <img src="/Image/women_welf/women-emp.webp" alt="women emp" class="about-image" style="width:100%; border-radius: var(--border-radius-md); box-shadow: var(--shadow-md); transition: transform 0.3s;">
+        </div>
+      </section>
+      
+      <!-- Eligibility Section -->
+      <section class="section animate-fade-in">
+        <div class="section-header">
+          <div class="section-icon"><i class="fas fa-check-circle"></i></div>
+          <h2>Eligibility Criteria</h2>
+        </div>
+        <p>The following farmers are eligible for the <%=data.scheme_name%>:</p>
+        <ul class="custom-list">
+            <li>Women aged between 21 and 65 years who are residents of Maharashtra</li>
+            <li>annual family income of less than ₹2.5 lakh. </li>
+        </ul>
+        <p>Certain categories of Women are NOT eligible for this scheme:</p>
+        <ul class="custom-list">
+          <li>Women from families where any member is an income taxpayer</li>
+          <li>Women from families where a member is a permanent government employee or a retiree receiving a pension.</li>
+          <li>Women already benefiting from other similar state government financial schemes.</li>
+          <li>Women from families where any member is a sitting or former MP or MLA.</li>
+          <li>Women from families that own a four-wheeler vehicle (excluding a tractor).</li>
+        </ul>
+      </section>
+      
+      <!-- Documents Required Section -->
+        <section class="section animate-fade-in" id="reqDoc">
+            <div class="section-header">
+            <div class="section-icon"><i class="fas fa-file-alt"></i></div>
+            <h2>Documents Required</h2>
+            </div>
+            <div class="step-content">
+            <div class="table-container">
+                <table class="custom-table">
+                <thead>
+                    <tr>
+                    <th>Sr. No.</th>
+                    <th>Document Name</th>
+                    <th>Sample Image</th>
+                    <th>Official Link</th>
+                    <th>Video Guide</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>1</td>
+                    <td>Aadhaar Card</td>
+                    <td>
+                        <img src="https://imgs.search.brave.com/W4R_sLGAANUT-p8xguHTB7zHPBEJoC9RV7O6GC2foNY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9naXRo/dWIuY29tL0RldmFu/c2g4MC9BYWRoYWFy/LVVJRC1NYXNraW5n/LVRvb2wvcmF3L21h/c3Rlci9JbWcvQWFk/aGFhcl9sZXR0ZXJf/bGFyZ2UucG5n" alt="Aadhaar Card" class="clickable-image" data-fullsrc="images/aadharformat.jpeg" style="width:60px; height:40px; object-fit: cover; cursor: pointer; border-radius: 4px;">
+                    </td>
+                    <td><a href=https://imgs.search.brave.com/W4R_sLGAANUT-p8xguHTB7zHPBEJoC9RV7O6GC2foNY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9naXRo/dWIuY29tL0RldmFu/c2g4MC9BYWRoYWFy/LVVJRC1NYXNraW5n/LVRvb2wvcmF3L21h/c3Rlci9JbWcvQWFk/aGFhcl9sZXR0ZXJf/bGFyZ2UucG5n target="_blank">Site</a></td>
+
+                    <td>
+                        <a href="https://youtu.be/EUJ4Lf2B0Nc" target="_blank">
+                        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" width="50" height="30">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>2</td>
+                    <td>Bank Account Details ( In case of finance support related schemes )</td>
+                    <td>
+                        <img src="https://qph.cf2.quoracdn.net/main-qimg-27cac10b16038f02cd1870e186698bfc-lq" alt="Bank Account Details" class="clickable-image" data-fullsrc="https://via.placeholder.com/600" style="width:60px; height:40px; object-fit: cover; cursor: pointer; border-radius: 4px;">
+                    </td>
+                    <td><a href="https://qph.cf2.quoracdn.net/main-qimg-27cac10b16038f02cd1870e186698bfc-lq" target="_blank">Site</a></td>
+                    <td>
+                        <a href="https://www.youtube.com/results?search_query=how+to+open+new+bank+account+online" target="_blank">
+                        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" width="50" height="30">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>3</td>
+                    <td>Birth Certificate </td>
+                    <td>
+                        <img src="https://imgs.search.brave.com/EKXQmPNJW788PabxuGMnVz__KfbBG27f8fGbLmkbzBA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93ZWJj/ZG4uY2FsbGhpcHBv/LmNvbS9ibG9nL3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDIzLzA3/L0luZGlhbi1tb2Jp/bGUtbnVtYmVyLWV4/YW1wbGUuanBn" alt="Mobile Number" class="clickable-image" data-fullsrc="https://via.placeholder.com/600" style="width:60px; height:40px; object-fit: cover; cursor: pointer; border-radius: 4px;">
+                    </td>
+                    <td><a href="https://imgs.search.brave.com/EKXQmPNJW788PabxuGMnVz__KfbBG27f8fGbLmkbzBA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93ZWJj/ZG4uY2FsbGhpcHBv/LmNvbS9ibG9nL3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDIzLzA3/L0luZGlhbi1tb2Jp/bGUtbnVtYmVyLWV4/YW1wbGUuanBn" target="_blank">Site</a></td>
+                   
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=0cEQC3drKBA" target="_blank">
+                        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" width="50" height="30">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>5</td>
+                    <td>Passport-sized Photograph</td>
+                    <td>
+                        <img src="https://imgs.search.brave.com/AivYFasgW5dBW4VPSawWLdxoG-YRfXTZIl9z1dvK_I8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9waG90/b2dvdi1jb20uYWth/bWFpemVkLm5ldC9l/eGFtcGxlcy91cy1w/YXNzcG9ydC1waG90/by9sYW5kbWFya3Mt/VVMud2VicA" alt="Passport-sized Photograph" class="clickable-image" data-fullsrc="https://via.placeholder.com/600" style="width:60px; height:40px; object-fit: cover; cursor: pointer; border-radius: 4px;">
+                    </td>
+                    <td><a href=https://imgs.search.brave.com/AivYFasgW5dBW4VPSawWLdxoG-YRfXTZIl9z1dvK_I8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9waG90/b2dvdi1jb20uYWth/bWFpemVkLm5ldC9l/eGFtcGxlcy91cy1w/YXNzcG9ydC1waG90/by9sYW5kbWFya3Mt/VVMud2VicA target="_blank">Site</a></td>
+           
+                    <td>
+                        <a href="https://youtu.be/photoguide" target="_blank">
+                        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" width="50" height="30">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                        </a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>6</td>
+                    <td>Video Tutorial</td>
+                    <td>
+                        <p>-</p>
+                    </td>
+                    <td><a href="https://www.youtube.com/watch?v=XLn59XmCYaQ&pp=ygUYa2lzYW4gY3JlZGl0IGNhcmQgc2NoZW1l" target="_blank">Site</a></td>
+                    
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=XLn59XmCYaQ&pp=ygUYa2lzYW4gY3JlZGl0IGNhcmQgc2NoZW1l" target="_blank">
+                        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000" width="50" height="30">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                        </a>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </section>
+
+       <!-- Application Process Section -->
+       <section class="section animate-fade-in" id="apply-now">
+        <div class="section-header">
+          <div class="section-icon">
+            <i class="fas fa-file-signature"></i>
+          </div>
+          <h2>Application Process</h2>
+        </div>
+        
+        <p>Follow these steps to apply for the <%=data.title%> scheme:</p>
+        
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Offline-steps</td>
+                <td></td>
+            </tr>
+            <% for( let index = 0; index < data.verification.
+
+            local_offices.length; index++ ) { %>
+                <tr>
+                  <td><%= index %></td>
+                  <td><%=data.verification.local_offices[index] %></td>
+                </tr>
+            <% } %>
+            <tr><td>Online-steps</td>
+              <td></td>
+          </tr>
+            <% for( let index = 0; index < data.verification.online_portals.length; index++ ) { %>
+              <tr>
+                <td><%= index %></td>
+                <td><%=data.verification.online_portals[index] %></td>
+              </tr>
+          <% } %>
+            
+          </tbody>
+        </table>
+        
+        <div class="cta-section">
+          <h3 class="cta-title">Ready to Apply?</h3>
+          <p class="cta-description">Our team at Simply Saral can help you complete your <%=data.title%>application accurately and quickly.</p>
+          <a href="#" class="cta-button">
+            <i class="fas fa-hands-helping"></i> Get Assistance
+          </a>
+        </div>
+      </section>
+      
+      <!-- FAQs Section -->
+      <section class="section animate-fade-in" id="faqs">
+        <div class="section-header">
+          <div class="section-icon"><i class="fas fa-question-circle"></i></div>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">How do I check my <%=data.scheme_name%> status?</div>
+            <div class="faq-answer">
+              <p>
+                You can check your <%=data.scheme_name%> application status by visiting the official website <%=data.resources.official_links.main_website%> and clicking on "Beneficiary Status." Enter your Aadhaar number or  registration number to view your status.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Why Women?</div>
+            <div class="faq-answer">
+              <p>
+                Women welfare schemes are designed to address issues faced by women, such as economic, social, political, and health disparities. These schemes recognize that women may have different needs and require targeted assistance to achieve equal access to resources and opportunities.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">I haven't received benefits of scheme. What should I do?</div>
+            <div class="faq-answer">
+              <p>
+                Check your application status by visiting the local authorities or online sites if applied online. You can also contact your local municipal office or call the <%= data.scheme_name %> helpline at <%= data.contact_information.ministry_contact%>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  
+// Footer 
+<footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class = footer-info>
+          <div class="footer-logo">Simply Saral</div>
+          <p class="footer-description">
+            Simplifying government schemes and making them accessible to all citizens of India. Our mission is to ensure that every eligible farmer receives the benefits they deserve.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-heading">Quick Links</h3>
+          <ul class="footer-links">
+            <li class="footer-link-item"><a href="/" class="footer-link"><i class="fas fa-chevron-right"></i> Home</a></li>
+            <li class="footer-link-item"><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> About Us</a></li>
+            <li class="footer-link-item"><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Services</a></li>
+            <li class="footer-link-item"><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-heading">Other Schemes</h3>
+          <ul class="footer-links">
+ <li class="footer-link-item"><a href="/schemes/secondary_Education" class="footer-link"><i class="fas fa-chevron-right"></i> Secondary Education</a></li>
+ <li class="footer-link-item"><a href="/schemes/higher_Education" class="footer-link"><i class="fas fa-chevron-right"></i> Higher Education</a></li>
+            <li class="footer-link-item"><a href="/schemes/women_Welfare" class="footer-link"><i class="fas fa-chevron-right"></i> Women-Welfare</a></li>
+            <li class="footer-link-item"><a href="/schemes/farmer_Welfare" class="footer-link"><i class="fas fa-chevron-right"></i> Farmer-Welfare</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-heading">Legal</h3>
+          <ul class="footer-links">
+            <li class="footer-link-item"><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+            <li class="footer-link-item"><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+            <li class="footer-link-item"><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Refund Policy</a></li>
+            <li class="footer-link-item"><a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Simply Saral. All rights reserved. | Designed to empower Indian farmers.
+      </div>
+    </div>
+  </footer>
+  
+
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+  
+ 
+  <div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div id="caption" class="modal-caption"></div>
+  </div>
+  
+
+ <script src="/js/sep_scheme.js"></script>
+</body>
+</html>

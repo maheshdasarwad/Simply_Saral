@@ -32,14 +32,31 @@ async function connectDB() {
     const mongoURI = process.env.MONGODB_URI;
     if (!mongoURI) {
         console.log("MongoDB URI not found in environment variables. Please set MONGODB_URI in Secrets.");
-        return;
+        console.log("Server will start without database connection.");
+        return false;
     }
-    await mongoose.connect(mongoURI);
+    
+    try {
+        await mongoose.connect(mongoURI, {
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+        });
+        return true;
+    } catch (error) {
+        console.log("Failed to connect to database:", error.message);
+        return false;
+    }
 }
 
 connectDB()
-    .then(() => console.log("Database connected"))
-    .catch((err) => console.log(err));
+    .then((connected) => {
+        if (connected) {
+            console.log("Database connected successfully");
+        } else {
+            console.log("Starting server without database connection");
+        }
+    })
+    .catch((err) => console.log("Database connection error:", err));
 
 // Routes
 app.use('/schemes', schemeRoutes);

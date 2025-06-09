@@ -34,4 +34,16 @@ farmerDiv.addEventListener("click",(req,res)=>{
     res.redirect();
 })
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    // Add null checks for DOM elements
+    const elements = document.querySelectorAll('.interactive-element');
+    if (elements) {
+        elements.forEach(element => {
+            if (element) {
+                element.addEventListener('click', function() {
+                    // Your click handler code
+                });
+            }
+        });
+    }
+});

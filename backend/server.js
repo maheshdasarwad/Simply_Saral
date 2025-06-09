@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 require('dotenv').config();
@@ -39,7 +38,7 @@ async function connectDB() {
         console.log("Server will start without database connection.");
         return false;
     }
-    
+
     try {
         await mongoose.connect(mongoURI, {
             serverSelectionTimeoutMS: 5000,
@@ -63,8 +62,21 @@ connectDB()
     .catch((err) => console.log("Database connection error:", err));
 
 // Routes
-app.use('/schemes', schemeRoutes);
-app.use('/auth', authRoutes);
+app.use("/schemes", schemeRoutes);
+app.use("/auth", authRoutes);
+
+// Add missing routes
+app.get("/login", (req, res) => {
+    res.render("pages/login_Page");
+});
+
+app.get("/signup", (req, res) => {
+    res.render("pages/SignUpPage");
+});
+
+app.get("/management", (req, res) => {
+    res.render("pages/ManagementPage");
+});
 
 app.get("/", (req, res) => {
     res.render("./pages/new_home.ejs");
@@ -79,7 +91,7 @@ app.get("/api/status", (req, res) => {
         2: 'connecting',
         3: 'disconnecting'
     };
-    
+
     res.json({
         server: 'running',
         database: statusMap[dbStatus] || 'unknown',

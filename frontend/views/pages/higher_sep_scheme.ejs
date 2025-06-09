@@ -78,7 +78,7 @@
           <p class="hero-subtitle">
             "Empowering Students Across India with Direct Financial Assistance to Support Their Higher Education, Career Aspirations, and a Brighter Future."
           </p>
-          <a href=<%= data.importantLinks[0].url %> class="cta-button">
+          <a href="<%= data.importantLinks && data.importantLinks[0] ? data.importantLinks[0].url : '#' %>" class="cta-button">
             <i class="fas fa-file-signature"></i> Apply Now
           </a>
         </div>

@@ -41,11 +41,24 @@ const fallbackData = {
         {
             _id: '1',
             title: "Beti Bachao Beti Padhao",
+            scheme_name: "Beti Bachao Beti Padhao",
             description: "Scheme for girl child welfare and education",
             launched_year: 2015,
             benefits: ["Educational support", "Health awareness", "Gender equality promotion"],
             government_initiative: {
                 objectives: ["Save girl child", "Educate girl child", "Protect girl child"]
+            },
+            resources: {
+                official_links: {
+                    main_website: "https://wcd.nic.in/bbbp-schemes"
+                }
+            },
+            verification: {
+                local_offices: ["Nearest Anganwadi center", "District administration office"],
+                online_portals: ["Ministry of Women & Child Development portal"]
+            },
+            contact_information: {
+                ministry_contact: "011-23382393"
             }
         }
     ],
@@ -55,10 +68,18 @@ const fallbackData = {
             title: "Post Matric Scholarship",
             description: "Financial assistance for higher education",
             benefits: ["Tuition fee support", "Maintenance allowance", "Book allowance"],
+            images: ["/Image/higher_Edu/POST.jpg"],
+            importantLinks: [
+                { name: "Official Website", url: "https://mahadbt.maharashtra.gov.in" }
+            ],
             keyBenefits: {
                 noRepayment: "Yes",
                 tuitionFeeReimbursement: "100%",
                 examFeeReimbursement: "100%"
+            },
+            application_process: {
+                offline_steps: ["Visit college scholarship department", "Fill application form", "Submit documents"],
+                online_steps: ["Register at mahadbt.maharashtra.gov.in", "Fill online application", "Upload documents"]
             }
         }
     ],
@@ -67,7 +88,10 @@ const fallbackData = {
             _id: '1',
             title: "Right to Education Act",
             description: "Free and compulsory education for children aged 6-14",
-            benefits: ["Free education", "Mid-day meals", "Free textbooks"]
+            benefits: ["Free education", "Mid-day meals", "Free textbooks"],
+            applicationProcess: {
+                steps: ["Visit nearest government school", "Fill admission form", "Submit required documents"]
+            }
         }
     ],
     secondary_Education: [
@@ -75,7 +99,21 @@ const fallbackData = {
             _id: '1',
             title: "Sarva Shiksha Abhiyan",
             description: "Universal elementary education program",
-            benefits: ["Quality education", "Infrastructure development", "Teacher training"]
+            benefits: ["Quality education", "Infrastructure development", "Teacher training"],
+            image: "/Image/secondary_Edu/SSA.jpg",
+            importantLinks: [
+                { url: "https://samagrashiksha.education.gov.in" }
+            ],
+            eligibilityCriteria: {
+                domicile: "Must be a resident of India",
+                academicQualification: "Enrolled in secondary education",
+                ageLimit: "6-14 years for elementary education",
+                parentalIncomeLimit: "No specific income limit",
+                attendanceRequirement: "Regular attendance required"
+            },
+            applicationProcess: {
+                steps: ["Register at school", "Submit required documents", "Maintain regular attendance"]
+            }
         }
     ]
 };

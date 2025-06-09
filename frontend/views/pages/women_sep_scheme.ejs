@@ -78,7 +78,7 @@
           <p class="hero-subtitle">
             Supporting Womens across India with direct various initiatives to supplement their financial needs & providing opportunities to get their dreams
           </p>
-          <a href=<%= data.resources.official_links.main_website %> class="cta-button">
+          <a href="<%= data.resources && data.resources.official_links ? data.resources.official_links.main_website : '#' %>" class="cta-button">
             <i class="fas fa-file-signature"></i> Apply Now
           </a>
         </div>

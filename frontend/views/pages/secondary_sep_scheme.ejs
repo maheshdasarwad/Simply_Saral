@@ -78,7 +78,7 @@
           <p class="hero-subtitle">
             Secondary education schemes bridge the gap between aspiration and opportunity, empowering students with access, quality, and support for a brighter future.
           </p>
-          <a href=<%= data.importantLinks[0].url %> class="cta-button">
+          <a href="<%= data.importantLinks && data.importantLinks[0] ? data.importantLinks[0].url : '#' %>" class="cta-button">
             <i class="fas fa-file-signature"></i> Apply Now
           </a>
         </div>

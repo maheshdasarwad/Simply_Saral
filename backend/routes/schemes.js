@@ -17,14 +17,24 @@ const fallbackData = {
             title: "PM-Kisan Samman Nidhi Yojana",
             description: "Direct income support to small and marginal farmers",
             launched_year: 2019,
-            benefits: ["₹6,000 annual assistance", "Direct bank transfer", "Support for agricultural needs"]
-        },
-        {
-            _id: '2',
-            title: "Kisan Credit Card Scheme",
-            description: "Credit support for agricultural and allied activities",
-            launched_year: 1998,
-            benefits: ["Easy credit access", "Flexible repayment", "Low interest rates"]
+            benefits: ["₹6,000 annual assistance", "Direct bank transfer", "Support for agricultural needs"],
+            images: ["/images/farmer_welf/pm_Kisan_Samman.jpg"],
+            eligibility_criteria: {
+                age_min: 18,
+                age_max: 75,
+                land_requirement_acres: 2
+            },
+            important_links: [
+                { title: "Official Website", url: "https://pmkisan.gov.in" },
+                { title: "Video Guide", url: "https://youtube.com/pmkisan" }
+            ],
+            application_process: {
+                offline_steps: ["Visit CSC center", "Fill application form", "Submit documents"],
+                online_steps: ["Visit official website", "Register online", "Submit application"]
+            },
+            helpline_numbers: {
+                toll_free: "155261"
+            }
         }
     ],
     women_Welfare: [
@@ -33,7 +43,10 @@ const fallbackData = {
             title: "Beti Bachao Beti Padhao",
             description: "Scheme for girl child welfare and education",
             launched_year: 2015,
-            benefits: ["Educational support", "Health awareness", "Gender equality promotion"]
+            benefits: ["Educational support", "Health awareness", "Gender equality promotion"],
+            government_initiative: {
+                objectives: ["Save girl child", "Educate girl child", "Protect girl child"]
+            }
         }
     ],
     higher_Education: [
@@ -41,7 +54,12 @@ const fallbackData = {
             _id: '1',
             title: "Post Matric Scholarship",
             description: "Financial assistance for higher education",
-            benefits: ["Tuition fee support", "Maintenance allowance", "Book allowance"]
+            benefits: ["Tuition fee support", "Maintenance allowance", "Book allowance"],
+            keyBenefits: {
+                noRepayment: "Yes",
+                tuitionFeeReimbursement: "100%",
+                examFeeReimbursement: "100%"
+            }
         }
     ],
     primary_Education: [
@@ -148,43 +166,115 @@ router.get("/:scheme", async (req, res) => {
     }
 });
 
+// Individual scheme detail routes
 router.get("/farmer_Welfare/:id", async (req, res) => {
     const {id} = req.params;
-    const data = await farmer_Schemes_Model.findById(id);
-    res.render("./pages/farm_sep_scheme.ejs", {data});
+    try {
+        const isDbConnected = mongoose.connection.readyState === 1;
+        let data;
+        
+        if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
+            data = await farmer_Schemes_Model.findById(id);
+        }
+        
+        if (!data) {
+            // Use fallback data for the first scheme
+            data = fallbackData.farmer_Welfare[0];
+        }
+        
+        res.render("pages/farm_sep_scheme", {data});
+    } catch (error) {
+        console.error("Error fetching farmer scheme:", error);
+        const data = fallbackData.farmer_Welfare[0];
+        res.render("pages/farm_sep_scheme", {data});
+    }
 });
 
 router.get("/women_Welfare/:id", async (req, res) => {
     const {id} = req.params;
-    const data = await women_Wel_Model.findById(id);
-    res.render("./pages/women_sep_scheme.ejs", {data});
+    try {
+        const isDbConnected = mongoose.connection.readyState === 1;
+        let data;
+        
+        if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
+            data = await women_Wel_Model.findById(id);
+        }
+        
+        if (!data) {
+            data = fallbackData.women_Welfare[0];
+        }
+        
+        res.render("pages/women_sep_scheme", {data});
+    } catch (error) {
+        console.error("Error fetching women scheme:", error);
+        const data = fallbackData.women_Welfare[0];
+        res.render("pages/women_sep_scheme", {data});
+    }
 });
 
 router.get("/higher_Education/:id", async (req, res) => {
     const {id} = req.params;
-    const data = await higher_Education.findById(id);
-    res.render("./pages/higher_sep_scheme.ejs", {data});
+    try {
+        const isDbConnected = mongoose.connection.readyState === 1;
+        let data;
+        
+        if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
+            data = await higher_Education.findById(id);
+        }
+        
+        if (!data) {
+            data = fallbackData.higher_Education[0];
+        }
+        
+        res.render("pages/higher_sep_scheme", {data});
+    } catch (error) {
+        console.error("Error fetching higher education scheme:", error);
+        const data = fallbackData.higher_Education[0];
+        res.render("pages/higher_sep_scheme", {data});
+    }
 });
 
 router.get("/secondary_Education/:id", async (req, res) => {
     const {id} = req.params;
     try {
-        const data = await secondary_Education.findById(id);
+        const isDbConnected = mongoose.connection.readyState === 1;
+        let data;
+        
+        if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
+            data = await secondary_Education.findById(id);
+        }
+        
+        if (!data) {
+            data = fallbackData.secondary_Education[0];
+        }
+        
         res.render("pages/secondary_sep_scheme", {data});
     } catch (error) {
         console.error("Error fetching secondary education scheme:", error);
-        res.status(500).render("pages/error", {message: "Scheme details not available"});
+        const data = fallbackData.secondary_Education[0];
+        res.render("pages/secondary_sep_scheme", {data});
     }
 });
 
 router.get("/primary_Education/:id", async (req, res) => {
     const {id} = req.params;
     try {
-        const data = await primary_Education.findById(id);
+        const isDbConnected = mongoose.connection.readyState === 1;
+        let data;
+        
+        if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
+            data = await primary_Education.findById(id);
+        }
+        
+        if (!data) {
+            data = fallbackData.primary_Education[0];
+        }
+        
         res.render("pages/primary_sep_scheme", {data});
     } catch (error) {
         console.error("Error fetching primary education scheme:", error);
-        res.status(500).render("pages/error", {message: "Scheme details not available"});
+        const data = fallbackData.primary_Education[0];
+        res.render("pages/primary_sep_scheme", {data});
     }
 });
 

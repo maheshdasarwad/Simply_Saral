@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, "../frontend/assets")));
 app.use('/css', express.static(path.join(__dirname, "../frontend/assets/css")));
 app.use('/js', express.static(path.join(__dirname, "../frontend/assets/js")));
 app.use('/images', express.static(path.join(__dirname, "../frontend/assets/Image")));
+app.use('/Image', express.static(path.join(__dirname, "../frontend/assets/Image")));
 
 const port = process.env.PORT || 5000;
 

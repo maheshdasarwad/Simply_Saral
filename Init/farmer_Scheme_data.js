@@ -150,7 +150,7 @@ const Schemes=[{
             source: "Research papers on irrigation efficiency and water resource management"
         }
     ],
-    created_at: Date.now()
+    created_at: Date.now()
 },({
     title: "PM Kisan Samman Nidhi Yojana",
     description: "A government initiative to provide financial assistance to farmers across India. The program aims to help farmers meet their agricultural needs, including buying inputs like seeds, fertilizers, and other resources.",
@@ -248,4 +248,3 @@ const Schemes=[{
 ]
 
 module.exports={data:Schemes};
-   

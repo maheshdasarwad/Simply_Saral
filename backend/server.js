@@ -84,6 +84,99 @@ connectDB()
 app.use("/schemes", schemeRoutes);
 app.use("/auth", authRoutes);
 
+// API Routes for search and filtering
+app.get("/api/search", (req, res) => {
+    const query = req.query.q || '';
+    
+    // Mock search results for now
+    const mockResults = [
+        {
+            title: "PM-Kisan Samman Nidhi",
+            description: "Direct income support to farmers",
+            category: "Agriculture",
+            url: "/schemes/farmer_Welfare"
+        },
+        {
+            title: "Beti Bachao Beti Padhao",
+            description: "Scheme for girl child welfare",
+            category: "Women Welfare",
+            url: "/schemes/women_Welfare"
+        },
+        {
+            title: "Post Matric Scholarship",
+            description: "Financial assistance for higher education",
+            category: "Education",
+            url: "/schemes/higher_Education"
+        }
+    ].filter(item => 
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.description.toLowerCase().includes(query.toLowerCase())
+    );
+
+    res.json(mockResults);
+});
+
+app.get("/api/schemes/filter", (req, res) => {
+    const { category, targetGroup, location } = req.query;
+    
+    // Mock filtered results
+    const mockSchemes = [
+        {
+            title: "Secondary Education Schemes",
+            description: "Comprehensive schemes for secondary education",
+            category: "education",
+            targetGroup: "students",
+            detailUrl: "/schemes/secondary_Education"
+        },
+        {
+            title: "Women Welfare Programs",
+            description: "Empowering women through various schemes",
+            category: "women",
+            targetGroup: "women",
+            detailUrl: "/schemes/women_Welfare"
+        }
+    ];
+
+    const filtered = mockSchemes.filter(scheme => {
+        if (category && scheme.category !== category) return false;
+        if (targetGroup && scheme.targetGroup !== targetGroup) return false;
+        return true;
+    });
+
+    res.json(filtered);
+});
+
+// New feature routes
+app.get("/schemes/competitive-exams", (req, res) => {
+    res.render("pages/competitive_exams");
+});
+
+app.get("/schemes/educational-programs", (req, res) => {
+    const mockPrograms = [
+        {
+            title: "Skill India Mission",
+            description: "Skill development programs for youth",
+            benefits: ["Free training", "Certification", "Job placement assistance"]
+        }
+    ];
+    res.render("pages/competitive_exams", { data: mockPrograms, name: "Educational Programs" });
+});
+
+app.get("/schemes/state-welfare", (req, res) => {
+    const mockStatePrograms = [
+        {
+            title: "State Welfare Programs",
+            description: "State-specific welfare initiatives",
+            benefits: ["Regional support", "Local employment", "Community development"]
+        }
+    ];
+    res.render("pages/competitive_exams", { data: mockStatePrograms, name: "State Welfare Programs" });
+});
+
+app.get("/dashboard", (req, res) => {
+    res.render("pages/user_dashboard");
+});
+
 // Add missing routes
 app.get("/login", (req, res) => {
     res.render("pages/login_Page");

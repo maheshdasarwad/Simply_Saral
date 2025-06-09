@@ -90,10 +90,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navMenu = document.querySelector('.nav-menu');
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.getElementById('navLinks');
 
     if (mobileMenuBtn && navMenu) {
         mobileMenuBtn.addEventListener('click', function() {
             navMenu.classList.toggle('active');
+        });
+    }
+
+    // Handle mobile menu toggle for new home page
+    if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            mobileMenuToggle.innerHTML = navLinks.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
         });
     }
 
@@ -142,10 +154,50 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize filter functionality
-    const filterElements = document.querySelectorAll('#categoryFilter, #targetGroupFilter, #locationFilter');
-    filterElements.forEach(filter => {
-        if (filter) {
-            filter.addEventListener('change', applyFilters);
+    const categoryFilter = document.getElementById('categoryFilter');
+    const targetGroupFilter = document.getElementById('targetGroupFilter');
+    const locationFilter = document.getElementById('locationFilter');
+    
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', applyFilters);
+    }
+    if (targetGroupFilter) {
+        targetGroupFilter.addEventListener('change', applyFilters);
+    }
+    if (locationFilter) {
+        locationFilter.addEventListener('change', applyFilters);
+    }
+
+    // Initialize theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        const body = document.body;
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        
+        if (savedTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            body.setAttribute('data-theme', 'light');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         }
-    });
+
+        themeToggle.addEventListener('click', function() {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
+
+    // Initialize filter apply button
+    const filterApplyBtn = document.getElementById('filterApplyBtn');
+    if (filterApplyBtn) {
+        filterApplyBtn.addEventListener('click', applyFilters);
+    }
 });

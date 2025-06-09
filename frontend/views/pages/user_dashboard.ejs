@@ -1,0 +1,176 @@
+
+<% layout('layouts/boilerplate') %>
+
+<link rel="stylesheet" href="/css/dashboard.css">
+
+<div class="dashboard-container">
+    <div class="dashboard-sidebar">
+        <div class="user-profile">
+            <div class="profile-image">
+                <% if (user.personalInfo.profilePicture) { %>
+                    <img src="<%= user.personalInfo.profilePicture %>" alt="Profile">
+                <% } else { %>
+                    <i class="fas fa-user-circle"></i>
+                <% } %>
+            </div>
+            <h3><%= user.personalInfo.firstName %> <%= user.personalInfo.lastName %></h3>
+            <p><%= user.personalInfo.email %></p>
+        </div>
+        
+        <nav class="dashboard-nav">
+            <a href="#overview" class="nav-item active">
+                <i class="fas fa-tachometer-alt"></i> Overview
+            </a>
+            <a href="#applications" class="nav-item">
+                <i class="fas fa-file-alt"></i> My Applications
+            </a>
+            <a href="#bookmarks" class="nav-item">
+                <i class="fas fa-bookmark"></i> Bookmarks
+            </a>
+            <a href="#recommendations" class="nav-item">
+                <i class="fas fa-lightbulb"></i> Recommendations
+            </a>
+            <a href="#notifications" class="nav-item">
+                <i class="fas fa-bell"></i> Notifications
+                <% if (user.notifications.filter(n => !n.isRead).length > 0) { %>
+                <span class="notification-badge"><%= user.notifications.filter(n => !n.isRead).length %></span>
+                <% } %>
+            </a>
+            <a href="#profile" class="nav-item">
+                <i class="fas fa-user-cog"></i> Profile Settings
+            </a>
+        </nav>
+    </div>
+    
+    <div class="dashboard-main">
+        <div id="overview" class="tab-content active">
+            <div class="dashboard-header">
+                <h1>Dashboard Overview</h1>
+                <p>Welcome back, <%= user.personalInfo.firstName %>!</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon applications">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3><%= user.applicationHistory.length %></h3>
+                        <p>Total Applications</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon approved">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3><%= user.applicationHistory.filter(app => app.status === 'approved').length %></h3>
+                        <p>Approved</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3><%= user.applicationHistory.filter(app => ['submitted', 'under_review'].includes(app.status)).length %></h3>
+                        <p>Pending</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon bookmarks">
+                        <i class="fas fa-bookmark"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3><%= user.bookmarks.length %></h3>
+                        <p>Bookmarks</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-widgets">
+                <div class="widget">
+                    <h3>Recent Applications</h3>
+                    <div class="applications-list">
+                        <% user.applicationHistory.slice(0, 5).forEach(app => { %>
+                        <div class="application-item">
+                            <div class="app-info">
+                                <h4><%= app.schemeName %></h4>
+                                <p>Applied on <%= new Date(app.appliedDate).toLocaleDateString() %></p>
+                            </div>
+                            <div class="app-status <%= app.status %>">
+                                <%= app.status.replace('_', ' ').toUpperCase() %>
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
+                </div>
+                
+                <div class="widget">
+                    <h3>Personalized Recommendations</h3>
+                    <div class="recommendations-list">
+                        <% if (recommendations && recommendations.length > 0) { %>
+                            <% recommendations.slice(0, 3).forEach(rec => { %>
+                            <div class="recommendation-item">
+                                <h4><%= rec.schemeName %></h4>
+                                <p><%= rec.reason %></p>
+                                <div class="match-score">
+                                    <span>Match: <%= rec.score %>%</span>
+                                </div>
+                            </div>
+                            <% }) %>
+                        <% } else { %>
+                            <p>Complete your profile to get personalized recommendations.</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="applications" class="tab-content">
+            <div class="section-header">
+                <h2>My Applications</h2>
+                <button class="btn btn-primary">Track All Applications</button>
+            </div>
+            
+            <div class="applications-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scheme Name</th>
+                            <th>Application ID</th>
+                            <th>Applied Date</th>
+                            <th>Status</th>
+                            <th>Last Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% user.applicationHistory.forEach(app => { %>
+                        <tr>
+                            <td><%= app.schemeName %></td>
+                            <td><%= app.applicationId || 'N/A' %></td>
+                            <td><%= new Date(app.appliedDate).toLocaleDateString() %></td>
+                            <td><span class="status-badge <%= app.status %>"><%= app.status.replace('_', ' ').toUpperCase() %></span></td>
+                            <td><%= app.lastUpdated ? new Date(app.lastUpdated).toLocaleDateString() : 'N/A' %></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline">View Details</button>
+                                <% if (app.status === 'draft') { %>
+                                <button class="btn btn-sm btn-primary">Continue</button>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Other tab contents (bookmarks, recommendations, notifications, profile) would be here -->
+    </div>
+</div>
+
+<script src="/js/dashboard.js"></script>

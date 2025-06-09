@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const path = require("path");
 const ejs = require("ejs");
 const ejsMate = require("ejs-mate");
+const helmet = require("helmet");
+const compression = require("compression");
+const rateLimit = require("express-rate-limit");
 
 // Import models
 const farmer_Schemes_Model = require("./models/farmer_Schemes_Model.js");   
@@ -17,11 +20,27 @@ const primary_Education = require("./models/primary_Education.js");
 const schemeRoutes = require("./routes/schemes.js");
 const authRoutes = require("./routes/auth.js");
 
+// Security middleware
+app.use(helmet({
+    contentSecurityPolicy: false, // Disable for development
+    crossOriginEmbedderPolicy: false
+}));
+app.use(compression());
+
+// Rate limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again later.'
+});
+app.use('/api/', limiter);
+
 app.engine("ejs", ejsMate); 
 app.set("view engine", "ejs"); 
 app.set("views", path.join(__dirname, "../frontend/views"));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // Add JSON parsing
 app.use(express.static(path.join(__dirname, "../frontend/assets")));
 app.use('/css', express.static(path.join(__dirname, "../frontend/assets/css")));
 app.use('/js', express.static(path.join(__dirname, "../frontend/assets/js")));

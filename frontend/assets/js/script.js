@@ -1,90 +1,151 @@
+` tags.
+
+```
+<replit_final_file>
+// Global navigation functions
+window.navigateToScheme = function(category) {
+    const categoryUrls = {
+        'secondary': '/schemes/secondary',
+        'higher': '/schemes/higher', 
+        'farmer': '/schemes/farmer',
+        'women': '/schemes/women',
+        'primary': '/schemes/primary'
+    };
+
+    if (categoryUrls[category]) {
+        window.location.href = categoryUrls[category];
+    }
+};
+
+// Enhanced search functionality
+let searchTimeout;
+window.performSearch = function(query) {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        if (query.length > 2) {
+            fetch(`/api/search?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => displaySearchResults(data))
+                .catch(error => console.error('Search error:', error));
+        }
+    }, 300);
+};
+
+function displaySearchResults(results) {
+    const searchResults = document.getElementById('searchResults');
+    if (searchResults) {
+        if (results.length > 0) {
+            searchResults.innerHTML = results.map(result => `
+                <div class="search-result-item" onclick="window.location.href='${result.url}'">
+                    <h4>${result.title}</h4>
+                    <p>${result.description.substring(0, 100)}...</p>
+                    <span class="category-badge">${result.category}</span>
+                </div>
+            `).join('');
+            searchResults.style.display = 'block';
+        } else {
+            searchResults.innerHTML = '<div class="no-results">No results found</div>';
+            searchResults.style.display = 'block';
+        }
+    }
+}
+
+// Filter functionality
+window.applyFilters = function() {
+    const category = document.getElementById('categoryFilter')?.value || '';
+    const targetGroup = document.getElementById('targetGroupFilter')?.value || '';
+    const location = document.getElementById('locationFilter')?.value || '';
+
+    const params = new URLSearchParams();
+    if (category) params.append('category', category);
+    if (targetGroup) params.append('targetGroup', targetGroup);
+    if (location) params.append('location', location);
+
+    fetch(`/api/schemes/filter?${params.toString()}`)
+        .then(response => response.json())
+        .then(data => displayFilteredSchemes(data))
+        .catch(error => console.error('Filter error:', error));
+};
+
+function displayFilteredSchemes(schemes) {
+    const schemesContainer = document.getElementById('schemesContainer');
+    if (schemesContainer) {
+        schemesContainer.innerHTML = schemes.map(scheme => `
+            <div class="scheme-card">
+                <div class="scheme-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>${scheme.title}</h3>
+                <p>${scheme.description.substring(0, 150)}...</p>
+                <button class="explore-btn" onclick="window.location.href='${scheme.detailUrl}'">
+                    Explore <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+}
+
+// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM Content Loaded - Initializing page functionality');
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
 
-    // Handle scheme category buttons with error checking
-    const schemeButtons = document.querySelectorAll('.scheme-btn, .btn[href*="/schemes/"], .explore-btn');
-    if (schemeButtons && schemeButtons.length > 0) {
-        schemeButtons.forEach(button => {
-            if (button && button.href) {
-                button.addEventListener('click', function(e) {
-                    console.log('Navigating to scheme:', button.href);
-                    // Add loading state
-                    const originalText = button.innerHTML;
-                    button.style.opacity = '0.7';
-                    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-
-                    // Reset after a short delay if navigation fails
-                    setTimeout(() => {
-                        button.style.opacity = '1';
-                        button.innerHTML = originalText;
-                    }, 3000);
-                });
-            }
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
         });
     }
 
-    // Handle explore buttons specifically
-    const exploreButtons = document.querySelectorAll('.explore-btn, .btn-primary[href*="/schemes/"]');
-    if (exploreButtons && exploreButtons.length > 0) {
-        exploreButtons.forEach(button => {
-            if (button && button.href) {
-                button.addEventListener('click', function(e) {
-                    console.log('Exploring scheme:', button.href);
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
                 });
             }
         });
-    }
+    });
 
-    // Handle scheme cards
-    const schemeCards = document.querySelectorAll('.scheme-card, .card[data-scheme]');
-    if (schemeCards && schemeCards.length > 0) {
-        schemeCards.forEach(card => {
-            if (card) {
-                card.addEventListener('click', function(e) {
-                    const link = card.querySelector('a');
-                    if (link && link.href) {
-                        window.location.href = link.href;
-                    }
-                });
-            }
-        });
-    }
-
-    // Handle read more buttons
-    const readMoreButtons = document.querySelectorAll('.read-more-btn, .btn[href*="/schemes/"]');
-    readMoreButtons.forEach(button => {
-        if (button && button.href) {
-            button.addEventListener('click', function(e) {
-                console.log('Read more clicked:', button.href);
-                // Ensure proper navigation
-                if (!button.href.includes('undefined') && !button.href.includes('null')) {
-                    window.location.href = button.href;
-                } else {
-                    e.preventDefault();
-                    console.error('Invalid URL detected:', button.href);
+    // Add event listeners for scheme cards
+    const schemeCards = document.querySelectorAll('.scheme-card');
+    schemeCards.forEach(card => {
+        const exploreBtn = card.querySelector('.explore-btn');
+        if (exploreBtn) {
+            exploreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const category = this.getAttribute('data-category');
+                if (category) {
+                    navigateToScheme(category);
                 }
             });
         }
     });
 
-    // Handle search functionality if present
-    const searchInput = document.querySelector('input[type="search"], .search-input');
+    // Initialize search functionality
+    const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const searchableItems = document.querySelectorAll('.scheme-card, .card');
+            performSearch(e.target.value);
+        });
 
-            searchableItems.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        // Hide search results when clicking outside
+        document.addEventListener('click', function(e) {
+            const searchResults = document.getElementById('searchResults');
+            if (searchResults && !e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
         });
     }
 
-    // Log any missing elements for debugging
-    console.log('Page initialization complete');
+    // Initialize filter functionality
+    const filterElements = document.querySelectorAll('#categoryFilter, #targetGroupFilter, #locationFilter');
+    filterElements.forEach(filter => {
+        if (filter) {
+            filter.addEventListener('change', applyFilters);
+        }
+    });
 });

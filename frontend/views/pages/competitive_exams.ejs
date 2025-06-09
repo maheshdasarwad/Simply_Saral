@@ -1,0 +1,123 @@
+
+<% layout('layouts/boilerplate') %>
+
+<link rel="stylesheet" href="/css/scheme.css">
+
+<div class="page-header">
+    <div class="container">
+        <div class="header-content">
+            <h1>Competitive Exams</h1>
+            <p>Comprehensive guide to government job examinations</p>
+            <nav class="breadcrumb">
+                <a href="/">Home</a> > <span>Competitive Exams</span>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container main-content">
+    <div class="content-wrapper">
+        <div class="filter-sidebar">
+            <h3>Filter Exams</h3>
+            <div class="filter-section">
+                <h4>Exam Type</h4>
+                <div class="filter-options">
+                    <label><input type="checkbox" value="UPSC"> UPSC</label>
+                    <label><input type="checkbox" value="SSC"> SSC</label>
+                    <label><input type="checkbox" value="State PSC"> State PSC</label>
+                    <label><input type="checkbox" value="Banking"> Banking</label>
+                    <label><input type="checkbox" value="Railway"> Railway</label>
+                    <label><input type="checkbox" value="Defense"> Defense</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h4>Status</h4>
+                <div class="filter-options">
+                    <label><input type="radio" name="status" value="active"> Active</label>
+                    <label><input type="radio" name="status" value="upcoming"> Upcoming</label>
+                    <label><input type="radio" name="status" value="all" checked> All</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="schemes-content">
+            <div class="schemes-stats">
+                <div class="stat-card">
+                    <div class="stat-number"><%= exams.length %></div>
+                    <div class="stat-label">Total Exams</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number"><%= exams.filter(exam => exam.status === 'active').length %></div>
+                    <div class="stat-label">Active Exams</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number"><%= exams.filter(exam => exam.status === 'upcoming').length %></div>
+                    <div class="stat-label">Upcoming</div>
+                </div>
+            </div>
+            
+            <div class="schemes-grid">
+                <% exams.forEach(exam => { %>
+                <div class="scheme-card">
+                    <div class="scheme-header">
+                        <div class="scheme-category <%= exam.examType.toLowerCase().replace(' ', '-') %>">
+                            <%= exam.examType %>
+                        </div>
+                        <div class="scheme-status <%= exam.status %>"
+                        ><%= exam.status.charAt(0).toUpperCase() + exam.status.slice(1) %></div>
+                    </div>
+                    
+                    <div class="scheme-content">
+                        <h3><%= exam.title %></h3>
+                        <p class="full-name"><%= exam.fullName %></p>
+                        <p class="description"><%= exam.description.substring(0, 150) %>...</p>
+                        
+                        <div class="exam-info">
+                            <div class="info-item">
+                                <i class="fas fa-building"></i>
+                                <span><%= exam.conductingBody %></span>
+                            </div>
+                            <% if (exam.importantDates && exam.importantDates.applicationEnd) { %>
+                            <div class="info-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Apply by: <%= new Date(exam.importantDates.applicationEnd).toLocaleDateString() %></span>
+                            </div>
+                            <% } %>
+                            <% if (exam.vacancies && exam.vacancies.total) { %>
+                            <div class="info-item">
+                                <i class="fas fa-users"></i>
+                                <span><%= exam.vacancies.total %> vacancies</span>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    
+                    <div class="scheme-actions">
+                        <a href="/schemes/competitive-exams/<%= exam._id %>" class="btn btn-primary">
+                            <i class="fas fa-eye"></i> View Details
+                        </a>
+                        <% if (exam.applicationDetails && exam.applicationDetails.onlineApplicationUrl) { %>
+                        <a href="<%= exam.applicationDetails.onlineApplicationUrl %>" target="_blank" class="btn btn-success">
+                            <i class="fas fa-external-link-alt"></i> Apply Online
+                        </a>
+                        <% } %>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            
+            <% if (exams.length === 0) { %>
+            <div class="no-schemes">
+                <div class="no-schemes-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3>No Competitive Exams Found</h3>
+                <p>There are currently no competitive exams available. Please check back later.</p>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<script src="/js/scheme.js"></script>

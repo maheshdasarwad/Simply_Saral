@@ -22,7 +22,7 @@ nav{
     align-items: center;
     padding:0.3rem;
     background-color: #EFEAE3;
-    
+
 }
 
 #nav-2 {
@@ -70,7 +70,7 @@ nav img{
 
 #nav-2 h4:hover a{
 color: white;
-      
+
   }
 
 #nav-2 h4 a{
@@ -517,3 +517,174 @@ body{
     display: inline-block;
 }
 
+/* Search and Filter Section */
+.search-filter-section {
+    padding: 40px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.search-container {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    position: relative;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.search-box input {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+}
+
+.search-box input::placeholder {
+    color: #999;
+}
+
+.search-btn {
+    background: #4a90e2;
+    border: none;
+    padding: 15px 20px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-btn:hover {
+    background: #357abd;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+.search-result-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.3s;
+    color: #333;
+}
+
+.search-result-item:hover {
+    background: #f8f9ff;
+}
+
+.search-result-item h4 {
+    margin: 0 0 5px 0;
+    color: #4a90e2;
+    font-size: 16px;
+}
+
+.search-result-item p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.category-badge {
+    display: inline-block;
+    background: #4a90e2;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.no-results {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.filter-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.filter-group select {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: white;
+    color: #333;
+    font-size: 14px;
+    outline: none;
+}
+
+.filter-apply-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+    height: fit-content;
+}
+
+.filter-apply-btn:hover {
+    background: #218838;
+}
+
+/* Responsive Design for Search/Filter */
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group {
+        min-width: auto;
+        margin-bottom: 15px;
+    }
+
+    .search-box {
+        margin: 0 20px;
+    }
+}
+
+/* Schemes Section */
+.schemes-section {
+    padding: 80px 0;
+    background: #f8f9ff;
+}

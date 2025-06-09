@@ -1,6 +1,11 @@
-
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+
+// Import all models
+const CompetitiveExam = require("../models/competitiveExam_Model.js");
+const EducationalProgram = require("../models/educationalProgram_Model.js");
+const StateWelfare = require("../models/stateWelfare_Model.js");
+const User = require("../models/user_Model.js");
 const mongoose = require('mongoose');
 
 const farmer_Schemes_Model = require("../models/farmer_Schemes_Model.js");   
@@ -121,14 +126,14 @@ const fallbackData = {
 router.get("/:scheme", async (req, res) => {
     let {scheme} = req.params;
     console.log(`Accessing scheme: ${scheme}`);
-    
+
     try {
         let data = [];
         let name = "";
-        
+
         // Check if database is connected
         const isDbConnected = mongoose.connection.readyState === 1;
-        
+
         if(scheme == "farmer_Welfare") {
             name = "Farmer's Welfare Scheme";
             if (isDbConnected) {
@@ -187,7 +192,7 @@ router.get("/:scheme", async (req, res) => {
         // Use fallback data on error
         let data = fallbackData[scheme] || [];
         let name = scheme.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + " Scheme";
-        
+
         if (scheme == "farmer_Welfare") {
             res.render("pages/farm_Scheme", {data: fallbackData.farmer_Welfare, name: "Farmer's Welfare Scheme"});
         } else if (scheme == "women_Welfare") {
@@ -210,16 +215,16 @@ router.get("/farmer_Welfare/:id", async (req, res) => {
     try {
         const isDbConnected = mongoose.connection.readyState === 1;
         let data;
-        
+
         if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
             data = await farmer_Schemes_Model.findById(id);
         }
-        
+
         if (!data) {
             // Use fallback data for the first scheme
             data = fallbackData.farmer_Welfare[0];
         }
-        
+
         res.render("pages/farm_sep_scheme", {data});
     } catch (error) {
         console.error("Error fetching farmer scheme:", error);
@@ -233,15 +238,15 @@ router.get("/women_Welfare/:id", async (req, res) => {
     try {
         const isDbConnected = mongoose.connection.readyState === 1;
         let data;
-        
+
         if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
             data = await women_Wel_Model.findById(id);
         }
-        
+
         if (!data) {
             data = fallbackData.women_Welfare[0];
         }
-        
+
         res.render("pages/women_sep_scheme", {data});
     } catch (error) {
         console.error("Error fetching women scheme:", error);
@@ -255,15 +260,15 @@ router.get("/higher_Education/:id", async (req, res) => {
     try {
         const isDbConnected = mongoose.connection.readyState === 1;
         let data;
-        
+
         if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
             data = await higher_Education.findById(id);
         }
-        
+
         if (!data) {
             data = fallbackData.higher_Education[0];
         }
-        
+
         res.render("pages/higher_sep_scheme", {data});
     } catch (error) {
         console.error("Error fetching higher education scheme:", error);
@@ -277,15 +282,15 @@ router.get("/secondary_Education/:id", async (req, res) => {
     try {
         const isDbConnected = mongoose.connection.readyState === 1;
         let data;
-        
+
         if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
             data = await secondary_Education.findById(id);
         }
-        
+
         if (!data) {
             data = fallbackData.secondary_Education[0];
         }
-        
+
         res.render("pages/secondary_sep_scheme", {data});
     } catch (error) {
         console.error("Error fetching secondary education scheme:", error);
@@ -299,15 +304,15 @@ router.get("/primary_Education/:id", async (req, res) => {
     try {
         const isDbConnected = mongoose.connection.readyState === 1;
         let data;
-        
+
         if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
             data = await primary_Education.findById(id);
         }
-        
+
         if (!data) {
             data = fallbackData.primary_Education[0];
         }
-        
+
         res.render("pages/primary_sep_scheme", {data});
     } catch (error) {
         console.error("Error fetching primary education scheme:", error);

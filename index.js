@@ -18,9 +18,11 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/PBL_DOCUMENTS");
+    // Use MongoDB Atlas connection string from environment variable
+    const mongoURI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/PBL_DOCUMENTS";
+    await mongoose.connect(mongoURI);
 }
 
 main()
@@ -107,6 +109,6 @@ app.post("/login", (req, res) => {
     res.send("Successfully login");
 });
 
-app.listen(process.env.port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);
 });

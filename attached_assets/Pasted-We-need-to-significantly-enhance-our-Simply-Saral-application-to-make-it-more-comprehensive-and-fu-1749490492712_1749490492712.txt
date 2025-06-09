@@ -1,0 +1,89 @@
+We need to significantly enhance our 'Simply Saral' application to make it more comprehensive and fully functional. Here are the detailed requirements:
+
+Backend Expansion:
+
+Add a complete database structure for government schemes (central/state) with fields:
+
+Scheme name, description, eligibility, benefits, application process, documents required, official link
+
+Create similar structured datasets for:
+
+Competitive exams (UPSC, SSC, State PSCs)
+
+Educational programs (Scholarships, Skill India)
+
+State-specific welfare programs
+
+Frontend Improvements:
+
+Implement a dynamic filtering system allowing users to filter by:
+
+Category (Education, Health, Employment)
+
+Target Group (Students, Farmers, Women)
+
+State/Central programs
+
+Add search functionality with auto-suggestions
+
+New Features:
+
+User accounts with personalized recommendations
+
+Application tracking system for schemes
+
+Exam calendar with notifications
+
+Multilingual support (starting with Hindi/English)
+
+Quality Assurance:
+
+Implement comprehensive unit tests for all new components
+
+Conduct integration testing for API endpoints
+
+Perform UI/UX testing across devices
+
+Set up error logging and monitoring
+
+Technical Requirements:
+
+Maintain clean code architecture
+
+Ensure proper documentation for new features
+
+Optimize database queries for performance
+
+Implement proper caching mechanisms
+
+Deployment:
+
+Create a staging environment for testing
+
+Set up CI/CD pipeline for automated deployments
+
+Configure proper backup systems for database
+
+Please:
+
+Analyze the existing codebase first
+
+Generate a step-by-step implementation plan
+
+Create all necessary files with proper code
+
+Include test cases for each component
+
+Provide debugging support throughout the process
+
+The application should maintain its current functionality while adding these enhancements. All changes should follow best practices for security, performance, and maintainability."
+
+Additional Tips for Replit:
+
+After giving this prompt, you can share specific files or code snippets that need modification
+
+Ask the AI to explain its implementation approach before proceeding
+
+Request regular progress updates during the generation process
+
+Ask for validation steps to ensure all features work correctly

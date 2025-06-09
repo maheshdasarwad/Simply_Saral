@@ -24,8 +24,11 @@ app.set("views", path.join(__dirname, "../frontend/views"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../frontend/assets")));
+app.use('/css', express.static(path.join(__dirname, "../frontend/assets/css")));
+app.use('/js', express.static(path.join(__dirname, "../frontend/assets/js")));
+app.use('/images', express.static(path.join(__dirname, "../frontend/assets/Image")));
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 // Database connection
 async function connectDB() {
@@ -85,4 +88,5 @@ app.get("/api/status", (req, res) => {
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);
+    console.log(`Access your app at: http://0.0.0.0:${port}`);
 });

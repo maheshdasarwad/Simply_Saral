@@ -1,0 +1,93 @@
+
+<% layout("../layouts/boilerplate") %>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card scheme-detail-card">
+                <div class="card-header bg-primary text-white">
+                    <h2><%= data.title %></h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4>Description</h4>
+                            <p class="lead"><%= data.description %></p>
+                            
+                            <% if (data.benefits && data.benefits.length > 0) { %>
+                            <h4>Benefits</h4>
+                            <ul class="list-group list-group-flush">
+                                <% data.benefits.forEach(benefit => { %>
+                                <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> <%= benefit %></li>
+                                <% }) %>
+                            </ul>
+                            <% } %>
+                            
+                            <% if (data.eligibilityCriteria) { %>
+                            <h4 class="mt-4">Eligibility Criteria</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <% if (data.eligibilityCriteria.ageLimit) { %>
+                                    <p><strong>Age Limit:</strong> <%= data.eligibilityCriteria.ageLimit %></p>
+                                    <% } %>
+                                    <% if (data.eligibilityCriteria.incomeLimit) { %>
+                                    <p><strong>Income Limit:</strong> <%= data.eligibilityCriteria.incomeLimit %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <% } %>
+                            
+                            <% if (data.applicationProcess) { %>
+                            <h4 class="mt-4">Application Process</h4>
+                            <div class="row">
+                                <% if (data.applicationProcess.online) { %>
+                                <div class="col-md-6">
+                                    <h5>Online Process</h5>
+                                    <p><%= data.applicationProcess.online %></p>
+                                </div>
+                                <% } %>
+                                <% if (data.applicationProcess.offline) { %>
+                                <div class="col-md-6">
+                                    <h5>Offline Process</h5>
+                                    <p><%= data.applicationProcess.offline %></p>
+                                </div>
+                                <% } %>
+                            </div>
+                            <% } %>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <% if (data.importantLinks && data.importantLinks.length > 0) { %>
+                            <h5>Important Links</h5>
+                            <div class="list-group">
+                                <% data.importantLinks.forEach(link => { %>
+                                <a href="<%= link.url %>" target="_blank" class="list-group-item list-group-item-action">
+                                    <i class="fas fa-external-link-alt"></i> <%= link.name %>
+                                </a>
+                                <% }) %>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.scheme-detail-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+}
+
+.list-group-item {
+    border: none;
+    padding: 0.75rem 0;
+}
+
+.fas.fa-check-circle {
+    margin-right: 0.5rem;
+}
+</style>

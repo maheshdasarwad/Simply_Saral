@@ -14,27 +14,27 @@ router.get("/:scheme", async (req, res) => {
     
     try {
         if(scheme == "farmer_Welfare") {
-            const data = await farmer_Schemes_Model.find({}).timeout(10000);
+            const data = await farmer_Schemes_Model.find({});
             const name = "Farmer's Welfare Scheme";
             res.render("./pages/farm_Scheme.ejs", {data, name});
         }
         else if(scheme == "women_Welfare") {
-            const data = await women_Wel_Model.find({}).timeout(10000);
+            const data = await women_Wel_Model.find({});
             const name = "Women's Welfare Scheme";
             res.render("./pages/women_Scheme.ejs", {data, name});
         }
         else if(scheme == "higher_Education") {
-            const data = await higher_Education.find({}).timeout(10000);
+            const data = await higher_Education.find({});
             const name = "Higher Education Scheme";
             res.render("./pages/higher_Edu.ejs", {data, name});
         }
         else if(scheme == "primary_Education") {
-            const data = await primary_Education.find({}).timeout(10000);
+            const data = await primary_Education.find({});
             const name = "Primary Education Scheme";
             res.render("./pages/primary_Edu.ejs", {data, name});
         }
         else if(scheme == "secondary_Education") {
-            const data = await secondary_Education.find({}).timeout(10000);
+            const data = await secondary_Education.find({});
             const name = "Secondary Education Scheme";
             res.render("./pages/secondary_Edu.ejs", {data, name});
         }

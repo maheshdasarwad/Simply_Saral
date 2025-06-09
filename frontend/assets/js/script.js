@@ -1,49 +1,64 @@
-const scroll = new LocomotiveScroll({
-    el: document.querySelector("#wrapper_head"),
-    smooth: true
-});
-
-// Fix the farmer div click handler
-const farmerDiv = document.getElementById("farmerDiv");
-if (farmerDiv) {
-    farmerDiv.addEventListener("click", () => {
-        window.location.href = "/schemes/farmer_Welfare";
-    });
-}
-
-// Theme toggle functionality
-const themeToggle = document.getElementById('theme-toggle');
-if (themeToggle) {
-    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>`;
-    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>`;
-
-// Check for saved theme preference or default to 'light'
-const savedTheme = localStorage.getItem('theme') || 'light';
-if (savedTheme === 'dark') {
-    document.body.classList.add('dark');
-    themeToggle.innerHTML = sunIcon;
-} else {
-    document.body.classList.remove('dark');
-    themeToggle.innerHTML = moonIcon;
-}
-
-
-const farmerDiv=document.getElementById("farmerDiv");
-
-farmerDiv.addEventListener("click",(req,res)=>{
-    res.redirect();
-})
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Add null checks for DOM elements
-    const elements = document.querySelectorAll('.interactive-element');
-    if (elements) {
-        elements.forEach(element => {
+    // Safely handle interactive elements
+    const interactiveElements = document.querySelectorAll('.interactive-element, .btn, .card, .scheme-card');
+    
+    if (interactiveElements && interactiveElements.length > 0) {
+        interactiveElements.forEach(element => {
             if (element) {
-                element.addEventListener('click', function() {
-                    // Your click handler code
+                element.addEventListener('click', function(e) {
+                    // Handle click events safely
+                    console.log('Element clicked:', element);
                 });
             }
         });
     }
+
+    // Handle form submissions safely
+    const forms = document.querySelectorAll('form');
+    if (forms && forms.length > 0) {
+        forms.forEach(form => {
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    // Add form validation or AJAX handling here
+                    console.log('Form submitted:', form);
+                });
+            }
+        });
+    }
+
+    // Handle navigation links
+    const navLinks = document.querySelectorAll('a[href^="/schemes"]');
+    if (navLinks && navLinks.length > 0) {
+        navLinks.forEach(link => {
+            if (link) {
+                link.addEventListener('click', function(e) {
+                    // Smooth navigation or loading indicators
+                    console.log('Navigation to:', link.href);
+                });
+            }
+        });
+    }
+
+    // Check for any missing elements and log warnings
+    const requiredElements = ['#main-content', '.header', '.navigation'];
+    requiredElements.forEach(selector => {
+        const element = document.querySelector(selector);
+        if (!element) {
+            console.warn(`Warning: Element ${selector} not found on page`);
+        }
+    });
+});
+
+// Global error handler for uncaught errors
+window.addEventListener('error', function(e) {
+    console.error('JavaScript error caught:', e.error);
+    // Prevent the error from breaking the page
+    e.preventDefault();
+});
+
+// Handle AJAX errors if using fetch
+window.addEventListener('unhandledrejection', function(e) {
+    console.error('Unhandled promise rejection:', e.reason);
+    e.preventDefault();
 });

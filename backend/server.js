@@ -66,6 +66,23 @@ app.get("/", (req, res) => {
     res.render("./pages/new_home.ejs");
 });
 
+// Add database status endpoint for debugging
+app.get("/api/status", (req, res) => {
+    const dbStatus = mongoose.connection.readyState;
+    const statusMap = {
+        0: 'disconnected',
+        1: 'connected',
+        2: 'connecting',
+        3: 'disconnecting'
+    };
+    
+    res.json({
+        server: 'running',
+        database: statusMap[dbStatus] || 'unknown',
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);
 });

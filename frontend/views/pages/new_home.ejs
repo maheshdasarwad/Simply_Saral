@@ -737,13 +737,34 @@
                 box-shadow: var(--shadow-lg);
             }
 
-            /* Services Section */
-            .services-grid {
-                border-top-left-radius: 2rem;
-                border-top-right-radius: 2rem;
+            /* Category Sections */
+            .category-section {
+                margin-bottom: var(--spacing-2xl);
+            }
+
+            .category-title {
+                font-size: 1.75rem;
+                font-weight: 700;
+                color: var(--primary);
+                margin-bottom: var(--spacing-lg);
+                padding-bottom: var(--spacing-sm);
+                border-bottom: 3px solid var(--secondary);
+                display: flex;
+                align-items: center;
+                gap: var(--spacing-sm);
+            }
+
+            .category-title i {
+                color: var(--secondary);
+                font-size: 1.5rem;
+            }
+
+            /* Unified Schemes Grid */
+            .schemes-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: var(--spacing-lg);
+                margin-bottom: var(--spacing-xl);
             }
 
             .service-card {
@@ -877,6 +898,38 @@
                 color: var(--primary);
             }
 
+            .competitive-card .card-top {
+                background: linear-gradient(135deg, var(--cyan-deep), #006064);
+            }
+
+            .competitive-card .service-icon i {
+                color: var(--cyan-deep);
+            }
+
+            .competitive-card .service-button {
+                background-color: var(--cyan-deep);
+            }
+
+            .competitive-card .service-button:hover {
+                background-color: #006064;
+            }
+
+            .skill-card .card-top {
+                background: linear-gradient(135deg, var(--teal-deep), #004d40);
+            }
+
+            .skill-card .service-icon i {
+                color: var(--teal-deep);
+            }
+
+            .skill-card .service-button {
+                background-color: var(--teal-deep);
+            }
+
+            .skill-card .service-button:hover {
+                background-color: #004d40;
+            }
+
             .farmers-card .card-top {
                 background: linear-gradient(135deg, var(--green-deep), #1b5e20);
             }
@@ -911,6 +964,22 @@
 
             .women-card .service-button:hover {
                 background-color: #4527a0;
+            }
+
+            .state-card .card-top {
+                background: linear-gradient(135deg, var(--orange-deep), #bf360c);
+            }
+
+            .state-card .service-icon i {
+                color: var(--orange-deep);
+            }
+
+            .state-card .service-button {
+                background-color: var(--orange-deep);
+            }
+
+            .state-card .service-button:hover {
+                background-color: #bf360c;
             }
 
             /* Stats Section */
@@ -1262,6 +1331,11 @@
 
             /* Responsive Adjustments */
             @media (max-width: 1024px) {
+                .schemes-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: var(--spacing-md);
+                }
+
                 .footer-grid {
                     grid-template-columns: 1fr 1fr;
                     gap: var(--spacing-lg);
@@ -1286,6 +1360,18 @@
             }
 
             @media (max-width: 768px) {
+                .schemes-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: var(--spacing-sm);
+                }
+
+                .category-title {
+                    font-size: 1.5rem;
+                    flex-direction: column;
+                    text-align: center;
+                    gap: var(--spacing-xs);
+                }
+
                 .hero-grid {
                     grid-template-columns: 1fr;
                     gap: var(--spacing-xl);
@@ -1331,9 +1417,40 @@
                     gap: var(--spacing-md);
                     text-align: center;
                 }
+
+                .filter-container {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+
+                .filter-group {
+                    min-width: auto;
+                    margin-bottom: 15px;
+                }
+
+                .search-box {
+                    margin: 0 10px;
+                }
             }
 
             @media (max-width: 576px) {
+                .schemes-grid {
+                    grid-template-columns: 1fr;
+                    gap: var(--spacing-sm);
+                }
+
+                .category-section {
+                    margin-bottom: var(--spacing-xl);
+                }
+
+                .section-header {
+                    margin-bottom: var(--spacing-lg);
+                }
+
+                .service-card {
+                    margin-bottom: var(--spacing-md);
+                }
+
                 .footer-grid {
                     grid-template-columns: 1fr;
                 }
@@ -1346,6 +1463,17 @@
 
                 .container {
                     padding: 0 1rem;
+                }
+
+                .search-box {
+                    margin: 0 5px;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                .search-box input,
+                .search-box button {
+                    border-radius: var(--border-radius);
                 }
             }
 
@@ -1564,145 +1692,177 @@
             </div>
         </section>
 
-        <!-- Services Section -->
+        <!-- Unified Schemes Section -->
         <section id="services" class="section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Our Services</h2>
+                    <h2 class="section-title">Government Schemes & Services</h2>
                     <p class="section-subtitle">
-                        Discover comprehensive government services and schemes
-                        available for different citizen groups, all on one
-                        platform.
+                        Comprehensive access to government services, schemes, competitive exams, and welfare programs - all in one unified platform.
                     </p>
                 </div>
 
-                <div class="services-grid">
-                    <!--Primary Education -->
-                    <!-- <div
-                        class="service-card education-card fade-in"
-                    >
-                        <div class="card-top">
-                            <div class="service-icon">
-                                <i class="fas fa-graduation-cap"></i>
+                <!-- Education Category -->
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Education & Skill Development
+                    </h3>
+                    <div class="schemes-grid">
+                        <!-- Secondary Education -->
+                        <div class="scheme-card education-card fade-in">
+                            <div class="card-top">
+                                <div class="service-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <h3 class="service-title">Secondary Education</h3>
+                                <p class="service-subtitle">
+                                    Scholarships & Competitive Exams
+                                </p>
                             </div>
-                            <h3 class="service-title">Primary Education</h3>
-                            <p class="service-subtitle">
-                                Scholarships & Educational Support
-                            </p>
-                        </div>
-                        <div class="service-content">
-                            <p class="service-description">
-                                Building a Strong Foundation for Learning
-                                Gain access to scholarships, free textbooks, and essential educational resources to support young learners in their early academic journey.
-                            </p>
-                            <a href="/schemes/primary_Education" class="service-button">
-                                Explore Programs
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div> -->
-
-                    <!-- Secondary Education -->
-                    <div
-                        class="service-card education-card fade-in"
-                    >
-                        <div class="card-top">
-                            <div class="service-icon">
-                                <i class="fas fa-graduation-cap"></i>
+                            <div class="service-content">
+                                <p class="service-description">
+                                    Empowering Future Leaders - Explore scholarships, competitive exam support, and learning materials designed to help students excel in their secondary education and beyond.
+                                </p>
+                                <a href="/schemes/secondary_Education" class="service-button">
+                                    Explore <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
-                            <h3 class="service-title">Secondary Education</h3>
-                            <p class="service-subtitle">
-                                scholarships, competetive exams
-                            </p>
                         </div>
-                        <div class="service-content">
-                            <p class="service-description">
-                                Empowering Future Leaders
-                                Explore scholarships, competitive exam support, and learning materials designed to help students excel in their secondary education and beyond.
-                            </p>
 
-                            <a href="/schemes/secondary_Education" class="service-button">
-                                Explore <i class="fas fa-arrow-right"></i>
-                            </a>
+                        <!-- Higher Education -->
+                        <div class="scheme-card education-card fade-in">
+                            <div class="card-top">
+                                <div class="service-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <h3 class="service-title">Higher Education</h3>
+                                <p class="service-subtitle">
+                                    University Scholarships & Grants
+                                </p>
+                            </div>
+                            <div class="service-content">
+                                <p class="service-description">
+                                    Unlocking Opportunities for Success - Discover scholarships, career guidance, and academic resources tailored for college and university students to achieve their goals.
+                                </p>
+                                <a href="/schemes/higher_Education" class="service-button">
+                                    Explore <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Competitive Exams -->
+                        <div class="scheme-card competitive-card fade-in">
+                            <div class="card-top">
+                                <div class="service-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <h3 class="service-title">Competitive Exams</h3>
+                                <p class="service-subtitle">
+                                    UPSC, SSC, State PSCs
+                                </p>
+                            </div>
+                            <div class="service-content">
+                                <p class="service-description">
+                                    Comprehensive guide to UPSC, SSC, State PSCs, and other competitive examinations with preparation resources and exam schedules.
+                                </p>
+                                <a href="/schemes/competitive-exams" class="service-button">
+                                    Explore <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Skill Development -->
+                        <div class="scheme-card skill-card fade-in">
+                            <div class="card-top">
+                                <div class="service-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                <h3 class="service-title">Skill Development</h3>
+                                <p class="service-subtitle">
+                                    Training & Certification Programs
+                                </p>
+                            </div>
+                            <div class="service-content">
+                                <p class="service-description">
+                                    Various skill development and training programs to enhance employability and entrepreneurship opportunities across different sectors.
+                                </p>
+                                <a href="/schemes/educational-programs" class="service-button">
+                                    Explore <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Higher Education -->
-                    <div
-                        class="service-card education-card fade-in"
-                    >
-                        <div class="card-top">
-                            <div class="service-icon">
-                                <i class="fas fa-graduation-cap"></i>
+                <!-- Welfare & Social Support Category -->
+                <div class="category-section">
+                    <h3 class="category-title">
+                        <i class="fas fa-hands-helping"></i>
+                        Welfare & Social Support
+                    </h3>
+                    <div class="schemes-grid">
+                        <!-- Farmer's Welfare -->
+                        <div class="scheme-card farmers-card fade-in">
+                            <div class="card-top">
+                                <div class="service-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <h3 class="service-title">Farmer's Welfare</h3>
+                                <p class="service-subtitle">
+                                    Agricultural Support Programs
+                                </p>
                             </div>
-                            <h3 class="service-title">Higher Education</h3>
-                            <p class="service-subtitle">
-                                scholarships, competetive exams
-                            </p>
-                        </div>
-                        <div class="service-content">
-                            <p class="service-description">
-                                Unlocking Opportunities for Success
-Discover scholarships, career guidance, and academic resources tailored for college and university students to achieve their academic and professional goals.
-                            </p>
-
-                            <a href="/schemes/higher_Education" class="service-button">
-                                Explore
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Farmer's Welfare Card -->
-                    <div
-                        class="service-card farmers-card fade-in"
-                    >
-                        <div class="card-top">
-                            <div class="service-icon">
-                                <i class="fas fa-seedling"></i>
+                            <div class="service-content">
+                                <p class="service-description">
+                                    Access agricultural subsidies, crop insurance, soil health cards, and other support programs designed specifically for farmers and agricultural workers.
+                                </p>
+                                <a href="/schemes/farmer_Welfare" class="service-button">
+                                    Explore <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
-                            <h3 class="service-title">Farmer's Welfare</h3>
-                            <p class="service-subtitle">
-                                Agricultural Support Programs
-                            </p>
                         </div>
-                        <div class="service-content">
-                            <p class="service-description">
-                                Access agricultural subsidies, crop insurance,
-                                soil health cards, and other support programs
-                                designed for farmers.
-                            </p>
 
-                            <a href="/schemes/farmer_Welfare" class="service-button">
-                                Explore <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Women's Welfare Card -->
-                    <div
-                        class="service-card women-card fade-in"
-                    >
-                        <div class="card-top">
-                            <div class="service-icon">
-                                <i class="fas fa-female"></i>
+                        <!-- Women's Welfare -->
+                        <div class="scheme-card women-card fade-in">
+                            <div class="card-top">
+                                <div class="service-icon">
+                                    <i class="fas fa-female"></i>
+                                </div>
+                                <h3 class="service-title">Women's Welfare</h3>
+                                <p class="service-subtitle">
+                                    Empowerment & Support Programs
+                                </p>
                             </div>
-                            <h3 class="service-title">Women's Welfare</h3>
-                            <p class="service-subtitle">
-                                Empowerment & Support Programs
-                            </p>
+                            <div class="service-content">
+                                <p class="service-description">
+                                    Discover programs for women's education, entrepreneurship support, maternal health services, and empowerment initiatives across the country.
+                                </p>
+                                <a href="/schemes/women_Welfare" class="service-button">
+                                    Explore <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
-                        <div class="service-content">
-                            <p class="service-description">
-                                Discover programs for women's education,
-                                entrepreneurship support, maternal health
-                                services, and empowerment initiatives.
-                            </p>
 
-                            <a href="/schemes/women_Welfare" class="service-button">
-                                Explore
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+                        <!-- State Welfare Programs -->
+                        <div class="scheme-card state-card fade-in">
+                            <div class="card-top">
+                                <div class="service-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <h3 class="service-title">State Welfare Programs</h3>
+                                <p class="service-subtitle">
+                                    Regional Development Schemes
+                                </p>
+                            </div>
+                            <div class="service-content">
+                                <p class="service-description">
+                                    State-specific welfare programs and schemes tailored for local communities and regional development across different states of India.
+                                </p>
+                                <a href="/schemes/state-welfare" class="service-button">
+                                    Explore <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1989,120 +2149,66 @@ Discover scholarships, career guidance, and academic resources tailored for coll
             </div>
         </div>
 
-    <!-- Enhanced Search and Filter Section -->
-    <section class="search-filter-section">
-        <div class="container">
-            <div class="search-container">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search schemes, exams, programs..." />
-                    <button class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
+    <!-- Search and Filter Section -->
+        <section class="search-filter-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Find Your Perfect Scheme</h2>
+                    <p class="section-subtitle">
+                        Use our advanced search and filtering system to discover schemes tailored to your needs
+                    </p>
                 </div>
-                <div id="searchResults" class="search-results" style="display: none;"></div>
-            </div>
-
-            <div class="filter-container">
-                <div class="filter-group">
-                    <label for="categoryFilter">Category:</label>
-                    <select id="categoryFilter">
-                        <option value="">All Categories</option>
-                        <option value="education">Education</option>
-                        <option value="farmer">Agriculture & Farming</option>
-                        <option value="women">Women Welfare</option>
-                        <option value="health">Health</option>
-                        <option value="employment">Employment</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label for="targetGroupFilter">Target Group:</label>
-                    <select id="targetGroupFilter">
-                        <option value="">All Groups</option>
-                        <option value="students">Students</option>
-                        <option value="farmers">Farmers</option>
-                        <option value="women">Women</option>
-                        <option value="youth">Youth</option>
-                        <option value="elderly">Elderly</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label for="locationFilter">Location:</label>
-                    <select id="locationFilter">
-                        <option value="">All India</option>
-                        <option value="central">Central Schemes</option>
-                        <option value="state">State Schemes</option>
-                    </select>
-                </div>
-
-                <button class="filter-apply-btn" id="filterApplyBtn">
-                    <i class="fas fa-filter"></i> Apply Filters
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section class="schemes-section">
-        <div class="container">
-            <h2 class="section-title">Explore Government Schemes</h2>
-            <div class="schemes-grid" id="schemesContainer">
-                <div class="scheme-card">
-                    <div class="scheme-icon">
-                        <i class="fas fa-graduation-cap"></i>
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search schemes, exams, programs..." />
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                    <h3>Secondary Education</h3>
-                    <p>Comprehensive schemes for secondary education including scholarships, infrastructure development, and skill training programs.</p>
-                    <button class="explore-btn" data-category="secondary" onclick="navigateToScheme('secondary')">
-                        Explore <i class="fas fa-arrow-right"></i>
-                    </button>
+                    <div id="searchResults" class="search-results" style="display: none;"></div>
                 </div>
 
-                <div class="scheme-card">
-                    <div class="scheme-icon">
-                        <i class="fas fa-female"></i>
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label for="categoryFilter">Category:</label>
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="education">Education</option>
+                            <option value="farmer">Agriculture & Farming</option>
+                            <option value="women">Women Welfare</option>
+                            <option value="health">Health</option>
+                            <option value="employment">Employment</option>
+                        </select>
                     </div>
-                    <h3>Women Welfare</h3>
-                    <p>Empowering women through various welfare schemes, skill development programs, and financial assistance initiatives.</p>
-                    <button class="explore-btn" data-category="women" onclick="navigateToScheme('women')">
-                        Explore <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
 
-                <div class="scheme-card">
-                    <div class="scheme-icon">
-                        <i class="fas fa-clipboard-check"></i>
+                    <div class="filter-group">
+                        <label for="targetGroupFilter">Target Group:</label>
+                        <select id="targetGroupFilter">
+                            <option value="">All Groups</option>
+                            <option value="students">Students</option>
+                            <option value="farmers">Farmers</option>
+                            <option value="women">Women</option>
+                            <option value="youth">Youth</option>
+                            <option value="elderly">Elderly</option>
+                        </select>
                     </div>
-                    <h3>Competitive Exams</h3>
-                    <p>Comprehensive guide to UPSC, SSC, State PSCs, and other competitive examinations with preparation resources.</p>
-                    <button class="explore-btn" onclick="window.location.href='/schemes/competitive-exams'">
-                        Explore <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
 
-                <div class="scheme-card">
-                    <div class="scheme-icon">
-                        <i class="fas fa-cogs"></i>
+                    <div class="filter-group">
+                        <label for="locationFilter">Location:</label>
+                        <select id="locationFilter">
+                            <option value="">All India</option>
+                            <option value="central">Central Schemes</option>
+                            <option value="state">State Schemes</option>
+                        </select>
                     </div>
-                    <h3>Skill Development</h3>
-                    <p>Various skill development and training programs to enhance employability and entrepreneurship opportunities.</p>
-                    <button class="explore-btn" onclick="window.location.href='/schemes/educational-programs'">
-                        Explore <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
 
-                <div class="scheme-card">
-                    <div class="scheme-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>State Welfare Programs</h3>
-                    <p>State-specific welfare programs and schemes tailored for local communities and regional development.</p>
-                    <button class="explore-btn" onclick="window.location.href='/schemes/state-welfare'">
-                        Explore <i class="fas fa-arrow-right"></i>
+                    <button class="filter-apply-btn" id="filterApplyBtn">
+                        <i class="fas fa-filter"></i> Apply Filters
                     </button>
                 </div>
             </div>
-</section>
+        </section>
         <!-- Scripts -->
          <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
          <script>
@@ -2296,6 +2402,110 @@ Discover scholarships, career guidance, and academic resources tailored for coll
                         }
                     });
                 };
+
+                 // Navigation functions for scheme cards
+                 window.navigateToScheme = function(category) {
+                     const schemeUrls = {
+                         'secondary': '/schemes/secondary_Education',
+                         'higher': '/schemes/higher_Education',
+                         'farmer': '/schemes/farmer_Welfare',
+                         'women': '/schemes/women_Welfare',
+                         'competitive': '/schemes/competitive-exams',
+                         'skill': '/schemes/educational-programs',
+                         'state': '/schemes/state-welfare'
+                     };
+                     
+                     if (schemeUrls[category]) {
+                         window.location.href = schemeUrls[category];
+                     }
+                 };
+
+                 // Enhanced search functionality
+                 const searchInput = document.getElementById('searchInput');
+                 const searchResults = document.getElementById('searchResults');
+                 
+                 if (searchInput && searchResults) {
+                     const searchData = [
+                         {
+                             title: "Secondary Education Schemes",
+                             description: "Scholarships and support for secondary education",
+                             category: "Education",
+                             url: "/schemes/secondary_Education"
+                         },
+                         {
+                             title: "Higher Education Programs",
+                             description: "University scholarships and grants",
+                             category: "Education", 
+                             url: "/schemes/higher_Education"
+                         },
+                         {
+                             title: "Farmer Welfare Schemes",
+                             description: "Agricultural support and subsidies",
+                             category: "Agriculture",
+                             url: "/schemes/farmer_Welfare"
+                         },
+                         {
+                             title: "Women Empowerment Programs",
+                             description: "Support schemes for women",
+                             category: "Social Welfare",
+                             url: "/schemes/women_Welfare"
+                         },
+                         {
+                             title: "Competitive Examinations",
+                             description: "UPSC, SSC, State PSCs preparation",
+                             category: "Education",
+                             url: "/schemes/competitive-exams"
+                         },
+                         {
+                             title: "Skill Development Programs",
+                             description: "Training and certification courses",
+                             category: "Employment",
+                             url: "/schemes/educational-programs"
+                         },
+                         {
+                             title: "State Welfare Programs",
+                             description: "Regional development schemes",
+                             category: "Social Welfare",
+                             url: "/schemes/state-welfare"
+                         }
+                     ];
+
+                     searchInput.addEventListener('input', function() {
+                         const query = this.value.toLowerCase().trim();
+                         
+                         if (query.length === 0) {
+                             searchResults.style.display = 'none';
+                             return;
+                         }
+
+                         const filteredResults = searchData.filter(item => 
+                             item.title.toLowerCase().includes(query) ||
+                             item.description.toLowerCase().includes(query) ||
+                             item.category.toLowerCase().includes(query)
+                         );
+
+                         if (filteredResults.length > 0) {
+                             searchResults.innerHTML = filteredResults.map(item => `
+                                 <div class="search-result-item" onclick="window.location.href='${item.url}'">
+                                     <h4>${item.title}</h4>
+                                     <p>${item.description}</p>
+                                     <span class="category-badge">${item.category}</span>
+                                 </div>
+                             `).join('');
+                             searchResults.style.display = 'block';
+                         } else {
+                             searchResults.innerHTML = '<div class="no-results">No schemes found matching your search.</div>';
+                             searchResults.style.display = 'block';
+                         }
+                     });
+
+                     // Hide search results when clicking outside
+                     document.addEventListener('click', function(e) {
+                         if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                             searchResults.style.display = 'none';
+                         }
+                     });
+                 }
 
                  // Trigger initial scroll event to check visibility
                  handleScroll();

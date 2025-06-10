@@ -1,133 +1,101 @@
-
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    personalInfo: {
-        firstName: { type: String, required: true },
-        lastName: { type: String, required: true },
-        email: { type: String, required: true, unique: true },
-        phone: { type: String, required: true },
-        dateOfBirth: Date,
-        gender: { type: String, enum: ['Male', 'Female', 'Other'] },
-        profilePicture: String
+    username: {
+        type: String,
+        required: true,
+        unique: true
     },
-    credentials: {
-        password: { type: String, required: true },
-        lastLogin: Date,
-        isEmailVerified: { type: Boolean, default: false },
-        isPhoneVerified: { type: Boolean, default: false }
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
-    address: {
+    password: {
+        type: String,
+        required: true
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
+    },
+    // Profile information for auto-suggestions
+    profile: {
+        age: Number,
+        category: {
+            type: String,
+            enum: ['General', 'SC', 'ST', 'OBC', 'EWS', 'Other']
+        },
+        income: Number,
+        occupation: String,
         state: String,
         district: String,
-        city: String,
-        pincode: String,
-        fullAddress: String
-    },
-    demographics: {
-        category: { 
-            type: String, 
-            enum: ['General', 'OBC', 'SC', 'ST', 'EWS', 'Other'] 
+        education: {
+            type: String,
+            enum: ['Below 10th', '10th', '12th', 'Graduate', 'Post Graduate', 'Diploma', 'Other']
         },
-        annualIncome: Number,
-        occupation: String,
-        educationLevel: String,
-        maritalStatus: String,
-        familyMembers: Number
-    },
-    preferences: {
-        interestedCategories: [String],
-        languagePreference: { type: String, default: 'English' },
-        notificationSettings: {
-            email: { type: Boolean, default: true },
-            sms: { type: Boolean, default: true },
-            push: { type: Boolean, default: true }
+        gender: {
+            type: String,
+            enum: ['male', 'female', 'other']
+        },
+        maritalStatus: {
+            type: String,
+            enum: ['single', 'married', 'divorced', 'widowed']
         }
     },
-    applicationHistory: [{
-        schemeId: { type: mongoose.Schema.Types.ObjectId, refPath: 'applicationHistory.schemeType' },
-        schemeType: { 
-            type: String, 
-            enum: ['farmer_Schemes_Model', 'women_Welf_Model', 'higher_Education', 'secondary_Education', 'primary_Education', 'CompetitiveExam', 'EducationalProgram', 'StateWelfare'] 
-        },
-        schemeName: String,
-        applicationId: String,
-        appliedDate: Date,
-        status: { 
-            type: String, 
-            enum: ['draft', 'submitted', 'under_review', 'approved', 'rejected', 'on_hold'],
-            default: 'draft'
-        },
-        documentsSubmitted: [String],
-        lastUpdated: Date,
-        remarks: String
-    }],
-    bookmarks: [{
-        schemeId: { type: mongoose.Schema.Types.ObjectId, refPath: 'bookmarks.schemeType' },
-        schemeType: String,
-        schemeName: String,
-        bookmarkedDate: { type: Date, default: Date.now }
-    }],
-    notifications: [{
-        title: String,
-        message: String,
-        type: { 
-            type: String, 
-            enum: ['scheme_update', 'application_status', 'new_scheme', 'deadline_reminder', 'general'] 
-        },
-        isRead: { type: Boolean, default: false },
-        createdDate: { type: Date, default: Date.now },
-        relatedScheme: String
-    }],
-    activityLog: [{
-        action: String,
-        timestamp: { type: Date, default: Date.now },
-        details: String,
-        ipAddress: String
-    }],
-    recommendations: [{
+    // Activity tracking
+    visitedSchemes: [{
         schemeId: String,
-        schemeName: String,
-        reason: String,
-        score: Number,
-        generatedDate: { type: Date, default: Date.now }
+        schemeType: String,
+        visitedAt: { type: Date, default: Date.now }
     }],
-    accountSettings: {
-        isActive: { type: Boolean, default: true },
-        twoFactorEnabled: { type: Boolean, default: false },
-        lastPasswordChange: Date,
-        securityQuestions: [{
-            question: String,
-            answer: String
-        }]
+    appliedSchemes: [{
+        schemeId: String,
+        schemeType: String,
+        applicationId: String,
+        appliedAt: { type: Date, default: Date.now },
+        status: {
+            type: String,
+            enum: ['submitted', 'under_review', 'approved', 'rejected'],
+            default: 'submitted'
+        }
+    }],
+    bookmarkedSchemes: [{
+        schemeId: String,
+        schemeType: String,
+        bookmarkedAt: { type: Date, default: Date.now }
+    }],
+    // User preferences
+    language: {
+        type: String,
+        enum: ['en', 'hi', 'mr'],
+        default: 'en'
     },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
-});
+    notificationPreferences: {
+        email: { type: Boolean, default: true },
+        sms: { type: Boolean, default: false },
+        push: { type: Boolean, default: true },
+        schemeUpdates: { type: Boolean, default: true },
+        newSchemes: { type: Boolean, default: true }
+    },
+    // Chat history for chatbot
+    chatHistory: [{
+        query: String,
+        response: String,
+        timestamp: { type: Date, default: Date.now }
+    }],
+    lastLogin: Date,
+    isActive: { type: Boolean, default: true },
+    emailVerified: { type: Boolean, default: false },
+    phoneNumber: String
+}, { timestamps: true });
 
-// Hash password before saving
-userSchema.pre('save', async function(next) {
-    if (!this.isModified('credentials.password')) return next();
-    
-    try {
-        const salt = await bcrypt.genSalt(10);
-        this.credentials.password = await bcrypt.hash(this.credentials.password, salt);
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
+// Add indexes for better performance
+userSchema.index({ email: 1 });
+userSchema.index({ username: 1 });
+userSchema.index({ 'profile.state': 1 });
+userSchema.index({ 'profile.category': 1 });
+userSchema.index({ lastLogin: -1 });
 
-// Compare password method
-userSchema.methods.comparePassword = async function(candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.credentials.password);
-};
-
-// Update timestamp on save
-userSchema.pre('save', function(next) {
-    this.updatedAt = Date.now();
-    next();
-});
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

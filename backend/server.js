@@ -24,6 +24,17 @@ const user_Model = require("./models/user_Model.js");
 // Import routes
 const schemeRoutes = require("./routes/schemes.js");
 const authRoutes = require("./routes/auth.js");
+const profileRoutes = require("./routes/profileRoutes.js");
+const feedbackRoutes = require("./routes/feedbackRoutes.js");
+const adminRoutes = require("./routes/adminRoutes.js");
+
+// Import modules
+const ChatbotService = require("./modules/chatbot.js");
+const I18nService = require("./modules/i18n.js");
+
+// Initialize services
+const chatbotService = new ChatbotService();
+const i18nService = new I18nService();
 
 // Security middleware
 app.use(helmet({
@@ -89,9 +100,92 @@ connectDB()
     })
     .catch((err) => console.log("Database connection error:", err));
 
+// Add i18n middleware
+app.use(i18nService.middleware());
+
 // Routes
 app.use("/schemes", schemeRoutes);
 app.use("/auth", authRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/feedback", feedbackRoutes);
+app.use("/api/admin", adminRoutes);
+
+// Chatbot API endpoint
+app.post("/api/chatbot", async (req, res) => {
+    try {
+        const { query, userId, context = {} } = req.body;
+        
+        if (!query || typeof query !== 'string') {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Query is required and must be a string' 
+            });
+        }
+
+        console.log("DEBUG: Chatbot query received:", query);
+        
+        const response = await chatbotService.processQuery(query, context);
+        
+        // Track user interaction if userId provided
+        if (userId && mongoose.Types.ObjectId.isValid(userId)) {
+            try {
+                await User.findByIdAndUpdate(userId, {
+                    $push: {
+                        chatHistory: {
+                            query,
+                            response: response.response,
+                            timestamp: new Date()
+                        }
+                    }
+                });
+            } catch (trackError) {
+                console.error("Failed to track chat history:", trackError);
+            }
+        }
+
+        res.json(response);
+    } catch (error) {
+        console.error("Chatbot API error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Chatbot service temporarily unavailable",
+            error: error.message
+        });
+    }
+});
+
+// Language switching endpoint
+app.post("/api/language", (req, res) => {
+    const { language } = req.body;
+    
+    if (i18nService.setLanguage(language)) {
+        res.json({ 
+            success: true, 
+            message: 'Language updated successfully',
+            currentLanguage: language,
+            translations: i18nService.getAllTranslations(language)
+        });
+    } else {
+        res.status(400).json({ 
+            success: false, 
+            message: 'Unsupported language',
+            supportedLanguages: i18nService.supportedLanguages
+        });
+    }
+});
+
+// Get translations for frontend
+app.get("/api/translations/:language?", (req, res) => {
+    const { language } = req.params;
+    const translations = i18nService.getAllTranslations(language);
+    
+    res.json({
+        success: true,
+        language: language || i18nService.currentLanguage,
+        translations,
+        supportedLanguages: i18nService.supportedLanguages
+    });
+});
 
 // API Routes for search and filtering
 app.get("/api/search", (req, res) => {

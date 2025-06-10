@@ -1,0 +1,85 @@
+Project Title: Simply Saral – Feature Expansion
+
+Existing Stack:
+
+Frontend: HTML, CSS, JavaScript, Bootstrap, EJS
+
+Backend: Node.js with Express.js
+
+Database: MongoDB (local, now shift to MongoDB Atlas for scalability)
+
+Goal: Implement the following features while preserving existing routes, database schema, and UI:
+
+🔹 1. AI-based Query Assistance
+
+Integrate a simple chatbot using OpenAI or Gemini API.
+
+It should answer queries like "Am I eligible for PMAY?" or "Which scholarships are for OBC students?"
+
+Use an endpoint /api/chatbot to receive user questions and send back relevant scheme data.
+
+Optionally, use keyword matching or AI APIs (like OpenAI GPT or Google Gemini) to return appropriate responses.
+
+🔹 2. Multilingual Support
+
+Use i18n for multilingual translations.
+
+Support Hindi, Marathi, and English initially.
+
+Add a language switcher on the frontend using dropdown/select.
+
+Store all scheme content in multiple languages or translate dynamically using Google Translate API (optional).
+
+🔹 3. User Activity Tracking & Scheme Progress
+
+Add users collection with fields: { userId, visitedSchemes[], appliedSchemes[], language, lastLogin }
+
+Use JWT-based login (or session) to track logged-in users.
+
+Track and store whenever a user clicks “View Scheme” or "Apply".
+
+Add a dashboard where users can see scheme progress or revisit applied schemes.
+
+🔹 4. State-wise Filter
+
+Modify the schemes collection to include a state field.
+
+Add dropdown on homepage to filter schemes by state.
+
+Backend route should support /schemes?state=Maharashtra
+
+🔹 5. Auto-Suggestion Based on Profile
+
+Add profile questions: Age, Category (SC/ST/OBC/General), Income, Occupation
+
+Based on this, fetch eligible schemes (filtered from DB)
+
+Store profile data in user record and match with scheme eligibility criteria.
+
+🔹 6. Mobile-Responsive Design
+
+Make all frontend pages responsive using Bootstrap grid and media queries.
+
+Test UI using device emulator in dev tools or Replit's mobile view.
+
+🔹 7. Real-time Updates
+
+Add an admin panel where schemes can be added/updated with isNew = true
+
+On user dashboard, display banner "New Schemes Added" if isNew is true
+
+Use WebSockets or periodic frontend polling every 30 mins to check for updates.
+
+🔹 8. User Feedback System
+
+Allow logged-in users to leave feedback on schemes (1–5 stars + comments)
+
+Store in feedbacks collection: { userId, schemeId, rating, comment, timestamp }
+
+Show average rating for each scheme in the scheme list and detail pages.
+
+⚙️ Preserve existing data in the MongoDB schema.
+
+📦 Use environment variables for API keys (e.g., GPT, Google Translate).
+
+🛡 Add authentication using JWT or sessions for user login & dashboard access.

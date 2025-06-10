@@ -45,11 +45,11 @@
             <div class="schemes-stats">
                 <div class="stat-card">
                     <div class="stat-number"><%= exams.length %></div>
-                    <div class="stat-label">Total Exams</div>
+                    <div class="stat-label">Total Items</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number"><%= exams.filter(exam => exam.status === 'active').length %></div>
-                    <div class="stat-label">Active Exams</div>
+                    <div class="stat-number"><%= exams.filter(exam => exam.status === 'active' || !exam.status).length %></div>
+                    <div class="stat-label">Active</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number"><%= exams.filter(exam => exam.status === 'upcoming').length %></div>
@@ -61,27 +61,37 @@
                 <% exams.forEach(exam => { %>
                 <div class="scheme-card">
                     <div class="scheme-header">
-                        <div class="scheme-category <%= exam.examType.toLowerCase().replace(' ', '-') %>">
-                            <%= exam.examType %>
+                        <div class="scheme-category <%= (exam.examType || exam.programType || exam.category || 'general').toLowerCase().replace(/\s+/g, '-') %>">
+                            <%= exam.examType || exam.programType || exam.category || 'General' %>
                         </div>
-                        <div class="scheme-status <%= exam.status %>"
-                        ><%= exam.status.charAt(0).toUpperCase() + exam.status.slice(1) %></div>
+                        <div class="scheme-status <%= exam.status || 'active' %>">
+                            <%= (exam.status || 'active').charAt(0).toUpperCase() + (exam.status || 'active').slice(1) %>
+                        </div>
                     </div>
                     
                     <div class="scheme-content">
                         <h3><%= exam.title %></h3>
-                        <p class="full-name"><%= exam.fullName %></p>
+                        <% if (exam.fullName) { %>
+                            <p class="full-name"><%= exam.fullName %></p>
+                        <% } %>
                         <p class="description"><%= exam.description.substring(0, 150) %>...</p>
                         
                         <div class="exam-info">
+                            <% if (exam.conductingBody) { %>
                             <div class="info-item">
                                 <i class="fas fa-building"></i>
                                 <span><%= exam.conductingBody %></span>
                             </div>
+                            <% } %>
                             <% if (exam.importantDates && exam.importantDates.applicationEnd) { %>
                             <div class="info-item">
                                 <i class="fas fa-calendar"></i>
                                 <span>Apply by: <%= new Date(exam.importantDates.applicationEnd).toLocaleDateString() %></span>
+                            </div>
+                            <% } else if (exam.applicationDate) { %>
+                            <div class="info-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Apply: <%= exam.applicationDate %></span>
                             </div>
                             <% } %>
                             <% if (exam.vacancies && exam.vacancies.total) { %>
@@ -89,12 +99,17 @@
                                 <i class="fas fa-users"></i>
                                 <span><%= exam.vacancies.total %> vacancies</span>
                             </div>
+                            <% } else if (exam.targetGroup && exam.targetGroup.length > 0) { %>
+                            <div class="info-item">
+                                <i class="fas fa-users"></i>
+                                <span><%= Array.isArray(exam.targetGroup) ? exam.targetGroup.join(', ') : exam.targetGroup %></span>
+                            </div>
                             <% } %>
                         </div>
                     </div>
                     
                     <div class="scheme-actions">
-                        <a href="/schemes/competitive-exams/<%= exam._id %>" class="btn btn-primary">
+                        <a href="/schemes/<%= name.toLowerCase().replace(/\s+/g, '-') %>/<%= exam._id %>" class="btn btn-primary">
                             <i class="fas fa-eye"></i> View Details
                         </a>
                         <% if (exam.applicationDetails && exam.applicationDetails.onlineApplicationUrl) { %>

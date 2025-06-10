@@ -547,7 +547,7 @@ app.get("/schemes/competitive-exams", async (req, res) => {
         }
 
         console.log("DEBUG: Rendering competitive exams page with", data.length, "items");
-        res.render("pages/competitive_exams", { data, name: "Competitive Examinations" });
+        res.render("pages/competitive_exams", { exams: data, name: "Competitive Examinations" });
     } catch (error) {
         console.error("ERROR: Failed to load competitive exams:", error);
         res.status(500).render("pages/error", { 
@@ -637,7 +637,7 @@ app.get("/schemes/educational-programs", async (req, res) => {
         }
 
         console.log("DEBUG: Rendering educational programs page with", data.length, "items");
-        res.render("pages/competitive_exams", { data, name: "Educational Programs" });
+        res.render("pages/competitive_exams", { exams: data, name: "Educational Programs" });
     } catch (error) {
         console.error("ERROR: Failed to load educational programs:", error);
         res.status(500).render("pages/error", { 
@@ -723,7 +723,7 @@ app.get("/schemes/state-welfare", async (req, res) => {
         }
 
         console.log("DEBUG: Rendering state welfare programs page with", data.length, "items");
-        res.render("pages/competitive_exams", { data, name: "State Welfare Programs" });
+        res.render("pages/competitive_exams", { exams: data, name: "State Welfare Programs" });
     } catch (error) {
         console.error("ERROR: Failed to load state welfare programs:", error);
         res.status(500).render("pages/error", { 

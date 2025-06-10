@@ -105,6 +105,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('show');
+        });
+    }
+
     // Handle mobile menu toggle for new home page
     if (mobileMenuToggle && navLinks) {
         mobileMenuToggle.addEventListener('click', function() {
@@ -205,6 +211,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterApplyBtn = document.getElementById('filterApplyBtn');
     if (filterApplyBtn) {
         filterApplyBtn.addEventListener('click', applyFilters);
+    }
+
+    // Check if applyFilters function exists
+    if (typeof applyFilters !== 'function') {
+        console.log('applyFilters function not found');
     }
 
     // Initialize back to top button

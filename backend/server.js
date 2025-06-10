@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 require('dotenv').config();
@@ -51,9 +50,9 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-app.engine("ejs", ejsMate); 
-app.set("view engine", "ejs"); 
 app.set("views", path.join(__dirname, "../frontend/views"));
+app.set("view engine", "ejs");
+app.engine('ejs', ejsMate);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // Add JSON parsing
@@ -104,17 +103,30 @@ connectDB()
 app.use(i18nService.middleware());
 
 // Routes
-app.use("/schemes", schemeRoutes);
-app.use("/auth", authRoutes);
+app.use("/", require("./routes/schemes"));
+app.use("/auth", require("./routes/auth"));
 app.use("/api/profile", profileRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/admin", adminRoutes);
+
+// Add route for competitive-exams
+app.get('/competitive-exams', (req, res) => {
+    try {
+        res.render('pages/competitive_exams', { 
+            title: 'Competitive Exams',
+            data: fallbackData.competitive_exams || []
+        });
+    } catch (error) {
+        console.error('Error rendering competitive exams:', error);
+        res.render('pages/error', { message: 'Page not found' });
+    }
+});
 
 // Chatbot API endpoint
 app.post("/api/chatbot", async (req, res) => {
     try {
         const { query, userId, context = {} } = req.body;
-        
+
         if (!query || typeof query !== 'string') {
             return res.status(400).json({ 
                 success: false, 
@@ -123,9 +135,9 @@ app.post("/api/chatbot", async (req, res) => {
         }
 
         console.log("DEBUG: Chatbot query received:", query);
-        
+
         const response = await chatbotService.processQuery(query, context);
-        
+
         // Track user interaction if userId provided
         if (userId && mongoose.Types.ObjectId.isValid(userId)) {
             try {
@@ -157,7 +169,7 @@ app.post("/api/chatbot", async (req, res) => {
 // Language switching endpoint
 app.post("/api/language", (req, res) => {
     const { language } = req.body;
-    
+
     if (i18nService.setLanguage(language)) {
         res.json({ 
             success: true, 
@@ -178,7 +190,7 @@ app.post("/api/language", (req, res) => {
 app.get("/api/translations/:language?", (req, res) => {
     const { language } = req.params;
     const translations = i18nService.getAllTranslations(language);
-    
+
     res.json({
         success: true,
         language: language || i18nService.currentLanguage,
@@ -191,7 +203,7 @@ app.get("/api/translations/:language?", (req, res) => {
 app.get("/api/search", (req, res) => {
     console.log("DEBUG: Search API called with query:", req.query.q);
     const query = req.query.q || '';
-    
+
     try {
         // Expanded search results with 20+ schemes
         const allResults = [
@@ -351,7 +363,7 @@ app.get("/api/search", (req, res) => {
 
 app.get("/api/schemes/filter", (req, res) => {
     const { category, targetGroup, location } = req.query;
-    
+
     // Enhanced filtered schemes with more options
     const allSchemes = [
         {
@@ -430,7 +442,7 @@ app.get("/api/applications/:id/status", (req, res) => {
         lastUpdated: new Date(),
         remarks: "Application is being processed"
     };
-    
+
     res.json({ success: true, application: mockApplication });
 });
 
@@ -758,6 +770,27 @@ app.get("/api/status", (req, res) => {
         timestamp: new Date().toISOString()
     });
 });
+
+// Define fallback data
+const fallbackData = {
+    competitive_exams: [
+        {
+            title: "UPSC Civil Services Examination",
+            description: "Premier examination for Indian Administrative Service and other central services",
+            benefits: ["Administrative career", "Nation building opportunity", "High social status"],
+            eligibility: "Graduate degree from recognized university",
+            applicationDate: "February - March",
+            examDate: "June (Prelims), October (Mains)",
+            examType: "UPSC",
+            conductingBody: "Union Public Service Commission",
+            syllabus: {
+                prelimsTopics: ["General Studies", "CSAT"],
+                mainsTopics: ["Essay", "General Studies I-IV", "Optional Subject"],
+                interviewTopics: ["Personality Test", "Current Affairs"]
+            }
+        }
+    ]
+};
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`✅ SERVER STARTED SUCCESSFULLY`);

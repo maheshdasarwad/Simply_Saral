@@ -1481,6 +1481,16 @@
             .search-filter-section {
                 background-color: var(--background-alt);
                 padding: var(--spacing-lg) 0;
+                position: sticky;
+                top: 80px;
+                z-index: 50;
+                border-bottom: 1px solid var(--border);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            [data-theme="dark"] .search-filter-section {
+                background-color: var(--background-card);
+                border-bottom: 1px solid var(--border);
             }
 
             .search-container {
@@ -1526,8 +1536,53 @@
                 max-width: 600px;
                 background-color: var(--background-card);
                 border-radius: var(--border-radius);
-                box-shadow: var(--shadow-sm);
+                box-shadow: var(--shadow-md);
                 padding: var(--spacing-md);
+                max-height: 400px;
+                overflow-y: auto;
+            }
+
+            .search-result-item {
+                padding: var(--spacing-sm);
+                border-bottom: 1px solid var(--border);
+                cursor: pointer;
+                transition: var(--transition);
+            }
+
+            .search-result-item:hover {
+                background-color: var(--background-alt);
+                transform: translateX(5px);
+            }
+
+            .search-result-item:last-child {
+                border-bottom: none;
+            }
+
+            .search-result-item h4 {
+                color: var(--primary);
+                margin-bottom: 0.25rem;
+                font-size: 1rem;
+            }
+
+            .search-result-item p {
+                color: var(--foreground-light);
+                font-size: 0.875rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .category-badge {
+                background-color: var(--primary);
+                color: white;
+                padding: 0.2rem 0.5rem;
+                border-radius: var(--border-radius-sm);
+                font-size: 0.75rem;
+                font-weight: 500;
+            }
+
+            .no-results {
+                text-align: center;
+                color: var(--foreground-light);
+                font-style: italic;
             }
 
             .filter-container {
@@ -1692,6 +1747,67 @@
             </div>
         </section>
 
+        <!-- Search and Filter Section -->
+        <section class="search-filter-section" id="search-filters">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Find Your Perfect Scheme</h2>
+                    <p class="section-subtitle">
+                        Use our advanced search and filtering system to discover schemes tailored to your needs
+                    </p>
+                </div>
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search schemes, exams, programs..." />
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div id="searchResults" class="search-results" style="display: none;"></div>
+                </div>
+
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label for="categoryFilter">Category:</label>
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="education">Education</option>
+                            <option value="farmer">Agriculture & Farming</option>
+                            <option value="women">Women Welfare</option>
+                            <option value="health">Health</option>
+                            <option value="employment">Employment</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="targetGroupFilter">Target Group:</label>
+                        <select id="targetGroupFilter">
+                            <option value="">All Groups</option>
+                            <option value="students">Students</option>
+                            <option value="farmers">Farmers</option>
+                            <option value="women">Women</option>
+                            <option value="youth">Youth</option>
+                            <option value="elderly">Elderly</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="locationFilter">Location:</label>
+                        <select id="locationFilter">
+                            <option value="">All India</option>
+                            <option value="central">Central Schemes</option>
+                            <option value="state">State Schemes</option>
+                        </select>
+                    </div>
+
+                    <button class="filter-apply-btn" id="filterApplyBtn">
+                        <i class="fas fa-filter"></i> Apply Filters
+                    </button>
+                </div>
+            </div>
+        </section>
+
         <!-- Unified Schemes Section -->
         <section id="services" class="section">
             <div class="container">
@@ -1700,7 +1816,8 @@
                     <p class="section-subtitle">
                         Comprehensive access to government services, schemes, competitive exams, and welfare programs - all in one unified platform.
                     </p>
-                </div>
+                </div></div>
+        </section>
 
                 <!-- Education Category -->
                 <div class="category-section">
@@ -2149,66 +2266,7 @@
             </div>
         </div>
 
-    <!-- Search and Filter Section -->
-        <section class="search-filter-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Find Your Perfect Scheme</h2>
-                    <p class="section-subtitle">
-                        Use our advanced search and filtering system to discover schemes tailored to your needs
-                    </p>
-                </div>
-                
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search schemes, exams, programs..." />
-                        <button class="search-btn">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                    <div id="searchResults" class="search-results" style="display: none;"></div>
-                </div>
-
-                <div class="filter-container">
-                    <div class="filter-group">
-                        <label for="categoryFilter">Category:</label>
-                        <select id="categoryFilter">
-                            <option value="">All Categories</option>
-                            <option value="education">Education</option>
-                            <option value="farmer">Agriculture & Farming</option>
-                            <option value="women">Women Welfare</option>
-                            <option value="health">Health</option>
-                            <option value="employment">Employment</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="targetGroupFilter">Target Group:</label>
-                        <select id="targetGroupFilter">
-                            <option value="">All Groups</option>
-                            <option value="students">Students</option>
-                            <option value="farmers">Farmers</option>
-                            <option value="women">Women</option>
-                            <option value="youth">Youth</option>
-                            <option value="elderly">Elderly</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="locationFilter">Location:</label>
-                        <select id="locationFilter">
-                            <option value="">All India</option>
-                            <option value="central">Central Schemes</option>
-                            <option value="state">State Schemes</option>
-                        </select>
-                    </div>
-
-                    <button class="filter-apply-btn" id="filterApplyBtn">
-                        <i class="fas fa-filter"></i> Apply Filters
-                    </button>
-                </div>
-            </div>
-        </section>
+    
         <!-- Scripts -->
          <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
          <script>
@@ -2420,84 +2478,69 @@
                      }
                  };
 
-                 // Enhanced search functionality
+                 // Enhanced search functionality with API integration
                  const searchInput = document.getElementById('searchInput');
                  const searchResults = document.getElementById('searchResults');
                  
                  if (searchInput && searchResults) {
-                     const searchData = [
-                         {
-                             title: "Secondary Education Schemes",
-                             description: "Scholarships and support for secondary education",
-                             category: "Education",
-                             url: "/schemes/secondary_Education"
-                         },
-                         {
-                             title: "Higher Education Programs",
-                             description: "University scholarships and grants",
-                             category: "Education", 
-                             url: "/schemes/higher_Education"
-                         },
-                         {
-                             title: "Farmer Welfare Schemes",
-                             description: "Agricultural support and subsidies",
-                             category: "Agriculture",
-                             url: "/schemes/farmer_Welfare"
-                         },
-                         {
-                             title: "Women Empowerment Programs",
-                             description: "Support schemes for women",
-                             category: "Social Welfare",
-                             url: "/schemes/women_Welfare"
-                         },
-                         {
-                             title: "Competitive Examinations",
-                             description: "UPSC, SSC, State PSCs preparation",
-                             category: "Education",
-                             url: "/schemes/competitive-exams"
-                         },
-                         {
-                             title: "Skill Development Programs",
-                             description: "Training and certification courses",
-                             category: "Employment",
-                             url: "/schemes/educational-programs"
-                         },
-                         {
-                             title: "State Welfare Programs",
-                             description: "Regional development schemes",
-                             category: "Social Welfare",
-                             url: "/schemes/state-welfare"
-                         }
-                     ];
+                     let searchTimeout;
 
                      searchInput.addEventListener('input', function() {
                          const query = this.value.toLowerCase().trim();
+                         
+                         // Clear previous timeout
+                         if (searchTimeout) {
+                             clearTimeout(searchTimeout);
+                         }
                          
                          if (query.length === 0) {
                              searchResults.style.display = 'none';
                              return;
                          }
 
-                         const filteredResults = searchData.filter(item => 
-                             item.title.toLowerCase().includes(query) ||
-                             item.description.toLowerCase().includes(query) ||
-                             item.category.toLowerCase().includes(query)
-                         );
+                         // Debounce search requests
+                         searchTimeout = setTimeout(() => {
+                             performSearch(query);
+                         }, 300);
+                     });
 
-                         if (filteredResults.length > 0) {
-                             searchResults.innerHTML = filteredResults.map(item => `
-                                 <div class="search-result-item" onclick="window.location.href='${item.url}'">
-                                     <h4>${item.title}</h4>
-                                     <p>${item.description}</p>
-                                     <span class="category-badge">${item.category}</span>
-                                 </div>
-                             `).join('');
-                             searchResults.style.display = 'block';
-                         } else {
-                             searchResults.innerHTML = '<div class="no-results">No schemes found matching your search.</div>';
+                     async function performSearch(query) {
+                         try {
+                             console.log('DEBUG: Performing search for:', query);
+                             const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                             
+                             if (!response.ok) {
+                                 throw new Error(`Search failed: ${response.status}`);
+                             }
+                             
+                             const results = await response.json();
+                             console.log('DEBUG: Search results received:', results.length);
+
+                             if (results.length > 0) {
+                                 searchResults.innerHTML = results.map(item => `
+                                     <div class="search-result-item" onclick="navigateToScheme('${item.url}')">
+                                         <h4>${item.title}</h4>
+                                         <p>${item.description}</p>
+                                         <span class="category-badge">${item.category}</span>
+                                     </div>
+                                 `).join('');
+                                 searchResults.style.display = 'block';
+                             } else {
+                                 searchResults.innerHTML = '<div class="no-results">No schemes found matching your search.</div>';
+                                 searchResults.style.display = 'block';
+                             }
+                         } catch (error) {
+                             console.error('Search error:', error);
+                             searchResults.innerHTML = '<div class="no-results">Search service is temporarily unavailable. Please try again.</div>';
                              searchResults.style.display = 'block';
                          }
-                     });
+                     }
+
+                     // Function to navigate to scheme
+                     window.navigateToScheme = function(url) {
+                         console.log('DEBUG: Navigating to:', url);
+                         window.location.href = url;
+                     };
 
                      // Hide search results when clicking outside
                      document.addEventListener('click', function(e) {
@@ -2505,6 +2548,121 @@
                              searchResults.style.display = 'none';
                          }
                      });
+                 }
+
+                 // Enhanced filter functionality
+                 const filterApplyBtn = document.getElementById('filterApplyBtn');
+                 const categoryFilter = document.getElementById('categoryFilter');
+                 const targetGroupFilter = document.getElementById('targetGroupFilter');
+                 const locationFilter = document.getElementById('locationFilter');
+
+                 if (filterApplyBtn) {
+                     filterApplyBtn.addEventListener('click', applyFilters);
+                 }
+
+                 async function applyFilters() {
+                     try {
+                         const category = categoryFilter?.value || '';
+                         const targetGroup = targetGroupFilter?.value || '';
+                         const location = locationFilter?.value || '';
+
+                         console.log('DEBUG: Applying filters:', { category, targetGroup, location });
+
+                         // Show loading state
+                         filterApplyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Filtering...';
+                         filterApplyBtn.disabled = true;
+
+                         // Get all scheme cards
+                         const schemeCards = document.querySelectorAll('.scheme-card');
+                         let visibleCount = 0;
+
+                         schemeCards.forEach(card => {
+                             let showCard = true;
+                             const cardContent = card.innerHTML.toLowerCase();
+
+                             // Category filter
+                             if (category && !cardContent.includes(category)) {
+                                 showCard = false;
+                             }
+
+                             // Target group filter
+                             if (targetGroup && !cardContent.includes(targetGroup)) {
+                                 showCard = false;
+                             }
+
+                             // Location filter (simplified implementation)
+                             if (location === 'central' && cardContent.includes('state')) {
+                                 showCard = false;
+                             } else if (location === 'state' && !cardContent.includes('state')) {
+                                 showCard = false;
+                             }
+
+                             // Show or hide the card with animation
+                             if (showCard) {
+                                 card.style.display = 'block';
+                                 card.style.opacity = '1';
+                                 card.style.transform = 'translateY(0)';
+                                 visibleCount++;
+                             } else {
+                                 card.style.opacity = '0';
+                                 card.style.transform = 'translateY(-20px)';
+                                 setTimeout(() => {
+                                     card.style.display = 'none';
+                                 }, 300);
+                             }
+                         });
+
+                         // Show filter results summary
+                         setTimeout(() => {
+                             console.log(`DEBUG: Filter applied - ${visibleCount} schemes visible`);
+                             
+                             // Reset button state
+                             filterApplyBtn.innerHTML = '<i class="fas fa-filter"></i> Apply Filters';
+                             filterApplyBtn.disabled = false;
+
+                             // Show notification
+                             showNotification(`Filters applied - ${visibleCount} schemes found`, 'success');
+                         }, 300);
+
+                     } catch (error) {
+                         console.error('Filter error:', error);
+                         filterApplyBtn.innerHTML = '<i class="fas fa-filter"></i> Apply Filters';
+                         filterApplyBtn.disabled = false;
+                         showNotification('Filter error occurred. Please try again.', 'error');
+                     }
+                 }
+
+                 // Notification function
+                 function showNotification(message, type = 'info') {
+                     const notification = document.createElement('div');
+                     notification.className = `notification notification-${type}`;
+                     notification.style.cssText = `
+                         position: fixed;
+                         top: 100px;
+                         right: 20px;
+                         background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+                         color: white;
+                         padding: 1rem 1.5rem;
+                         border-radius: 8px;
+                         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                         z-index: 1000;
+                         transform: translateX(100%);
+                         transition: transform 0.3s ease;
+                     `;
+                     notification.textContent = message;
+                     
+                     document.body.appendChild(notification);
+                     
+                     setTimeout(() => {
+                         notification.style.transform = 'translateX(0)';
+                     }, 100);
+                     
+                     setTimeout(() => {
+                         notification.style.transform = 'translateX(100%)';
+                         setTimeout(() => {
+                             document.body.removeChild(notification);
+                         }, 300);
+                     }, 3000);
                  }
 
                  // Trigger initial scroll event to check visibility

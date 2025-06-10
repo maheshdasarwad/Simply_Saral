@@ -4,55 +4,66 @@ document.addEventListener('DOMContentLoaded', function() {
     const navItems = document.querySelectorAll('.dashboard-nav .nav-item');
     const tabContents = document.querySelectorAll('.tab-content');
     
-    navItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Remove active class from all nav items and tab contents
-            navItems.forEach(nav => nav.classList.remove('active'));
-            tabContents.forEach(tab => tab.classList.remove('active'));
-            
-            // Add active class to clicked nav item
-            this.classList.add('active');
-            
-            // Show corresponding tab content
-            const targetTab = this.getAttribute('href').substring(1);
-            const targetContent = document.getElementById(targetTab);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
+    if (navItems.length > 0) {
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all nav items and tab contents
+                navItems.forEach(nav => nav.classList.remove('active'));
+                tabContents.forEach(tab => tab.classList.remove('active'));
+                
+                // Add active class to clicked nav item
+                this.classList.add('active');
+                
+                // Show corresponding tab content
+                const targetTab = this.getAttribute('href').substring(1);
+                const targetContent = document.getElementById(targetTab);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
         });
-    });
+    }
     
     // Application status tracking
     const trackButtons = document.querySelectorAll('.track-application');
-    trackButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const applicationId = this.getAttribute('data-app-id');
-            trackApplication(applicationId);
+    if (trackButtons.length > 0) {
+        trackButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const applicationId = this.getAttribute('data-app-id');
+                trackApplication(applicationId);
+            });
         });
-    });
+    }
     
     // Bookmark functionality
     const bookmarkButtons = document.querySelectorAll('.bookmark-btn');
-    bookmarkButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const schemeId = this.getAttribute('data-scheme-id');
-            const schemeType = this.getAttribute('data-scheme-type');
-            toggleBookmark(schemeId, schemeType, this);
+    if (bookmarkButtons.length > 0) {
+        bookmarkButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const schemeId = this.getAttribute('data-scheme-id');
+                const schemeType = this.getAttribute('data-scheme-type');
+                toggleBookmark(schemeId, schemeType, this);
+            });
         });
-    });
+    }
     
     // Notification management
     const notificationItems = document.querySelectorAll('.notification-item');
-    notificationItems.forEach(item => {
-        item.addEventListener('click', function() {
-            markNotificationAsRead(this);
+    if (notificationItems.length > 0) {
+        notificationItems.forEach(item => {
+            item.addEventListener('click', function() {
+                markNotificationAsRead(this);
+            });
         });
-    });
+    }
     
     // Initialize notification updates
     setInterval(checkForNewNotifications, 60000); // Check every minute
+    
+    // Initialize profile form
+    updateProfile();
 });
 
 // Track application status
@@ -91,12 +102,14 @@ async function toggleBookmark(schemeId, schemeType, button) {
         if (data.success) {
             button.classList.toggle('bookmarked');
             const icon = button.querySelector('i');
-            if (button.classList.contains('bookmarked')) {
-                icon.className = 'fas fa-bookmark';
-                showAlert('Scheme bookmarked successfully', 'success');
-            } else {
-                icon.className = 'far fa-bookmark';
-                showAlert('Bookmark removed successfully', 'success');
+            if (icon) {
+                if (button.classList.contains('bookmarked')) {
+                    icon.className = 'fas fa-bookmark';
+                    showAlert('Scheme bookmarked successfully', 'success');
+                } else {
+                    icon.className = 'far fa-bookmark';
+                    showAlert('Bookmark removed successfully', 'success');
+                }
             }
         } else {
             showAlert('Error updating bookmark', 'error');
@@ -110,6 +123,8 @@ async function toggleBookmark(schemeId, schemeType, button) {
 // Mark notification as read
 async function markNotificationAsRead(notificationElement) {
     const notificationId = notificationElement.getAttribute('data-notification-id');
+    
+    if (!notificationId) return;
     
     try {
         const response = await fetch(`/api/notifications/${notificationId}/read`, {
@@ -155,7 +170,8 @@ function updateNotificationBadge() {
                 } else {
                     badge.style.display = 'none';
                 }
-            });
+            })
+            .catch(error => console.error('Error updating notification badge:', error));
     }
 }
 
@@ -189,15 +205,22 @@ function showApplicationStatusModal(application) {
     document.body.insertAdjacentHTML('beforeend', modalHtml);
     
     // Close modal functionality
-    document.querySelector('.close-modal').addEventListener('click', function() {
-        document.querySelector('.status-modal-overlay').remove();
-    });
+    const closeModal = document.querySelector('.close-modal');
+    const modalOverlay = document.querySelector('.status-modal-overlay');
     
-    document.querySelector('.status-modal-overlay').addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.remove();
-        }
-    });
+    if (closeModal) {
+        closeModal.addEventListener('click', function() {
+            modalOverlay.remove();
+        });
+    }
+    
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.remove();
+            }
+        });
+    }
 }
 
 // Show alert notifications
@@ -221,9 +244,12 @@ function showAlert(message, type) {
     }, 5000);
     
     // Close button functionality
-    alert.querySelector('.alert-close').addEventListener('click', function() {
-        alert.remove();
-    });
+    const closeBtn = alert.querySelector('.alert-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            alert.remove();
+        });
+    }
 }
 
 // Create alert container if it doesn't exist
@@ -306,6 +332,3 @@ function updateProfile() {
         });
     }
 }
-
-// Initialize profile update on page load
-document.addEventListener('DOMContentLoaded', updateProfile);

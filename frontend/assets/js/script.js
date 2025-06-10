@@ -1,15 +1,12 @@
-` tags.
 
-```
-<replit_final_file>
 // Global navigation functions
 window.navigateToScheme = function(category) {
     const categoryUrls = {
-        'secondary': '/schemes/secondary',
-        'higher': '/schemes/higher', 
-        'farmer': '/schemes/farmer',
-        'women': '/schemes/women',
-        'primary': '/schemes/primary'
+        'secondary': '/schemes/secondary_Education',
+        'higher': '/schemes/higher_Education', 
+        'farmer': '/schemes/farmer_Welfare',
+        'women': '/schemes/women_Welfare',
+        'primary': '/schemes/primary_Education'
     };
 
     if (categoryUrls[category]) {
@@ -27,6 +24,11 @@ window.performSearch = function(query) {
                 .then(response => response.json())
                 .then(data => displaySearchResults(data))
                 .catch(error => console.error('Search error:', error));
+        } else {
+            const searchResults = document.getElementById('searchResults');
+            if (searchResults) {
+                searchResults.style.display = 'none';
+            }
         }
     }, 300);
 };
@@ -52,9 +54,13 @@ function displaySearchResults(results) {
 
 // Filter functionality
 window.applyFilters = function() {
-    const category = document.getElementById('categoryFilter')?.value || '';
-    const targetGroup = document.getElementById('targetGroupFilter')?.value || '';
-    const location = document.getElementById('locationFilter')?.value || '';
+    const categoryFilter = document.getElementById('categoryFilter');
+    const targetGroupFilter = document.getElementById('targetGroupFilter');
+    const locationFilter = document.getElementById('locationFilter');
+
+    const category = categoryFilter ? categoryFilter.value : '';
+    const targetGroup = targetGroupFilter ? targetGroupFilter.value : '';
+    const location = locationFilter ? locationFilter.value : '';
 
     const params = new URLSearchParams();
     if (category) params.append('category', category);
@@ -199,5 +205,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterApplyBtn = document.getElementById('filterApplyBtn');
     if (filterApplyBtn) {
         filterApplyBtn.addEventListener('click', applyFilters);
+    }
+
+    // Initialize back to top button
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Show/hide back to top button on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 600) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
     }
 });

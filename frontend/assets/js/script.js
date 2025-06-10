@@ -1,4 +1,3 @@
-
 // Global navigation functions
 window.navigateToScheme = function(category) {
     const categoryUrls = {
@@ -6,7 +5,10 @@ window.navigateToScheme = function(category) {
         'higher': '/schemes/higher_Education', 
         'farmer': '/schemes/farmer_Welfare',
         'women': '/schemes/women_Welfare',
-        'primary': '/schemes/primary_Education'
+        'primary': '/schemes/primary_Education',
+        'competitive': '/competitive-exams',
+        'educational': '/educational-programs',
+        'state': '/state-welfare'
     };
 
     if (categoryUrls[category]) {
@@ -35,43 +37,21 @@ window.performSearch = function(query) {
 
 function displaySearchResults(results) {
     const searchResults = document.getElementById('searchResults');
-    if (searchResults) {
-        if (results.length > 0) {
-            searchResults.innerHTML = results.map(result => `
-                <div class="search-result-item" onclick="window.location.href='${result.url}'">
-                    <h4>${result.title}</h4>
-                    <p>${result.description.substring(0, 100)}...</p>
-                    <span class="category-badge">${result.category}</span>
-                </div>
-            `).join('');
-            searchResults.style.display = 'block';
-        } else {
-            searchResults.innerHTML = '<div class="no-results">No results found</div>';
-            searchResults.style.display = 'block';
-        }
+    if (!searchResults) return;
+
+    if (results.length === 0) {
+        searchResults.innerHTML = '<div class="no-results">No results found</div>';
+    } else {
+        searchResults.innerHTML = results.map(result => `
+            <div class="search-result-item" onclick="window.location.href='${result.url}'">
+                <h4>${result.title}</h4>
+                <p>${result.description}</p>
+                <span class="category">${result.category}</span>
+            </div>
+        `).join('');
     }
+    searchResults.style.display = 'block';
 }
-
-// Filter functionality
-window.applyFilters = function() {
-    const categoryFilter = document.getElementById('categoryFilter');
-    const targetGroupFilter = document.getElementById('targetGroupFilter');
-    const locationFilter = document.getElementById('locationFilter');
-
-    const category = categoryFilter ? categoryFilter.value : '';
-    const targetGroup = targetGroupFilter ? targetGroupFilter.value : '';
-    const location = locationFilter ? locationFilter.value : '';
-
-    const params = new URLSearchParams();
-    if (category) params.append('category', category);
-    if (targetGroup) params.append('targetGroup', targetGroup);
-    if (location) params.append('location', location);
-
-    fetch(`/api/schemes/filter?${params.toString()}`)
-        .then(response => response.json())
-        .then(data => displayFilteredSchemes(data))
-        .catch(error => console.error('Filter error:', error));
-};
 
 function displayFilteredSchemes(schemes) {
     const schemesContainer = document.getElementById('schemesContainer');
@@ -91,9 +71,11 @@ function displayFilteredSchemes(schemes) {
     }
 }
 
-// Wait for DOM to be fully loaded
+// DOM Content Loaded event handler
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
+    console.log('DOM loaded successfully');
+
+    // Mobile menu toggle - safe initialization
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navMenu = document.querySelector('.nav-menu');
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
@@ -111,130 +93,100 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Handle mobile menu toggle for new home page
-    if (mobileMenuToggle && navLinks) {
-        mobileMenuToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            mobileMenuToggle.innerHTML = navLinks.classList.contains('active')
-                ? '<i class="fas fa-times"></i>'
-                : '<i class="fas fa-bars"></i>';
+    // Search functionality - safe initialization
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            performSearch(this.value);
         });
     }
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    if (searchButton) {
+        searchButton.addEventListener('click', function() {
+            const query = searchInput ? searchInput.value : '';
+            if (query) {
+                performSearch(query);
+            }
+        });
+    }
+
+    // Close search results when clicking outside
+    document.addEventListener('click', function(event) {
+        const searchResults = document.getElementById('searchResults');
+        const searchContainer = document.querySelector('.search-container');
+
+        if (searchResults && searchContainer && !searchContainer.contains(event.target)) {
+            searchResults.style.display = 'none';
+        }
+    });
+
+    // Filter functionality - safe initialization
+    const categoryFilter = document.getElementById('categoryFilter');
+    const locationFilter = document.getElementById('locationFilter');
+
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', function() {
+            applyFilters();
+        });
+    }
+
+    if (locationFilter) {
+        locationFilter.addEventListener('change', function() {
+            applyFilters();
+        });
+    }
+
+    // Initialize smooth scrolling for anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
             }
         });
     });
+});
 
-    // Add event listeners for scheme cards
-    const schemeCards = document.querySelectorAll('.scheme-card');
-    schemeCards.forEach(card => {
-        const exploreBtn = card.querySelector('.explore-btn');
-        if (exploreBtn) {
-            exploreBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const category = this.getAttribute('data-category');
-                if (category) {
-                    navigateToScheme(category);
-                }
-            });
-        }
-    });
-
-    // Initialize search functionality
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', function(e) {
-            performSearch(e.target.value);
-        });
-
-        // Hide search results when clicking outside
-        document.addEventListener('click', function(e) {
-            const searchResults = document.getElementById('searchResults');
-            if (searchResults && !e.target.closest('.search-container')) {
-                searchResults.style.display = 'none';
-            }
-        });
-    }
-
-    // Initialize filter functionality
+function applyFilters() {
     const categoryFilter = document.getElementById('categoryFilter');
-    const targetGroupFilter = document.getElementById('targetGroupFilter');
     const locationFilter = document.getElementById('locationFilter');
-    
-    if (categoryFilter) {
-        categoryFilter.addEventListener('change', applyFilters);
-    }
-    if (targetGroupFilter) {
-        targetGroupFilter.addEventListener('change', applyFilters);
-    }
-    if (locationFilter) {
-        locationFilter.addEventListener('change', applyFilters);
-    }
 
-    // Initialize theme toggle
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        const body = document.body;
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        
-        if (savedTheme === 'dark') {
-            body.setAttribute('data-theme', 'dark');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        } else {
-            body.setAttribute('data-theme', 'light');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        }
+    const category = categoryFilter ? categoryFilter.value : '';
+    const location = locationFilter ? locationFilter.value : '';
 
-        themeToggle.addEventListener('click', function() {
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
+    const params = new URLSearchParams();
+    if (category) params.append('category', category);
+    if (location) params.append('location', location);
+
+    fetch(`/api/schemes/filter?${params.toString()}`)
+        .then(response => response.json())
+        .then(data => displayFilteredSchemes(data))
+        .catch(error => console.error('Filter error:', error));
+}
+
+// Error handling for missing elements
+function safeGetElement(id) {
+    const element = document.getElementById(id);
+    if (!element) {
+        console.warn(`Element with id '${id}' not found`);
     }
+    return element;
+}
 
-    // Initialize filter apply button
-    const filterApplyBtn = document.getElementById('filterApplyBtn');
-    if (filterApplyBtn) {
-        filterApplyBtn.addEventListener('click', applyFilters);
-    }
+// Global error handler
+window.addEventListener('error', function(event) {
+    console.error('JavaScript error:', event.error);
+});
 
-    // Check if applyFilters function exists
-    if (typeof applyFilters !== 'function') {
-        console.log('applyFilters function not found');
-    }
-
-    // Initialize back to top button
-    const backToTop = document.getElementById('backToTop');
-    if (backToTop) {
-        backToTop.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Show/hide back to top button on scroll
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 600) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-    }
+// Handle unhandled promise rejections
+window.addEventListener('unhandledrejection', function(event) {
+    console.error('Unhandled promise rejection:', event.reason);
 });

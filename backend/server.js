@@ -37,15 +37,15 @@ const i18nService = new I18nService();
 
 // Security middleware
 app.use(helmet({
-    contentSecurityPolicy: false, // Disable for development
+    contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false
 }));
 app.use(compression());
 
 // Rate limiting
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
+    windowMs: 15 * 60 * 1000,
+    max: 100,
     message: 'Too many requests from this IP, please try again later.'
 });
 app.use('/api/', limiter);
@@ -55,7 +55,7 @@ app.set("view engine", "ejs");
 app.engine('ejs', ejsMate);
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json()); // Add JSON parsing
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "../frontend/assets")));
 app.use('/css', express.static(path.join(__dirname, "../frontend/assets/css")));
 app.use('/js', express.static(path.join(__dirname, "../frontend/assets/js")));
@@ -64,13 +64,12 @@ app.use('/Image', express.static(path.join(__dirname, "../frontend/assets/Image"
 
 const port = process.env.PORT || 5000;
 
-// Database connection with enhanced logging
+// Database connection
 async function connectDB() {
     const mongoURI = process.env.MONGODB_URI;
     if (!mongoURI) {
         console.log("WARNING: MongoDB URI not found in environment variables.");
         console.log("INFO: Server will continue with fallback data - no database features.");
-        console.log("INFO: To enable database features, set MONGODB_URI in Secrets.");
         return false;
     }
 
@@ -103,377 +102,14 @@ connectDB()
 app.use(i18nService.middleware());
 
 // Routes
-app.use("/", require("./routes/schemes"));
+app.use("/schemes", require("./routes/schemes"));
 app.use("/auth", require("./routes/auth"));
 app.use("/api/profile", profileRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/admin", adminRoutes);
 
-// Add route for competitive-exams
-app.get('/competitive-exams', (req, res) => {
-    try {
-        res.render('pages/competitive_exams', { 
-            title: 'Competitive Exams',
-            data: fallbackData.competitive_exams || []
-        });
-    } catch (error) {
-        console.error('Error rendering competitive exams:', error);
-        res.render('pages/error', { message: 'Page not found' });
-    }
-});
-
-// Chatbot API endpoint
-app.post("/api/chatbot", async (req, res) => {
-    try {
-        const { query, userId, context = {} } = req.body;
-
-        if (!query || typeof query !== 'string') {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'Query is required and must be a string' 
-            });
-        }
-
-        console.log("DEBUG: Chatbot query received:", query);
-
-        const response = await chatbotService.processQuery(query, context);
-
-        // Track user interaction if userId provided
-        if (userId && mongoose.Types.ObjectId.isValid(userId)) {
-            try {
-                await User.findByIdAndUpdate(userId, {
-                    $push: {
-                        chatHistory: {
-                            query,
-                            response: response.response,
-                            timestamp: new Date()
-                        }
-                    }
-                });
-            } catch (trackError) {
-                console.error("Failed to track chat history:", trackError);
-            }
-        }
-
-        res.json(response);
-    } catch (error) {
-        console.error("Chatbot API error:", error);
-        res.status(500).json({
-            success: false,
-            message: "Chatbot service temporarily unavailable",
-            error: error.message
-        });
-    }
-});
-
-// Language switching endpoint
-app.post("/api/language", (req, res) => {
-    const { language } = req.body;
-
-    if (i18nService.setLanguage(language)) {
-        res.json({ 
-            success: true, 
-            message: 'Language updated successfully',
-            currentLanguage: language,
-            translations: i18nService.getAllTranslations(language)
-        });
-    } else {
-        res.status(400).json({ 
-            success: false, 
-            message: 'Unsupported language',
-            supportedLanguages: i18nService.supportedLanguages
-        });
-    }
-});
-
-// Get translations for frontend
-app.get("/api/translations/:language?", (req, res) => {
-    const { language } = req.params;
-    const translations = i18nService.getAllTranslations(language);
-
-    res.json({
-        success: true,
-        language: language || i18nService.currentLanguage,
-        translations,
-        supportedLanguages: i18nService.supportedLanguages
-    });
-});
-
-// API Routes for search and filtering
-app.get("/api/search", (req, res) => {
-    console.log("DEBUG: Search API called with query:", req.query.q);
-    const query = req.query.q || '';
-
-    try {
-        // Expanded search results with 20+ schemes
-        const allResults = [
-            {
-                title: "PM-Kisan Samman Nidhi",
-                description: "Direct income support scheme providing ₹6,000 annually to farmers",
-                category: "Agriculture",
-                url: "/schemes/farmer_Welfare"
-            },
-            {
-                title: "Beti Bachao Beti Padhao",
-                description: "Government scheme for girl child welfare and education",
-                category: "Women Welfare",
-                url: "/schemes/women_Welfare"
-            },
-            {
-                title: "Post Matric Scholarship",
-                description: "Financial assistance for higher education students",
-                category: "Education",
-                url: "/schemes/higher_Education"
-            },
-            {
-                title: "National Means-cum-Merit Scholarship",
-                description: "Scholarship for meritorious students from economically weaker sections",
-                category: "Education",
-                url: "/schemes/secondary_Education"
-            },
-            {
-                title: "Pradhan Mantri Fasal Bima Yojana",
-                description: "Crop insurance scheme protecting farmers against crop losses",
-                category: "Agriculture",
-                url: "/schemes/farmer_Welfare"
-            },
-            {
-                title: "Swadhar Greh Scheme",
-                description: "Support for women in difficult circumstances with shelter and rehabilitation",
-                category: "Women Welfare",
-                url: "/schemes/women_Welfare"
-            },
-            {
-                title: "UPSC Civil Services Examination",
-                description: "Premier competitive examination for administrative services",
-                category: "Competitive Exams",
-                url: "/schemes/competitive-exams"
-            },
-            {
-                title: "Skill India Mission",
-                description: "Comprehensive skill development programs for employability",
-                category: "Skill Development",
-                url: "/schemes/educational-programs"
-            },
-            {
-                title: "Ayushman Bharat Yojana",
-                description: "Health insurance scheme providing ₹5 lakh coverage per family",
-                category: "Health",
-                url: "/schemes/state-welfare"
-            },
-            {
-                title: "NEET UG 2024",
-                description: "National medical entrance examination for MBBS/BDS admissions",
-                category: "Competitive Exams",
-                url: "/schemes/competitive-exams"
-            },
-            {
-                title: "JEE Main 2024",
-                description: "Joint entrance examination for engineering college admissions",
-                category: "Competitive Exams",
-                url: "/schemes/competitive-exams"
-            },
-            {
-                title: "SSC CGL Examination",
-                description: "Staff Selection Commission combined graduate level examination",
-                category: "Competitive Exams",
-                url: "/schemes/competitive-exams"
-            },
-            {
-                title: "Startup India Seed Fund",
-                description: "Financial support for startups with up to ₹20 lakh funding",
-                category: "Entrepreneurship",
-                url: "/schemes/educational-programs"
-            },
-            {
-                title: "Stand Up India",
-                description: "Bank loans for SC/ST and women entrepreneurs (₹10 lakh to ₹1 crore)",
-                category: "Entrepreneurship",
-                url: "/schemes/educational-programs"
-            },
-            {
-                title: "PM SVANidhi Scheme",
-                description: "Micro-credit facility for street vendors affected by COVID-19",
-                category: "Employment",
-                url: "/schemes/educational-programs"
-            },
-            {
-                title: "PMKVY (Pradhan Mantri Kaushal Vikas Yojana)",
-                description: "Skill certification with monetary rewards up to ₹8,000",
-                category: "Skill Development",
-                url: "/schemes/educational-programs"
-            },
-            {
-                title: "Digital India Skills Platform",
-                description: "Free digital literacy and IT skills training with certification",
-                category: "Digital Literacy",
-                url: "/schemes/educational-programs"
-            },
-            {
-                title: "Mahatma Gandhi NREGA",
-                description: "Rural employment guarantee providing 100 days of work annually",
-                category: "Employment",
-                url: "/schemes/state-welfare"
-            },
-            {
-                title: "PM Awas Yojana (Gramin)",
-                description: "Housing assistance of ₹1.2-1.3 lakh for rural families",
-                category: "Housing",
-                url: "/schemes/state-welfare"
-            },
-            {
-                title: "Ladli Behna Yojana",
-                description: "₹1,250 monthly financial assistance for women (MP state scheme)",
-                category: "Women Welfare",
-                url: "/schemes/state-welfare"
-            },
-            {
-                title: "PM Garib Kalyan Anna Yojana",
-                description: "Free food grains distribution - 5kg wheat/rice per person",
-                category: "Food Security",
-                url: "/schemes/state-welfare"
-            },
-            {
-                title: "Kisan Credit Card",
-                description: "Short-term credit facility for farmers with subsidized interest rates",
-                category: "Agriculture",
-                url: "/schemes/farmer_Welfare"
-            },
-            {
-                title: "Sarva Shiksha Abhiyan",
-                description: "Universal elementary education program with infrastructure development",
-                category: "Education",
-                url: "/schemes/secondary_Education"
-            }
-        ];
-
-        const filteredResults = allResults.filter(item => 
-            item.title.toLowerCase().includes(query.toLowerCase()) ||
-            item.description.toLowerCase().includes(query.toLowerCase()) ||
-            item.category.toLowerCase().includes(query.toLowerCase())
-        );
-
-        console.log("DEBUG: Search found", filteredResults.length, "results for query:", query);
-        res.json(filteredResults);
-    } catch (error) {
-        console.error("ERROR: Search API failed:", error);
-        res.status(500).json({ error: "Search service temporarily unavailable" });
-    }
-});
-
-app.get("/api/schemes/filter", (req, res) => {
-    const { category, targetGroup, location } = req.query;
-
-    // Enhanced filtered schemes with more options
-    const allSchemes = [
-        {
-            title: "Secondary Education Schemes",
-            description: "Comprehensive schemes for secondary education including scholarships and infrastructure",
-            category: "education",
-            targetGroup: "students",
-            location: "central",
-            detailUrl: "/schemes/secondary_Education"
-        },
-        {
-            title: "Higher Education Support",
-            description: "Financial assistance and scholarships for college and university students",
-            category: "education",
-            targetGroup: "students",
-            location: "central",
-            detailUrl: "/schemes/higher_Education"
-        },
-        {
-            title: "Women Welfare Programs",
-            description: "Empowering women through various schemes and support programs",
-            category: "women",
-            targetGroup: "women",
-            location: "central",
-            detailUrl: "/schemes/women_Welfare"
-        },
-        {
-            title: "Farmer Support Schemes",
-            description: "Agricultural support, subsidies, and welfare programs for farmers",
-            category: "farmer",
-            targetGroup: "farmers",
-            location: "central",
-            detailUrl: "/schemes/farmer_Welfare"
-        },
-        {
-            title: "Competitive Exam Guidance",
-            description: "Resources and support for UPSC, SSC, and state competitive exams",
-            category: "education",
-            targetGroup: "youth",
-            location: "central",
-            detailUrl: "/schemes/competitive-exams"
-        },
-        {
-            title: "Skill Development Programs",
-            description: "Training and certification programs for various skills",
-            category: "employment",
-            targetGroup: "youth",
-            location: "central",
-            detailUrl: "/schemes/educational-programs"
-        }
-    ];
-
-    let filtered = allSchemes;
-
-    if (category) {
-        filtered = filtered.filter(scheme => scheme.category === category);
-    }
-    if (targetGroup) {
-        filtered = filtered.filter(scheme => scheme.targetGroup === targetGroup);
-    }
-    if (location) {
-        filtered = filtered.filter(scheme => scheme.location === location);
-    }
-
-    res.json(filtered);
-});
-
-// New API routes for enhanced features
-app.get("/api/applications/:id/status", (req, res) => {
-    // Mock application status
-    const mockApplication = {
-        applicationId: req.params.id,
-        schemeName: "Sample Scheme",
-        status: "under_review",
-        appliedDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-        lastUpdated: new Date(),
-        remarks: "Application is being processed"
-    };
-
-    res.json({ success: true, application: mockApplication });
-});
-
-app.post("/api/bookmarks/toggle", (req, res) => {
-    // Mock bookmark toggle
-    const { schemeId, schemeType } = req.body;
-    res.json({ success: true, message: "Bookmark toggled successfully" });
-});
-
-app.post("/api/notifications/:id/read", (req, res) => {
-    // Mock notification read
-    res.json({ success: true, message: "Notification marked as read" });
-});
-
-app.get("/api/notifications/new", (req, res) => {
-    // Mock new notifications check
-    res.json({ hasNew: false, count: 0 });
-});
-
-app.get("/api/notifications/unread-count", (req, res) => {
-    // Mock unread count
-    res.json({ count: 0 });
-});
-
-app.post("/api/profile/update", (req, res) => {
-    // Mock profile update
-    res.json({ success: true, message: "Profile updated successfully" });
-});
-
-// Enhanced scheme routes with logging
-app.get("/schemes/competitive-exams", async (req, res) => {
+// Fixed scheme routes with proper title passing
+app.get('/competitive-exams', async (req, res) => {
     console.log("DEBUG: Accessing competitive exams route");
     try {
         const isDbConnected = mongoose.connection.readyState === 1;
@@ -496,12 +132,7 @@ app.get("/schemes/competitive-exams", async (req, res) => {
                     applicationDate: "February - March",
                     examDate: "June (Prelims), October (Mains)",
                     examType: "UPSC",
-                    conductingBody: "Union Public Service Commission",
-                    syllabus: {
-                        prelimsTopics: ["General Studies", "CSAT"],
-                        mainsTopics: ["Essay", "General Studies I-IV", "Optional Subject"],
-                        interviewTopics: ["Personality Test", "Current Affairs"]
-                    }
+                    conductingBody: "Union Public Service Commission"
                 },
                 {
                     title: "SSC Combined Graduate Level Examination",
@@ -547,17 +178,22 @@ app.get("/schemes/competitive-exams", async (req, res) => {
         }
 
         console.log("DEBUG: Rendering competitive exams page with", data.length, "items");
-        res.render("pages/competitive_exams", { exams: data, name: "Competitive Examinations" });
+        res.render("pages/competitive_exams", { 
+            exams: data, 
+            name: "Competitive Examinations",
+            title: "Competitive Exams - Simply Saral"
+        });
     } catch (error) {
         console.error("ERROR: Failed to load competitive exams:", error);
         res.status(500).render("pages/error", { 
             message: "Failed to load competitive examinations. Please try again later.",
-            error: error.message
+            error: error.message,
+            title: "Error - Simply Saral"
         });
     }
 });
 
-app.get("/schemes/educational-programs", async (req, res) => {
+app.get('/educational-programs', async (req, res) => {
     console.log("DEBUG: Accessing educational programs route");
     try {
         const isDbConnected = mongoose.connection.readyState === 1;
@@ -637,17 +273,22 @@ app.get("/schemes/educational-programs", async (req, res) => {
         }
 
         console.log("DEBUG: Rendering educational programs page with", data.length, "items");
-        res.render("pages/competitive_exams", { exams: data, name: "Educational Programs" });
+        res.render("pages/competitive_exams", { 
+            exams: data, 
+            name: "Educational Programs",
+            title: "Educational Programs - Simply Saral"
+        });
     } catch (error) {
         console.error("ERROR: Failed to load educational programs:", error);
         res.status(500).render("pages/error", { 
             message: "Failed to load educational programs. Please try again later.",
-            error: error.message
+            error: error.message,
+            title: "Error - Simply Saral"
         });
     }
 });
 
-app.get("/schemes/state-welfare", async (req, res) => {
+app.get('/state-welfare', async (req, res) => {
     console.log("DEBUG: Accessing state welfare programs route");
     try {
         const isDbConnected = mongoose.connection.readyState === 1;
@@ -723,38 +364,183 @@ app.get("/schemes/state-welfare", async (req, res) => {
         }
 
         console.log("DEBUG: Rendering state welfare programs page with", data.length, "items");
-        res.render("pages/competitive_exams", { exams: data, name: "State Welfare Programs" });
+        res.render("pages/competitive_exams", { 
+            exams: data, 
+            name: "State Welfare Programs",
+            title: "State Welfare Programs - Simply Saral"
+        });
     } catch (error) {
         console.error("ERROR: Failed to load state welfare programs:", error);
         res.status(500).render("pages/error", { 
             message: "Failed to load state welfare programs. Please try again later.",
+            error: error.message,
+            title: "Error - Simply Saral"
+        });
+    }
+});
+
+// Chatbot API endpoint
+app.post("/api/chatbot", async (req, res) => {
+    try {
+        const { query, userId, context = {} } = req.body;
+
+        if (!query || typeof query !== 'string') {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Query is required and must be a string' 
+            });
+        }
+
+        console.log("DEBUG: Chatbot query received:", query);
+        const response = await chatbotService.processQuery(query, context);
+
+        if (userId && mongoose.Types.ObjectId.isValid(userId)) {
+            try {
+                await user_Model.findByIdAndUpdate(userId, {
+                    $push: {
+                        chatHistory: {
+                            query,
+                            response: response.response,
+                            timestamp: new Date()
+                        }
+                    }
+                });
+            } catch (trackError) {
+                console.error("Failed to track chat history:", trackError);
+            }
+        }
+
+        res.json(response);
+    } catch (error) {
+        console.error("Chatbot API error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Chatbot service temporarily unavailable",
             error: error.message
         });
     }
 });
 
-app.get("/dashboard", (req, res) => {
-    res.render("pages/user_dashboard");
+// Language switching endpoint
+app.post("/api/language", (req, res) => {
+    const { language } = req.body;
+
+    if (i18nService.setLanguage(language)) {
+        res.json({ 
+            success: true, 
+            message: 'Language updated successfully',
+            currentLanguage: language,
+            translations: i18nService.getAllTranslations(language)
+        });
+    } else {
+        res.status(400).json({ 
+            success: false, 
+            message: 'Unsupported language',
+            supportedLanguages: i18nService.supportedLanguages
+        });
+    }
 });
 
-// Add missing routes
+// Get translations for frontend
+app.get("/api/translations/:language?", (req, res) => {
+    const { language } = req.params;
+    const translations = i18nService.getAllTranslations(language);
+
+    res.json({
+        success: true,
+        language: language || i18nService.currentLanguage,
+        translations,
+        supportedLanguages: i18nService.supportedLanguages
+    });
+});
+
+// API Routes for search and filtering
+app.get("/api/search", (req, res) => {
+    console.log("DEBUG: Search API called with query:", req.query.q);
+    const query = req.query.q || '';
+
+    try {
+        const allResults = [
+            {
+                title: "PM-Kisan Samman Nidhi",
+                description: "Direct income support scheme providing ₹6,000 annually to farmers",
+                category: "Agriculture",
+                url: "/schemes/farmer_Welfare"
+            },
+            {
+                title: "Beti Bachao Beti Padhao",
+                description: "Government scheme for girl child welfare and education",
+                category: "Women Welfare",
+                url: "/schemes/women_Welfare"
+            },
+            {
+                title: "Post Matric Scholarship",
+                description: "Financial assistance for higher education students",
+                category: "Education",
+                url: "/schemes/higher_Education"
+            },
+            {
+                title: "National Means-cum-Merit Scholarship",
+                description: "Scholarship for meritorious students from economically weaker sections",
+                category: "Education",
+                url: "/schemes/secondary_Education"
+            },
+            {
+                title: "UPSC Civil Services Examination",
+                description: "Premier competitive examination for administrative services",
+                category: "Competitive Exams",
+                url: "/competitive-exams"
+            },
+            {
+                title: "Skill India Mission",
+                description: "Comprehensive skill development programs for employability",
+                category: "Skill Development",
+                url: "/educational-programs"
+            },
+            {
+                title: "Ayushman Bharat Yojana",
+                description: "Health insurance scheme providing ₹5 lakh coverage per family",
+                category: "Health",
+                url: "/state-welfare"
+            }
+        ];
+
+        const filteredResults = allResults.filter(item => 
+            item.title.toLowerCase().includes(query.toLowerCase()) ||
+            item.description.toLowerCase().includes(query.toLowerCase()) ||
+            item.category.toLowerCase().includes(query.toLowerCase())
+        );
+
+        console.log("DEBUG: Search found", filteredResults.length, "results for query:", query);
+        res.json(filteredResults);
+    } catch (error) {
+        console.error("ERROR: Search API failed:", error);
+        res.status(500).json({ error: "Search service temporarily unavailable" });
+    }
+});
+
+// Page routes
+app.get("/dashboard", (req, res) => {
+    res.render("pages/user_dashboard", { title: "Dashboard - Simply Saral" });
+});
+
 app.get("/login", (req, res) => {
-    res.render("pages/login_Page");
+    res.render("pages/login_Page", { title: "Login - Simply Saral" });
 });
 
 app.get("/signup", (req, res) => {
-    res.render("pages/SignUpPage");
+    res.render("pages/SignUpPage", { title: "Sign Up - Simply Saral" });
 });
 
 app.get("/management", (req, res) => {
-    res.render("pages/ManagementPage");
+    res.render("pages/ManagementPage", { title: "Management - Simply Saral" });
 });
 
 app.get("/", (req, res) => {
-    res.render("./pages/new_home.ejs");
+    res.render("pages/new_home", { title: "Simply Saral - Government Schemes Made Simple" });
 });
 
-// Add database status endpoint for debugging
+// Database status endpoint
 app.get("/api/status", (req, res) => {
     const dbStatus = mongoose.connection.readyState;
     const statusMap = {
@@ -770,27 +556,6 @@ app.get("/api/status", (req, res) => {
         timestamp: new Date().toISOString()
     });
 });
-
-// Define fallback data
-const fallbackData = {
-    competitive_exams: [
-        {
-            title: "UPSC Civil Services Examination",
-            description: "Premier examination for Indian Administrative Service and other central services",
-            benefits: ["Administrative career", "Nation building opportunity", "High social status"],
-            eligibility: "Graduate degree from recognized university",
-            applicationDate: "February - March",
-            examDate: "June (Prelims), October (Mains)",
-            examType: "UPSC",
-            conductingBody: "Union Public Service Commission",
-            syllabus: {
-                prelimsTopics: ["General Studies", "CSAT"],
-                mainsTopics: ["Essay", "General Studies I-IV", "Optional Subject"],
-                interviewTopics: ["Personality Test", "Current Affairs"]
-            }
-        }
-    ]
-};
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`✅ SERVER STARTED SUCCESSFULLY`);

@@ -441,6 +441,138 @@ app.post("/api/language", (req, res) => {
     }
 });
 
+// Individual scheme detail routes for new categories
+app.get('/competitive-exams/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const isDbConnected = mongoose.connection.readyState === 1;
+        let data;
+
+        if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
+            data = await competitiveExam_Model.findById(id);
+        }
+
+        if (!data) {
+            // Use fallback data based on index or default to first item
+            const fallbackData = [
+                {
+                    title: "UPSC Civil Services Examination",
+                    description: "Premier examination for Indian Administrative Service and other central services",
+                    benefits: ["Administrative career", "Nation building opportunity", "High social status"],
+                    eligibility: "Graduate degree from recognized university",
+                    applicationDate: "February - March",
+                    examDate: "June (Prelims), October (Mains)",
+                    examType: "UPSC",
+                    conductingBody: "Union Public Service Commission",
+                    important_links: [
+                        { title: "Official Website", url: "https://upsc.gov.in" },
+                        { title: "Syllabus", url: "https://upsc.gov.in/syllabus" }
+                    ],
+                    application_process: {
+                        offline_steps: ["Download application form", "Fill form manually", "Submit at designated centers"],
+                        online_steps: ["Visit official website", "Register online", "Fill application", "Pay fees", "Submit"]
+                    }
+                }
+            ];
+            data = fallbackData[0];
+        }
+
+        res.render("pages/competitive_exam_detail", { data, title: "Exam Details - Simply Saral" });
+    } catch (error) {
+        console.error("Error fetching competitive exam details:", error);
+        res.status(500).render("pages/error", { 
+            message: "Failed to load exam details",
+            title: "Error - Simply Saral"
+        });
+    }
+});
+
+app.get('/educational-programs/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const isDbConnected = mongoose.connection.readyState === 1;
+        let data;
+
+        if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
+            data = await educationalProgram_Model.findById(id);
+        }
+
+        if (!data) {
+            const fallbackData = [
+                {
+                    title: "Skill India Mission",
+                    description: "Comprehensive skill development programs for youth employability and entrepreneurship",
+                    benefits: ["Free training", "Industry certification", "Job placement assistance", "Entrepreneurship support"],
+                    eligibility: "Age 15-45 years",
+                    applicationDate: "Year round",
+                    duration: "3-12 months",
+                    programType: "Skill Development",
+                    important_links: [
+                        { title: "Official Website", url: "https://skillindia.gov.in" },
+                        { title: "Training Centers", url: "https://skillindia.gov.in/centers" }
+                    ],
+                    application_process: {
+                        offline_steps: ["Visit nearest skill center", "Choose course", "Fill application", "Submit documents"],
+                        online_steps: ["Visit official portal", "Register online", "Select program", "Book slot"]
+                    }
+                }
+            ];
+            data = fallbackData[0];
+        }
+
+        res.render("pages/educational_program_detail", { data, title: "Program Details - Simply Saral" });
+    } catch (error) {
+        console.error("Error fetching educational program details:", error);
+        res.status(500).render("pages/error", { 
+            message: "Failed to load program details",
+            title: "Error - Simply Saral"
+        });
+    }
+});
+
+app.get('/state-welfare/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const isDbConnected = mongoose.connection.readyState === 1;
+        let data;
+
+        if (isDbConnected && mongoose.Types.ObjectId.isValid(id)) {
+            data = await stateWelfare_Model.findById(id);
+        }
+
+        if (!data) {
+            const fallbackData = [
+                {
+                    title: "Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana",
+                    description: "Comprehensive health insurance scheme for economically vulnerable families",
+                    benefits: ["₹5 lakh health coverage per family", "Cashless hospitalization", "1,400+ medical packages"],
+                    eligibility: "SECC database beneficiaries",
+                    applicationDate: "Year round",
+                    coverage: "Up to ₹5 lakh per family per year",
+                    programType: "Health Insurance",
+                    important_links: [
+                        { title: "Official Website", url: "https://pmjay.gov.in" },
+                        { title: "Find Hospital", url: "https://pmjay.gov.in/hospital" }
+                    ],
+                    application_process: {
+                        offline_steps: ["Visit nearest CSC", "Verify eligibility", "Get Ayushman card", "Use at empaneled hospitals"],
+                        online_steps: ["Check eligibility online", "Download app", "Find nearest center", "Get enrolled"]
+                    }
+                }
+            ];
+            data = fallbackData[0];
+        }
+
+        res.render("pages/state_welfare_detail", { data, title: "Welfare Program Details - Simply Saral" });
+    } catch (error) {
+        console.error("Error fetching state welfare details:", error);
+        res.status(500).render("pages/error", { 
+            message: "Failed to load welfare program details",
+            title: "Error - Simply Saral"
+        });
+    }
+});
+
 // Get translations for frontend
 app.get("/api/translations/:language?", (req, res) => {
     const { language } = req.params;
